@@ -5,19 +5,22 @@ import Images from "../../Images/modern-stationary-collection-arrangement_23-214
 
 const Home = () => {
   return (
-    <div className="demo-wrap">
-      <div className="demo-content">
-        <h1>Hello World!</h1>
-        <div>
-          <Link to="login" className="link">
-            Sign In
-          </Link>
-          <Link to="register" className="link">
-            Sign Up
-          </Link>
-        </div>
+    <div>
+      <h1>Hello World!</h1>
+      <div>
+        <Link to="login" className="link">
+          Sign In
+        </Link>
+        <Link to="register" className="link">
+          Sign Up
+        </Link>
       </div>
     </div>
+    // <div className="demo-wrap">
+    //   <div className="demo-content">
+
+    //   </div>
+    // </div>
   );
 };
 

@@ -1,19 +1,29 @@
 import React from "react";
-// import "./App.css";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import "../../css/sidebar.css";
 
-function SideBar() {
-
-//   useEffect(() => {
-//     fetch("http://localhost:5000/message")
-//       .then((res) => res.json())
-//       .then((data) => setMessage(data.message));
-//   }, []);
-
+const Sidebar = () => {
   return (
-    <div className="SideBar">
-      <h1>SideBar Page</h1>
-    </div>
+    <motion.div
+      className="sidebar"
+      initial={{ x: "-100%" }}
+      animate={{ x: 0 }}
+      transition={{ type: "spring", stiffness: 120 }}
+    >
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+        <li>
+          <Link to="/contact">Contact</Link>
+        </li>
+      </ul>
+    </motion.div>
   );
-}
+};
 
-export default SideBar;
+export default Sidebar;

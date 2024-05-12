@@ -1,7 +1,7 @@
 import { CssBaseline, Box, Button, Grid, Paper } from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Images from "../../Images/EGILA GRADIENT 1 JPEG-01.png";
+import Images from "../../Images/Logo 4.png";
 import Controls from "../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
