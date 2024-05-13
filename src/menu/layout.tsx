@@ -12,7 +12,9 @@ const Layout = () => {
   return (
     <div>
       <button onClick={toggleSidebar}>Toggle Sidebar</button>
-      {isSidebarOpen && <Sidebar />}
+      {isSidebarOpen && <Sidebar isOpen={false} setIsOpen={function (value: React.SetStateAction<boolean>): void {
+        throw new Error("Function not implemented.");
+      } } />}
       <Home />
     </div>
   );

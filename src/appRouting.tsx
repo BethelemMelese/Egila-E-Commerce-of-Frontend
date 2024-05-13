@@ -4,7 +4,7 @@ import Login from "./component/Login";
 import Register from "./component/Registration";
 import Home from "./component/Home";
 import Topbar from "./menu/TobBarMenu";
-import SideBar from "./menu/SideBarMenu";
+import Sidebar from "./menu/SideBarMenu";
 import Layout from "./menu/layout";
 import MainPage from "./component/Frontpage/mainPage";
 import './css/style.css';
@@ -19,7 +19,9 @@ const AppRoute = () => {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="topBar" element={<Topbar />} />
-        <Route path="sideBar" element={<SideBar />} />
+        <Route path="sideBar" element={<Sidebar isOpen={false} setIsOpen={function (value: React.SetStateAction<boolean>): void {
+          throw new Error("Function not implemented.");
+        } } />} />
         <Route path="mainPage" element={<MainPage/>} />
 
       </Routes>

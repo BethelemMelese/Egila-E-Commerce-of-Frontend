@@ -1,86 +1,113 @@
-import React from "react";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import * as IoIcons from "react-icons/io";
-import * as RiIcons from "react-icons/ri";
+import * as React from "react";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { Link, Outlet } from "react-router-dom";
+import IconDashboard from "@mui/icons-material/Dashboard";
+import ReportIcon from "@mui/icons-material/Report";
+import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import PeopleIcon from "@mui/icons-material/People";
+import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
+import CategoryIcon from "@mui/icons-material/Category";
+import SettingsIcon from "@mui/icons-material/Settings";
+import CommentIcon from "@mui/icons-material/Comment";
+import ControlCameraIcon from '@mui/icons-material/ControlCamera';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import AppShortcutIcon from '@mui/icons-material/AppShortcut';
 
-export const SidebarData = [
-  {
-    title: "About Us",
-    path: "/about-us",
-    icon: <AiIcons.AiFillHome />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
+interface SidebarProps {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-    subNav: [
-      {
-        title: "Our Aim",
-        path: "/about-us/aim",
-        icon: <IoIcons.IoIosPaper />,
-      },
-      {
-        title: "Our Vision",
-        path: "/about-us/vision",
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ],
-  },
-  {
-    title: "Services",
-    path: "/services",
-    icon: <IoIcons.IoIosPaper />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
+  const [visibleMenus, setVisibleMenus] = React.useState<any[]>([]);
+  let foundRole: any;
+  const userRole = localStorage.getItem("user");
+  const data: any = userRole != null ? JSON.parse(userRole) : undefined;
 
-    subNav: [
-      {
-        title: "Service 1",
-        path: "/services/services1",
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "Service 2",
-        path: "/services/services2",
-        icon: <IoIcons.IoIosPaper />,
-        cName: "sub-nav",
-      },
-      {
-        title: "Service 3",
-        path: "/services/services3",
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ],
-  },
-  {
-    title: "Contact",
-    path: "/contact",
-    icon: <FaIcons.FaPhone />,
-  },
-  {
-    title: "Events",
-    path: "/events",
-    icon: <FaIcons.FaEnvelopeOpenText />,
+  React.useEffect(() => {
+    if (foundRole) setVisibleMenus(foundRole.menu);
+  }, [foundRole]);
 
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
+  return (
+    <div>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <IconDashboard />
+        </ListItemIcon>
+        <ListItemText primary="Home" />
+      </ListItem>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <ControlCameraIcon />
+        </ListItemIcon>
+        <ListItemText primary="Role" />
+      </ListItem>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Customer" />
+      </ListItem>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <LocalPoliceIcon />
+        </ListItemIcon>
+        <ListItemText primary="Admin" />
+      </ListItem>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <ReceiptIcon />
+        </ListItemIcon>
+        <ListItemText primary="Sales Person" />
+      </ListItem>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <DeliveryDiningIcon />
+        </ListItemIcon>
+        <ListItemText primary="Deliveries" />
+      </ListItem>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <ExtensionIcon />
+        </ListItemIcon>
+        <ListItemText primary="Item" />
+      </ListItem>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <CategoryIcon />
+        </ListItemIcon>
+        <ListItemText primary="Category" />
+      </ListItem>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <AppShortcutIcon />
+        </ListItemIcon>
+        <ListItemText primary="Order" />
+      </ListItem>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <CommentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Comment" />
+      </ListItem>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <ReportIcon />
+        </ListItemIcon>
+        <ListItemText primary="Report" />
+      </ListItem>
+      <ListItem button component={Link} to="#" className="menuItem">
+        <ListItemIcon className="menuItemIcon">
+          <SettingsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Setting" />
+      </ListItem>
+    </div>
+  );
+};
 
-    subNav: [
-      {
-        title: "Event 1",
-        path: "/events/events1",
-        icon: <IoIcons.IoIosPaper />,
-      },
-      {
-        title: "Event 2",
-        path: "/events/events2",
-        icon: <IoIcons.IoIosPaper />,
-      },
-    ],
-  },
-  {
-    title: "Support",
-    path: "/support",
-    icon: <IoIcons.IoMdHelpCircle />,
-  },
-];
+export default Sidebar;

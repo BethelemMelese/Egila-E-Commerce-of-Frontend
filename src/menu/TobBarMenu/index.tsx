@@ -4,58 +4,22 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import Images from "../../Images/Logo 5.png";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: "white",
-  color: "black",
-  marginRight: theme.spacing(5),
-  marginLeft: 2,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(5),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 1),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "40ch",
-    },
-  },
-}));
+import Images from "../../Images/Logo 7.png";
+import { Drawer } from "@mui/material";
+import Sidebar from "../SideBarMenu";
 
 const Topbar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [open, setOpen] = React.useState(true);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
 
@@ -153,38 +117,37 @@ const Topbar = () => {
     </Menu>
   );
 
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
   return (
     <Box sx={{ flexGrow: 0 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
-            size="large"
+            // size="large"
             edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
+            // color="white"
+            // aria-label="open drawer"
+            // sx={{ mr: 2 }}
+            onClick={toggleDrawer}
+            sx={{
+              marginRight: "36px",
+              ...(open && { display: "none" }),
+            }}
           >
             {/* the drop down menu icon for sidebar */}
             <MenuIcon />
           </IconButton>
 
-          <img
+          {/* <img
             alt="Egila"
             src={Images}
             style={{ width: 352, height: 70, marginTop: 1, marginBottom: 1 }}
-          />
+          /> */}
 
           <Box sx={{ flexGrow: 2 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
             <IconButton
               size="medium"
               aria-label="show 4 new mails"
@@ -229,6 +192,10 @@ const Topbar = () => {
           </Box>
         </Toolbar>
       </AppBar>
+
+      <Drawer variant="permanent" open={open}>
+        <Sidebar isOpen={open} setIsOpen={setOpen} />
+      </Drawer>
       {renderMobileMenu}
       {renderMenu}
     </Box>

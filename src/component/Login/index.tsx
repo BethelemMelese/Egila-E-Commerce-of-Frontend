@@ -6,6 +6,10 @@ import Controls from "../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../commonComponent/Form";
+import { appUrl } from "../../appurl";
+import axios from "axios";
+import { userService } from "../polices/userService";
+
 
 const initialState: LOGINSTATE = {
   username: "",
@@ -19,7 +23,6 @@ interface LOGINSTATE {
 
 const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Username is required"),
@@ -34,7 +37,31 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues: initialState,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      setIsSubmitting(true);
+      axios
+        .post(appUrl + "users/login", values)
+        .then((response) => {
+          setIsSubmitting(false);
+          console.log({ articleId: response.data.id });
+        })
+        .catch((error) => {
+          {
+            setIsSubmitting(false);
+            console.log(error.response.data.message);
+          }
+        });
+      // axios
+      //   .post(appUrl + "users", values)
+      //   .then(function (response) {
+      //     console.log(response);
+      //     setIsSubmitting(false);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //     setIsSubmitting(false);
+      //   });
+    },
     validationSchema: validationSchema,
   });
 
