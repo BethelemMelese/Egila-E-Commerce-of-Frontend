@@ -3,27 +3,44 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./component/Login";
 import Register from "./component/Registration";
 import Home from "./component/Home";
-import Topbar from "./menu/TobBarMenu";
-import Sidebar from "./menu/SideBarMenu";
+import Topbar from "./menu/TobBar";
 import Layout from "./menu/layout";
 import MainPage from "./component/Frontpage/mainPage";
-import './css/style.css';
+import Notification from "./commonComponent/notification";
+// import {AutoRout} from "./component/polices/AutoRoute";
+import ViewItem from "./component/Item/View";
+import "./css/style.css";
 // import './css/style.scss';
-import './App.css';
+import "./App.css";
 
 const AppRoute = () => {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Layout />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="topBar" element={<Topbar />} />
-        <Route path="sideBar" element={<Sidebar isOpen={false} setIsOpen={function (value: React.SetStateAction<boolean>): void {
-          throw new Error("Function not implemented.");
-        } } />} />
-        <Route path="mainPage" element={<MainPage/>} />
-
+        <Route
+          path="Notification"
+          element={
+            <Notification
+              data={{
+                message: undefined,
+                description: undefined,
+                icon: undefined,
+              }}
+            />
+          }
+        />
+        <Route
+          path="egila"
+          // element={<AutoRout component={Layout} />}
+          element={<Layout />}
+        >
+          <Route path="topBar" element={<Topbar />} />
+          <Route path="home" element={<Home />} />
+          <Route path="viewItem" element={<ViewItem />} />
+        </Route>
       </Routes>
     </div>
   );

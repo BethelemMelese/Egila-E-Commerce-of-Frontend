@@ -22,6 +22,21 @@ body {
   overflow-x: hidden;
 }
 
+.container {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+/* .successButton{
+  background-color: rgb(1, 82, 1);
+}
+
+.errorButton{
+  background-color: rgb(182, 2, 2);
+} */
+
 .loginPaper {
   margin: 0px auto;
   margin-top: 20%;
@@ -31,10 +46,7 @@ body {
   width: 32%;
   height: 50%;
 }
-.loginLogo {
-  /* margin-top: 8%;
-  margin-bottom: 8%; */
-}
+
 .buttonField {
   background-image: linear-gradient(to right, #ff7f16, #f00538);
   width: 80%;
@@ -132,14 +144,33 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   flex-shrink: 0;
   position: static;
   /* background-color: white; */
-  background-image: linear-gradient(to right, #ff7f16, #f00538);
-  /* background-image: linear-gradient(to right, hsl(0, 0%, 100%), hsl(0, 100%, 100%)); */
-  color: #fff;
+  /* background-image: linear-gradient(to right, #ff7f16, #f00538); */
+  background-image: linear-gradient(
+    to right,
+    hsl(0, 0%, 100%),
+    hsl(0, 100%, 100%),
+    #ff7f16,
+    #f00538
+  );
+  /* color: #000; */
 }
 
 /* For Main Page css is here */
 
 /* for the Nav bar */
+.top-image {
+  width: 60%;
+  height: 25%;
+  margin-right: 5%;
+  margin-top: -6%;
+}
+
+.top-menu-icon {
+  font-size: 16px;
+  width: 46%;
+  margin-top: 10%;
+}
+
 .css-hip9hq-MuiPaper-root-MuiAppBar-root {
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
@@ -155,7 +186,7 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   -ms-flex-negative: 0;
   flex-shrink: 0;
   position: static;
-  color: #000;
+  /* color: #000; */
 }
 .css-11b3ww9-MuiPaper-root-MuiAppBar-root {
   -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -169,7 +200,7 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  color: #000;
+  /* color: #000; */
   background-image: linear-gradient(
     to right,
     hsl(0, 0%, 100%),
@@ -274,12 +305,32 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   display: block;
 }
 
-/* .container .content {
-  position: absolute;
-  bottom: 0;
-  background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.5);
-  color: #f1f1f1;
+/* for select box  */
+.selectbox {
+  width: 31%;
+  margin-right: 16px;
+  margin-left: 0px;
+  margin-top: 0px;
+  margin-bottom: 8px;
+}
+
+.selectbox .MuiTextField-root {
   width: 100%;
-  padding: 20px;
-} */
+}
+
+/* for breakcrumb */
+.breadcrump {
+  /* width: 100%; */
+  margin-left: 15%;
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+
+.breadcrum-items {
+  display: flex;
+  text-align: center;
+  color: #000;
+  font-size: 13px;
+}
+
+

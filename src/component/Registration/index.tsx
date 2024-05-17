@@ -1,11 +1,37 @@
-import { Box, Button, Grid, Paper } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Images from "../../Images/Logo 4.png";
 import Controls from "../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../commonComponent/Form";
+import axios from "axios";
+import { appUrl } from "../../appurl";
+
+interface REGISTERSTATE {
+  firstName: String;
+  middleName: String;
+  lastName: String;
+  email: String;
+  phone: String;
+  username: String;
+  confirmPassword: String;
+  password: String;
+  address: String;
+  subCity: String;
+  town: String;
+  roleId: String;
+}
 
 const initialState: REGISTERSTATE = {
   firstName: "",
@@ -13,33 +39,29 @@ const initialState: REGISTERSTATE = {
   lastName: "",
   email: "",
   phone: "",
+  username: "",
   confirmPassword: "",
   password: "",
   address: "",
   subCity: "",
-  neighborhood: "",
+  town: "",
+  roleId: "",
 };
-
-interface REGISTERSTATE {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  confirmPassword: string;
-  password: string;
-  address: string;
-  subCity: string;
-  neighborhood: string;
-}
 
 const Register = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [roleResponse, setRoleResponse] = useState<any>([]);
   const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required("firstName is required"),
-    middleName: Yup.string().required("middleName is required"),
+    firstName: Yup.string().required("First Name is required"),
+    middleName: Yup.string().required("Middle Name is required"),
+    email: Yup.string().required("Email is required"),
+    phone: Yup.string().required("Phone is required"),
+    username: Yup.string().required("Username is required"),
+    address: Yup.string().required("Address is required"),
+    subCity: Yup.string().required("Sub City is required"),
+    roleId: Yup.string().required("Role is required"),
     password: Yup.string()
       .min(8, "A Password can't insert less than 8 Characters")
       .matches(
@@ -47,11 +69,16 @@ const Register = () => {
         "Must Contain at least 8 Characters, One Uppercase,One Lowercase, One Number and One Special Case Character (!@#$%^&*)"
       )
       .required("Password is Required"),
+    confirmPassword: Yup.string()
+      .required("Confirm Password is required")
+      .min(6)
+      .oneOf([Yup.ref("password")], "Password must match"),
   });
 
   const formik = useFormik({
     initialValues: initialState,
     onSubmit: (values) => {
+      console.log("values...", values);
       setIsSubmitting(true);
       navigate("/");
     },
@@ -64,6 +91,13 @@ const Register = () => {
     }
   };
 
+  useEffect(() => {
+    axios
+      .get(appUrl + "roles")
+      .then((response) => setRoleResponse(response.data))
+      .catch((error) => setRoleResponse(error.response.data.message));
+  }, []);
+
   return (
     <>
       <div className="registerPage">
@@ -75,7 +109,7 @@ const Register = () => {
             alignItems: "center",
           }}
         >
-          <Paper elevation={2} className="registerForm">
+          <Paper elevation={4} className="registerForm">
             <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
               <Grid container spacing={1}>
                 <Grid item xs={12}>
@@ -162,6 +196,21 @@ const Register = () => {
                         onKeyPress={(event: any) => handleKeyPress(event)}
                       />
                     </Grid>
+                    <Grid item xs={6}>
+                      <Controls.Input
+                        className="inputField"
+                        required
+                        id="username"
+                        label="Username"
+                        {...formik.getFieldProps("username")}
+                        error={
+                          formik.touched.username && formik.errors.username
+                            ? formik.errors.username
+                            : ""
+                        }
+                        onKeyPress={(event: any) => handleKeyPress(event)}
+                      />
+                    </Grid>
 
                     <Grid item xs={6}>
                       <Controls.Password
@@ -231,17 +280,41 @@ const Register = () => {
                     <Grid item xs={6}>
                       <Controls.Input
                         className="inputField"
-                        id="neighborhood"
-                        label="Neighborhood"
-                        {...formik.getFieldProps("neighborhood")}
+                        id="town"
+                        label="Town"
+                        {...formik.getFieldProps("town")}
                         error={
-                          formik.touched.neighborhood &&
-                          formik.errors.neighborhood
-                            ? formik.errors.neighborhood
+                          formik.touched.town && formik.errors.town
+                            ? formik.errors.town
                             : ""
                         }
                         onKeyPress={(event: any) => handleKeyPress(event)}
                       />
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <FormControl variant="outlined" className="selectbox">
+                        <Controls.Input
+                          select
+                          id="roleId"
+                          required
+                          label="Role"
+                          {...formik.getFieldProps("roleId")}
+                          error={
+                            formik.touched.roleId && formik.errors.roleId
+                              ? formik.errors.roleId
+                              : ""
+                          }
+                        >
+                          {roleResponse.map((value: any) => {
+                            return (
+                              <MenuItem value={value.id}>
+                                {value.roleName}
+                              </MenuItem>
+                            );
+                          })}
+                        </Controls.Input>
+                      </FormControl>
                     </Grid>
 
                     <Grid item xs={12}>
@@ -250,7 +323,6 @@ const Register = () => {
                         variant="contained"
                         type="submit"
                         disabled={isSubmitting}
-                        // onClick={handleLogin}
                       >
                         {isSubmitting ? "Signing..." : "Sign Up"}
                       </Button>

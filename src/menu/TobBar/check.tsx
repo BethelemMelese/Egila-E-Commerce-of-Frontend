@@ -15,7 +15,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Images from "../../Images/Logo 7.png";
 import { Drawer } from "@mui/material";
-import Sidebar from "../SideBarMenu";
+import Sidebar from "../SideBar";
 
 const Topbar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -194,7 +194,7 @@ const Topbar = () => {
       </AppBar>
 
       <Drawer variant="permanent" open={open}>
-        <Sidebar isOpen={open} setIsOpen={setOpen} />
+        <Sidebar/>
       </Drawer>
       {renderMobileMenu}
       {renderMenu}

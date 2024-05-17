@@ -8,8 +8,7 @@ import * as Yup from "yup";
 import { Form } from "../../commonComponent/Form";
 import { appUrl } from "../../appurl";
 import axios from "axios";
-import { userService } from "../polices/userService";
-
+import Notification from "../../commonComponent/notification";
 
 const initialState: LOGINSTATE = {
   username: "",
@@ -35,32 +34,45 @@ const Login = () => {
       .required("Password is Required"),
   });
 
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+
+  const onLoginSuccess = (response: any) => {
+    setNotify({
+      isOpen: true,
+      type: "success",
+      message: response.message,
+    });
+    setTimeout(() => {
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("name", response.fullName);
+      localStorage.setItem("role", response.roleName);
+      setIsSubmitting(false);
+    }, 2000);
+  };
+
+  const onLoginError = (action: any) => {
+    setNotify({
+      isOpen: true,
+      message: action,
+      type: "error",
+    });
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2000);
+  };
+
   const formik = useFormik({
     initialValues: initialState,
     onSubmit: (values) => {
       setIsSubmitting(true);
       axios
         .post(appUrl + "users/login", values)
-        .then((response) => {
-          setIsSubmitting(false);
-          console.log({ articleId: response.data.id });
-        })
-        .catch((error) => {
-          {
-            setIsSubmitting(false);
-            console.log(error.response.data.message);
-          }
-        });
-      // axios
-      //   .post(appUrl + "users", values)
-      //   .then(function (response) {
-      //     console.log(response);
-      //     setIsSubmitting(false);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //     setIsSubmitting(false);
-      //   });
+        .then((response) => onLoginSuccess(response.data))
+        .catch((error) => onLoginError(error.response.data.message));
     },
     validationSchema: validationSchema,
   });
@@ -83,7 +95,7 @@ const Login = () => {
             alignItems: "center",
           }}
         >
-          <Paper elevation={2} className="loginForm">
+          <Paper elevation={4} className="loginForm">
             <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -156,6 +168,7 @@ const Login = () => {
             </Form>
           </Paper>
         </Box>
+        <Notification notify={notify} setNotify={setNotify} />
       </div>
     </>
   );

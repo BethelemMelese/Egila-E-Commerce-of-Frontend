@@ -22,15 +22,15 @@ interface SidebarProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
-  const [visibleMenus, setVisibleMenus] = React.useState<any[]>([]);
-  let foundRole: any;
-  const userRole = localStorage.getItem("user");
-  const data: any = userRole != null ? JSON.parse(userRole) : undefined;
+const SidebarCheck = () => {
+  // const [visibleMenus, setVisibleMenus] = React.useState<any[]>([]);
+  // let foundRole: any;
+  // const userRole = localStorage.getItem("user");
+  // const data: any = userRole != null ? JSON.parse(userRole) : undefined;
 
-  React.useEffect(() => {
-    if (foundRole) setVisibleMenus(foundRole.menu);
-  }, [foundRole]);
+  // React.useEffect(() => {
+  //   if (foundRole) setVisibleMenus(foundRole.menu);
+  // }, [foundRole]);
 
   return (
     <div>
@@ -110,4 +110,4 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   );
 };
 
-export default Sidebar;
+export default SidebarCheck;

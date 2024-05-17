@@ -17,7 +17,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import { Grid } from "@mui/material";
-import Images from "../../Images/Logo 7.png";
+import Images from "../../Images/Logo 5.png";
 import Footer from "./footerSide";
 
 interface Props {
@@ -128,8 +128,9 @@ const MainPage = (props: Props) => {
                 <Button
                   key={item}
                   sx={{
-                    color: "#fff",
-                    marginLeft: 5,
+                    color: "#000",
+                    marginLeft: 4,
+                    marginTop:6,
                     fontFamily: "inherit",
                     fontSize: 15,
                   }}
