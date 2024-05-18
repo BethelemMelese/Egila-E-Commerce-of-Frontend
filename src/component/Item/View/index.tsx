@@ -4,7 +4,7 @@ import CampaignIcon from "@mui/icons-material/Campaign";
 import IconDashboard from "@mui/icons-material/Dashboard";
 import { Card, Input, Space, Table } from "antd";
 import type { GetProp, TableProps } from "antd";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Paper } from "@mui/material";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import type { SearchProps } from "antd/es/input/Search";
 
@@ -93,29 +93,29 @@ const ViewItem = () => {
     },
   ];
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(
-      `https://randomuser.me/api?${qs.stringify(
-        getRandomuserParams(tableParams)
-      )}`
-    )
-      .then((res) => res.json())
-      .then(({ results }) => {
-        console.log("results..", results);
-        setData(results);
-        setLoading(false);
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-            total: 200,
-            // 200 is mock data, you should read it from server
-            // total: data.totalCount,
-          },
-        });
-      });
-  }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   fetch(
+  //     `https://randomuser.me/api?${qs.stringify(
+  //       getRandomuserParams(tableParams)
+  //     )}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then(({ results }) => {
+  //       console.log("results..", results);
+  //       setData(results);
+  //       setLoading(false);
+  //       setTableParams({
+  //         ...tableParams,
+  //         pagination: {
+  //           ...tableParams.pagination,
+  //           total: 200,
+  //           200 is mock data, you should read it from server
+  //           total: data.totalCount,
+  //         },
+  //       });
+  //     });
+  // }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
 
   const handleTableChange: TableProps["onChange"] = (
     pagination,
@@ -138,45 +138,44 @@ const ViewItem = () => {
     <div className="container">
       <Grid container spacing={0}>
         <Grid item xs={12}>
-          <Card className="breadcrump">
-            <BreadcrumbProp data={breadcrumdata} />
-          </Card>
-        </Grid>
-        <Grid item xs={12}>
-          <Card
-            title="Item"
-            extra={
-              <Button
-                variant="contained"
-                color="success"
-                startIcon={<NoteAddIcon />}
-              >
-                {" "}
-                New Item
-              </Button>
-            }
-          >
-            <div>
+          <Paper elevation={3}>
+            <Card className="search-input">
               <Search
                 placeholder="input search text"
                 allowClear
                 enterButton="Search"
-                size="large"
+                size="middle"
                 onSearch={onSearch}
               />
-            </div>
-
-            <Card>
-              <Table
-                columns={columns}
-                rowKey={(record) => record.id}
-                dataSource={data}
-                pagination={tableParams.pagination}
-                loading={loading}
-                onChange={handleTableChange}
-              />
             </Card>
-          </Card>
+          </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <Paper elevation={3}>
+            <Card
+              title="Item"
+              extra={
+                <Button
+                  variant="contained"
+                  color="success"
+                  startIcon={<NoteAddIcon />}
+                >
+                  New Item
+                </Button>
+              }
+            >
+              <Card className="care-table">
+                <Table
+                  columns={columns}
+                  rowKey={(record) => record.id}
+                  dataSource={data}
+                  pagination={tableParams.pagination}
+                  loading={loading}
+                  onChange={handleTableChange}
+                />
+              </Card>
+            </Card>
+          </Paper>
         </Grid>
       </Grid>
     </div>

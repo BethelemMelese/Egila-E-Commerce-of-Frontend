@@ -32,12 +32,13 @@ const AppRoute = () => {
             />
           }
         />
+        <Route path="topBar" element={<Topbar />} />
+
         <Route
           path="egila"
           // element={<AutoRout component={Layout} />}
           element={<Layout />}
         >
-          <Route path="topBar" element={<Topbar />} />
           <Route path="home" element={<Home />} />
           <Route path="viewItem" element={<ViewItem />} />
         </Route>

@@ -1,11 +1,4 @@
-/* @mixin basicfullscreen {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100%;
-} */
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 body,
 html {
@@ -28,14 +21,6 @@ body {
   margin-right: 20px;
   margin-bottom: 20px;
 }
-
-/* .successButton{
-  background-color: rgb(1, 82, 1);
-}
-
-.errorButton{
-  background-color: rgb(182, 2, 2);
-} */
 
 .loginPaper {
   margin: 0px auto;
@@ -113,6 +98,7 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   ); /* Black background with 0.5 opacity */
   color: #f1f1f1;
   width: 100%;
+  background-color: rgb(246, 241, 237);
 }
 
 .demo-wrap .demo-content:hover {
@@ -143,33 +129,19 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   -ms-flex-negative: 0;
   flex-shrink: 0;
   position: static;
-  /* background-color: white; */
-  /* background-image: linear-gradient(to right, #ff7f16, #f00538); */
-  background-image: linear-gradient(
+  background-color: white;
+  /* background-image: linear-gradient(
     to right,
     hsl(0, 0%, 100%),
     hsl(0, 100%, 100%),
     #ff7f16,
     #f00538
-  );
-  /* color: #000; */
+  ); */
 }
 
 /* For Main Page css is here */
 
 /* for the Nav bar */
-.top-image {
-  width: 60%;
-  height: 25%;
-  margin-right: 5%;
-  margin-top: -6%;
-}
-
-.top-menu-icon {
-  font-size: 16px;
-  width: 46%;
-  margin-top: 10%;
-}
 
 .css-hip9hq-MuiPaper-root-MuiAppBar-root {
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -186,7 +158,6 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   -ms-flex-negative: 0;
   flex-shrink: 0;
   position: static;
-  /* color: #000; */
 }
 .css-11b3ww9-MuiPaper-root-MuiAppBar-root {
   -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -200,7 +171,6 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  /* color: #000; */
   background-image: linear-gradient(
     to right,
     hsl(0, 0%, 100%),
@@ -237,14 +207,15 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
 /* For side bar menu here the css */
 
 /* For Profile Image */
-
-.wrapper .sidebar .profile {
-  margin-bottom: 30px;
-  margin-top: 42px;
+.profile {
+  margin-bottom: 0%;
+  margin-top: 20px;
   text-align: center;
+  width: 100%;
+  height: 30%;
 }
 
-.wrapper .sidebar .profile img {
+.profile img {
   display: block;
   width: 100px;
   height: 100px;
@@ -252,57 +223,9 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   margin: 0 auto;
 }
 
-.wrapper .sidebar .profile h3 {
-  color: #ffffff;
-  margin: 10px 0 5px;
-}
-
-.wrapper .sidebar .profile p {
+.profile p {
   color: rgb(177, 192, 198);
   font-size: 14px;
-}
-
-/* For Menu Item */
-.wrapper .sidebar {
-  /* background: rgb(24, 152, 215); */
-  background-image: linear-gradient(to right, #ff7f16, #f00538);
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 258px;
-  height: 100%;
-  padding: 20px 0;
-  transition: all 0.5s ease;
-}
-.wrapper .sidebar ul li a {
-  display: block;
-  padding: 13px 30px;
-  color: rgb(241, 237, 237);
-  font-size: 16px;
-  position: relative;
-}
-
-.wrapper .sidebar ul li a .icon {
-  color: #dee4ec;
-  width: 30px;
-  display: inline-block;
-}
-
-.wrapper .sidebar ul li a:hover,
-.wrapper .sidebar ul li a.active {
-  color: rgb(0, 4, 6);
-  background: #fdfdfd;
-}
-
-.wrapper .sidebar ul li a:hover .icon,
-.wrapper .sidebar ul li a.active .icon {
-  color: rgb(0, 4, 6);
-}
-
-.wrapper .sidebar ul li a:hover:before,
-.wrapper .sidebar ul li a.active:before {
-  display: block;
 }
 
 /* for select box  */
@@ -320,7 +243,6 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
 
 /* for breakcrumb */
 .breadcrump {
-  /* width: 100%; */
   margin-left: 15%;
   margin-top: 2%;
   margin-bottom: 5%;
@@ -333,4 +255,56 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   font-size: 13px;
 }
 
+/* background-image: linear-gradient(to right, #f6c59d, hsl(347, 86%, 83%)); */
 
+/* Navbar CSS */
+.nav-menu {
+  background-color: #ffffff;
+  width: 220px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  transition: 850ms;
+}
+
+.nav-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 0px 6px 0px;
+  list-style: none;
+  height: 45px;
+}
+
+.nav-text a {
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.nav-text a:hover {
+  background-image: linear-gradient(to right, #ff7f16, #f00538);
+  color: #fff;
+}
+
+.nav-menu-items {
+  width: 100%;
+}
+
+.navbar-toggle {
+  background-color: #ffffff;
+  width: 80%;
+  height: 80px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+span {
+  margin-left: 16px;
+}
