@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
 export const Box = styled.div`
-  background-image: linear-gradient(to right, #f6c59d, hsl(347, 86%, 83%));
+  background-image: linear-gradient(
+    to right,
+    hsl(347, 86%, 83%),
+    rgb(240, 223, 129, 0.4)
+  );
   width: 100%;
   @media (max-width: 1000px) {
     // padding: 70px 30px;

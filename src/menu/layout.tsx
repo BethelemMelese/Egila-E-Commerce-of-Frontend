@@ -5,7 +5,7 @@ export default (props: any) => {
   return (
     <div>
       <Topbar />
-      <Content>{props.children}</Content>
+      {/* <Content>{props.children}</Content> */}
     </div>
   );
 };

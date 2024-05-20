@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Layout, Menu } from "antd";
 import IconDashboard from "@mui/icons-material/Dashboard";
 import ReportIcon from "@mui/icons-material/Report";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
@@ -13,13 +12,10 @@ import ControlCameraIcon from "@mui/icons-material/ControlCamera";
 import ExtensionIcon from "@mui/icons-material/Extension";
 import AppShortcutIcon from "@mui/icons-material/AppShortcut";
 import Images from "../../Images/Logo 4.png";
-import { Link } from "react-router-dom";
-import { Divider } from "@mui/material";
-
-const { Header, Sider, Content } = Layout;
+import { Link, NavLink } from "react-router-dom";
+import { Divider, Paper } from "@mui/material";
 
 const Sidebar: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(false);
   const items: any = [
     {
       key: "1",
@@ -27,6 +23,7 @@ const Sidebar: React.FC = () => {
       label: "Home",
       path: "/egila/home",
       cName: "nav-text",
+      nActive: "active",
     },
     {
       key: "2",
@@ -34,6 +31,7 @@ const Sidebar: React.FC = () => {
       label: "Role",
       path: "/egila/#",
       cName: "nav-text",
+      nActive: "active",
     },
     {
       key: "3",
@@ -41,6 +39,7 @@ const Sidebar: React.FC = () => {
       label: "Customer",
       path: "/egila/#",
       cName: "nav-text",
+      nActive: "active",
     },
     {
       key: "4",
@@ -48,6 +47,7 @@ const Sidebar: React.FC = () => {
       label: "Admin",
       path: "/egila/#",
       cName: "nav-text",
+      nActive: "active",
     },
     {
       key: "5",
@@ -55,6 +55,7 @@ const Sidebar: React.FC = () => {
       label: "Sales Person",
       path: "/egila/#",
       cName: "nav-text",
+      nActive: "active",
     },
     {
       key: "6",
@@ -62,13 +63,15 @@ const Sidebar: React.FC = () => {
       label: "Deliveries",
       path: "/egila/#",
       cName: "nav-text",
+      nActive: "active",
     },
     {
       key: "7",
       icon: <ExtensionIcon />,
       label: "Item",
-      path: "/egila/#",
+      path: "/egila/viewItem",
       cName: "nav-text",
+      nActive: "active",
     },
     {
       key: "8",
@@ -76,6 +79,7 @@ const Sidebar: React.FC = () => {
       label: "Category",
       path: "/egila/#",
       cName: "nav-text",
+      nActive: "active",
     },
     {
       key: "9",
@@ -83,6 +87,7 @@ const Sidebar: React.FC = () => {
       label: "Order",
       path: "/egila/#",
       cName: "nav-text",
+      nActive: "active",
     },
     {
       key: "10",
@@ -90,6 +95,7 @@ const Sidebar: React.FC = () => {
       label: "Comment",
       path: "/egila/#",
       cName: "nav-text",
+      nActive: "active",
     },
     {
       key: "11",
@@ -97,6 +103,7 @@ const Sidebar: React.FC = () => {
       label: "Report",
       path: "/egila/#",
       cName: "nav-text",
+      nActive: "active",
     },
     {
       key: "12",
@@ -104,26 +111,23 @@ const Sidebar: React.FC = () => {
       label: "Setting",
       path: "/egila/#",
       cName: "nav-text",
+      nActive: "active",
     },
   ];
   return (
-    <>
-      <div
-        style={{
-          backgroundColor: "#fff",
-          position: "fixed",
-          // left: 0,
-          // top: 0,
-          // bottom: 0,
-          // minWidth: 240,
-          width: 220,
-        }}
-      >
+    <div
+      style={{
+        backgroundColor: "#fff",
+        position: "fixed",
+        width: 220,
+      }}
+    >
+      <Paper elevation={2}>
         <img alt="Egila" src={Images} className="profile" />
         <Divider
           style={{
-            color:"#f00538",
-            height:10
+            color: "#f00538",
+            height: 10,
           }}
         ></Divider>
         <nav className="nav-menu">
@@ -131,17 +135,17 @@ const Sidebar: React.FC = () => {
             {items.map((item: any, index: any) => {
               return (
                 <li key={index} className={item.cName}>
-                  <Link to={item.path}>
+                  <NavLink to={item.path} className={item.nActive == "active"? "active":""}>
                     {item.icon}
                     <span>{item.label}</span>
-                  </Link>
+                  </NavLink>
                 </li>
               );
             })}
           </ul>
         </nav>
-      </div>
-    </>
+      </Paper>
+    </div>
   );
 };
 

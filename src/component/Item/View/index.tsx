@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import BreadcrumbProp from "../../../commonComponent/BreadCrumb";
-import CampaignIcon from "@mui/icons-material/Campaign";
-import IconDashboard from "@mui/icons-material/Dashboard";
-import { Card, Input, Space, Table } from "antd";
+import { Card, Input, Space, Table, Tooltip } from "antd";
 import type { GetProp, TableProps } from "antd";
-import { Grid, Button, Paper } from "@mui/material";
+import { Grid, Button, Paper, Typography, IconButton } from "@mui/material";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import type { SearchProps } from "antd/es/input/Search";
-
 import qs from "qs";
+import { EditOutlined } from "@mui/icons-material";
+import DetailsIcon from "@mui/icons-material/Details";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 type ColumnsType<T> = TableProps<T>["columns"];
 type TablePaginationConfig = Exclude<
@@ -17,21 +16,6 @@ type TablePaginationConfig = Exclude<
 >;
 
 const { Search } = Input;
-
-const breadcrumdata: any = [
-  {
-    icon: <IconDashboard />,
-    label: "Home",
-  },
-  {
-    icon: <CampaignIcon />,
-    label: "Announcement and Procedure",
-  },
-  {
-    icon: "",
-    label: "Announcement",
-  },
-];
 
 interface DataType {
   name: string;
@@ -59,63 +43,170 @@ const ViewItem = () => {
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
-      pageSize: 10,
+      pageSize: 5,
     },
   });
 
-  console.log("tableParams..", tableParams);
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     console.log(info?.source, value);
+
+  const modeDate: any = [
+    {
+      id: 1,
+      itemName: "The First Item",
+      itemDescription: "The First Item Description",
+      quantity: 5,
+      price: 100,
+      brand: "Ethiopia, Brand",
+    },
+    {
+      id: 2,
+      itemName: "The First Item",
+      itemDescription: "The First Item Description",
+      quantity: 5,
+      price: 100,
+      brand: "Ethiopia, Brand",
+    },
+    {
+      id: 3,
+      itemName: "The First Item",
+      itemDescription: "The First Item Description",
+      quantity: 5,
+      price: 100,
+      brand: "Ethiopia, Brand",
+    },
+    {
+      id: 4,
+      itemName: "The First Item",
+      itemDescription: "The First Item Description",
+      quantity: 5,
+      price: 100,
+      brand: "Ethiopia, Brand",
+    },
+    {
+      id: 5,
+      itemName: "The First Item",
+      itemDescription: "The First Item Description",
+      quantity: 5,
+      price: 100,
+      brand: "Ethiopia, Brand",
+    },
+    {
+      id: 6,
+      itemName: "The First Item",
+      itemDescription: "The First Item Description",
+      quantity: 5,
+      price: 100,
+      brand: "Ethiopia, Brand",
+    },
+  ];
 
   const columns: any = [
     {
       title: "Name",
-      dataIndex: "name",
+      dataIndex: "itemName",
       sorter: true,
     },
     {
-      title: "Gender",
-      dataIndex: "gender",
-      filters: [
-        { text: "Male", value: "male" },
-        { text: "Female", value: "female" },
-      ],
+      title: "Brand",
+      dataIndex: "brand",
+      sorter: true,
     },
     {
-      title: "Email",
-      dataIndex: "email",
+      title: "Quantity",
+      dataIndex: "quantity",
+      sorter: false,
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      sorter: false,
+    },
+    {
+      title: "Description",
+      dataIndex: "itemDescription",
+      sorter: false,
     },
     {
       title: "Action",
-      dataIndex: "",
-      key: "x",
-      render: () => <a>Edit</a>,
+      dataIndex: "action",
+      render: () => {
+        return (
+          <Space size="small">
+            <Tooltip title="Edit">
+              <IconButton
+                onClick={() => {
+                  // setselectedAnnouncement(record);
+                  // setViewMode("edit");
+                }}
+                aria-label="edit"
+                color="primary"
+              >
+                <EditOutlined />
+              </IconButton>
+            </Tooltip>
+            |
+            <Tooltip title="Detail">
+              <IconButton
+                onClick={() => {
+                  // setselectedAnnouncement(record);
+                  // setViewMode("detail");
+                }}
+                aria-label="detail"
+                color="secondary"
+              >
+                <DetailsIcon />
+              </IconButton>
+            </Tooltip>
+            |
+            <Tooltip title="Delete">
+              <IconButton
+                // onClick={() => {
+                //   setConfirmDialog({
+                //     isOpen: true,
+                //     title: "Are you sure to delete",
+
+                //     //@ts-ignore
+                //     onConfirm: () => {
+                //       onDelete(record.id);
+                //     },
+                //   });
+                // }}
+                aria-label="delete"
+                color="error"
+              >
+                <DeleteForeverIcon />
+              </IconButton>
+            </Tooltip>
+          </Space>
+        );
+      },
     },
   ];
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetch(
-  //     `https://randomuser.me/api?${qs.stringify(
-  //       getRandomuserParams(tableParams)
-  //     )}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then(({ results }) => {
-  //       console.log("results..", results);
-  //       setData(results);
-  //       setLoading(false);
-  //       setTableParams({
-  //         ...tableParams,
-  //         pagination: {
-  //           ...tableParams.pagination,
-  //           total: 200,
-  //           200 is mock data, you should read it from server
-  //           total: data.totalCount,
-  //         },
-  //       });
-  //     });
-  // }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
+  useEffect(() => {
+    // setLoading(true);
+    // fetch(
+    //   `https://randomuser.me/api?${qs.stringify(
+    //     getRandomuserParams(tableParams)
+    //   )}`
+    // )
+    //   .then((res) => res.json())
+    //   .then(({ results }) => {
+    //     console.log("results..", results);
+    //     setData(results);
+    //     setLoading(false);
+    //     setTableParams({
+    //       ...tableParams,
+    //       pagination: {
+    //         ...tableParams.pagination,
+    //         total: 200,
+    //         // 200 is mock data, you should read it from server
+    //         // total: data.totalCount,
+    //       },
+    //     });
+    //   });
+  }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
 
   const handleTableChange: TableProps["onChange"] = (
     pagination,
@@ -137,45 +228,62 @@ const ViewItem = () => {
   return (
     <div className="container">
       <Grid container spacing={0}>
-        <Grid item xs={12}>
-          <Paper elevation={3}>
-            <Card className="search-input">
-              <Search
-                placeholder="input search text"
-                allowClear
-                enterButton="Search"
-                size="middle"
-                onSearch={onSearch}
-              />
-            </Card>
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper elevation={3}>
-            <Card
-              title="Item"
-              extra={
-                <Button
-                  variant="contained"
-                  color="success"
-                  startIcon={<NoteAddIcon />}
-                >
-                  New Item
-                </Button>
-              }
-            >
-              <Card className="care-table">
-                <Table
-                  columns={columns}
-                  rowKey={(record) => record.id}
-                  dataSource={data}
-                  pagination={tableParams.pagination}
-                  loading={loading}
-                  onChange={handleTableChange}
-                />
+        <Grid container spacing={4}>
+          <Grid item xs={12}>
+            <Paper elevation={3} className="main-content">
+              <Card
+              className="main-content-card"
+                title={
+                  <Typography
+                    variant="h5"
+                    style={{
+                      marginRight: "87%",
+                      marginTop: "2%",
+                      marginBottom: "1% ",
+                    }}
+                  >
+                    <b>Item</b>
+                  </Typography>
+                }
+                extra={
+                  <Button
+                    variant="contained"
+                    color="success"
+                    startIcon={<NoteAddIcon />}
+                  >
+                    New Item
+                  </Button>
+                }
+              >
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Card>
+                      <Input
+                        className="input-search"
+                        placeholder="input search text"
+                        addonAfter="search"
+                        onKeyUp={(event: any) => onSearch(event.target.value)}
+                      />
+                    </Card>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Card className="care-table">
+                      <Table
+                        className="table-list"
+                        size="small"
+                        columns={columns}
+                        rowKey={(record) => record.id}
+                        dataSource={modeDate}
+                        pagination={tableParams.pagination}
+                        loading={loading}
+                        onChange={handleTableChange}
+                      />
+                    </Card>
+                  </Grid>
+                </Grid>
               </Card>
-            </Card>
-          </Paper>
+            </Paper>
+          </Grid>
         </Grid>
       </Grid>
     </div>
