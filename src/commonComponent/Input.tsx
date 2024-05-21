@@ -11,6 +11,7 @@ export const Input = ({ ...props }) => {
       name={name}
       value={value}
       onChange={onChange}
+      size="medium"
       {...(error && { error: true, helperText: error })}
       {...other}
     />
@@ -34,6 +35,7 @@ export const Password = ({ ...props }) => {
       name={name}
       value={value}
       onChange={onChange}
+      size="medium"
       InputProps={{
         endAdornment: (
           <IconButton onClick={toggleShowPassword}>
@@ -57,6 +59,7 @@ export const Inputmuliline = ({ ...props }) => {
       label={label}
       name={name}
       value={value}
+      size="medium"
       multiline
       onChange={onChange}
       {...(error && { error: true, helperText: error })}

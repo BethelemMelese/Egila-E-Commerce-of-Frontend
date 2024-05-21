@@ -80,9 +80,33 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   },
 }));
 
-const navItems = ["Home", "Products", "New Arrival", "Category", "Login"];
 
+const navItems=[{
+  key:1,
+  name:"Home",
+  route:"Home",
+},{
+  key:2,
+  name:"Products",
+  route:"Products",
+},{
+  key:1,
+  name:"New Arrival",
+  route:"NewArrival",
+},{
+  key:1,
+  name:"Category",
+  route:"Category",
+},{
+  key:1,
+  name:"Login",
+  route:"login",
+},]
 const MainPage = (props: Props) => {
+
+  const onHandleEvent=(value:any)=>{
+    <a href={`/${value}`}></a>
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -107,7 +131,7 @@ const MainPage = (props: Props) => {
           >
             {navItems.map((item) => (
               <Button
-                key={item}
+                key={item.key}
                 sx={{
                   color: "#000",
                   marginLeft: 4,
@@ -115,8 +139,9 @@ const MainPage = (props: Props) => {
                   fontFamily: "inherit",
                   fontSize: 15,
                 }}
+                onClick={()=>onHandleEvent(item.route)}
               >
-                <b> {item}</b>
+                <b> {item.name}</b>
               </Button>
             ))}
           </Typography>

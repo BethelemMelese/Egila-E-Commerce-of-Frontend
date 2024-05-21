@@ -9,6 +9,7 @@ import MainPage from "./component/Frontpage/mainPage";
 import Notification from "./commonComponent/notification";
 // import {AutoRout} from "./component/polices/AutoRoute";
 import ViewItem from "./component/Item/View";
+import ViewRole from "./component/Role/View";
 import "./css/style.css";
 // import './css/style.scss';
 import "./App.css";
@@ -41,6 +42,7 @@ const AppRoute = () => {
         >
           <Route path="home" element={<Home />} />
           <Route path="viewItem" element={<ViewItem />} />
+          <Route path="ViewRole" element={<ViewRole />} />
         </Route>
       </Routes>
     </div>

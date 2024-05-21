@@ -4,18 +4,16 @@ import type { GetProp, TableProps } from "antd";
 import { Grid, Button, Paper, Typography, IconButton } from "@mui/material";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import type { SearchProps } from "antd/es/input/Search";
-import qs from "qs";
 import { EditOutlined } from "@mui/icons-material";
 import DetailsIcon from "@mui/icons-material/Details";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import CreateItem from "../Create";
 
 type ColumnsType<T> = TableProps<T>["columns"];
 type TablePaginationConfig = Exclude<
   GetProp<TableProps, "pagination">,
   boolean
 >;
-
-const { Search } = Input;
 
 interface DataType {
   name: string;
@@ -40,6 +38,8 @@ const getRandomuserParams = (params: TableParams) => ({
 const ViewItem = () => {
   const [data, setData] = useState<DataType[]>();
   const [loading, setLoading] = useState(false);
+  const [selectedItem, setSelectedItem] = useState();
+  const [viewMode, setViewMode] = useState("view");
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
@@ -130,14 +130,14 @@ const ViewItem = () => {
     {
       title: "Action",
       dataIndex: "action",
-      render: () => {
+      render: (record: any) => {
         return (
           <Space size="small">
             <Tooltip title="Edit">
               <IconButton
                 onClick={() => {
-                  // setselectedAnnouncement(record);
-                  // setViewMode("edit");
+                  setSelectedItem(record);
+                  setViewMode("edit");
                 }}
                 aria-label="edit"
                 color="primary"
@@ -149,8 +149,8 @@ const ViewItem = () => {
             <Tooltip title="Detail">
               <IconButton
                 onClick={() => {
-                  // setselectedAnnouncement(record);
-                  // setViewMode("detail");
+                  setSelectedItem(record);
+                  setViewMode("detail");
                 }}
                 aria-label="detail"
                 color="secondary"
@@ -161,17 +161,16 @@ const ViewItem = () => {
             |
             <Tooltip title="Delete">
               <IconButton
-                // onClick={() => {
-                //   setConfirmDialog({
-                //     isOpen: true,
-                //     title: "Are you sure to delete",
-
-                //     //@ts-ignore
-                //     onConfirm: () => {
-                //       onDelete(record.id);
-                //     },
-                //   });
-                // }}
+                onClick={() => {
+                  // setConfirmDialog({
+                  //   isOpen: true,
+                  //   title: "Are you sure to delete",
+                  //   //@ts-ignore
+                  //   onConfirm: () => {
+                  //     onDelete(record.id);
+                  //   },
+                  // });
+                }}
                 aria-label="delete"
                 color="error"
               >
@@ -232,55 +231,76 @@ const ViewItem = () => {
           <Grid item xs={12}>
             <Paper elevation={3} className="main-content">
               <Card
-              className="main-content-card"
+                className="main-content-card"
                 title={
-                  <Typography
-                    variant="h5"
-                    style={{
-                      marginRight: "87%",
-                      marginTop: "2%",
-                      marginBottom: "1% ",
-                    }}
-                  >
-                    <b>Item</b>
-                  </Typography>
+                  viewMode == "view" && (
+                    <Typography
+                      variant="h5"
+                      style={{marginRight:"87%",marginTop:"2%",marginBottom:"1%"}}
+                    >
+                      <b>Item</b>
+                    </Typography>
+                  )
                 }
                 extra={
-                  <Button
-                    variant="contained"
-                    color="success"
-                    startIcon={<NoteAddIcon />}
-                  >
-                    New Item
-                  </Button>
+                  viewMode == "view" && (
+                    <Button
+                      variant="contained"
+                      color="success"
+                      startIcon={<NoteAddIcon />}
+                      onClick={() => setViewMode("new")}
+                    >
+                      New Item
+                    </Button>
+                  )
                 }
               >
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <Card>
-                      <Input
-                        className="input-search"
-                        placeholder="input search text"
-                        addonAfter="search"
-                        onKeyUp={(event: any) => onSearch(event.target.value)}
-                      />
-                    </Card>
+                {viewMode == "view" && (
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Card>
+                        <Input
+                          className="input-search"
+                          placeholder="input search text"
+                          addonAfter="search"
+                          onKeyUp={(event: any) => onSearch(event.target.value)}
+                        />
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Card className="care-table">
+                        <Table
+                          className="table-list"
+                          size="small"
+                          columns={columns}
+                          rowKey={(record) => record.id}
+                          dataSource={modeDate}
+                          pagination={tableParams.pagination}
+                          loading={loading}
+                          onChange={handleTableChange}
+                        />
+                      </Card>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12}>
-                    <Card className="care-table">
-                      <Table
-                        className="table-list"
-                        size="small"
-                        columns={columns}
-                        rowKey={(record) => record.id}
-                        dataSource={modeDate}
-                        pagination={tableParams.pagination}
-                        loading={loading}
-                        onChange={handleTableChange}
-                      />
-                    </Card>
-                  </Grid>
-                </Grid>
+                )}
+
+                {viewMode == "new" && (
+                  <CreateItem
+                    //@ts-ignore
+                    selectedItem={selectedItem}
+                    viewMode={viewMode}
+                    closeedit={() => setViewMode("view")}
+                  />
+                )}
+
+                {viewMode == "edit" && (
+                  <CreateItem
+                    //@ts-ignore
+                    selectedItem={selectedItem}
+                    viewMode={viewMode}
+                    closeedit={() => setViewMode("view")}
+                  />
+                )}
               </Card>
             </Paper>
           </Grid>

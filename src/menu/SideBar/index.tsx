@@ -29,7 +29,7 @@ const Sidebar: React.FC = () => {
       key: "2",
       icon: <ControlCameraIcon />,
       label: "Role",
-      path: "/egila/#",
+      path: "/egila/ViewRole",
       cName: "nav-text",
       nActive: "active",
     },
@@ -37,7 +37,7 @@ const Sidebar: React.FC = () => {
       key: "3",
       icon: <PeopleIcon />,
       label: "Customer",
-      path: "/egila/#",
+      path: "/egila/ViewCustomer",
       cName: "nav-text",
       nActive: "active",
     },
@@ -45,7 +45,7 @@ const Sidebar: React.FC = () => {
       key: "4",
       icon: <LocalPoliceIcon />,
       label: "Admin",
-      path: "/egila/#",
+      path: "/egila/ViewAdmin",
       cName: "nav-text",
       nActive: "active",
     },
@@ -53,7 +53,7 @@ const Sidebar: React.FC = () => {
       key: "5",
       icon: <ReceiptIcon />,
       label: "Sales Person",
-      path: "/egila/#",
+      path: "/egila/ViewSalesPerson",
       cName: "nav-text",
       nActive: "active",
     },
@@ -61,7 +61,7 @@ const Sidebar: React.FC = () => {
       key: "6",
       icon: <DeliveryDiningIcon />,
       label: "Deliveries",
-      path: "/egila/#",
+      path: "/egila/ViewDeliveries",
       cName: "nav-text",
       nActive: "active",
     },
@@ -77,7 +77,7 @@ const Sidebar: React.FC = () => {
       key: "8",
       icon: <CategoryIcon />,
       label: "Category",
-      path: "/egila/#",
+      path: "/egila/ViewCategory",
       cName: "nav-text",
       nActive: "active",
     },
@@ -85,7 +85,7 @@ const Sidebar: React.FC = () => {
       key: "9",
       icon: <AppShortcutIcon />,
       label: "Order",
-      path: "/egila/#",
+      path: "/egila/ViewOrder",
       cName: "nav-text",
       nActive: "active",
     },
@@ -93,7 +93,7 @@ const Sidebar: React.FC = () => {
       key: "10",
       icon: <CommentIcon />,
       label: "Comment",
-      path: "/egila/#",
+      path: "/egila/ViewComment",
       cName: "nav-text",
       nActive: "active",
     },
@@ -101,7 +101,7 @@ const Sidebar: React.FC = () => {
       key: "11",
       icon: <ReportIcon />,
       label: "Report",
-      path: "/egila/#",
+      path: "/egila/Report",
       cName: "nav-text",
       nActive: "active",
     },
@@ -109,7 +109,7 @@ const Sidebar: React.FC = () => {
       key: "12",
       icon: <SettingsIcon />,
       label: "Setting",
-      path: "/egila/#",
+      path: "/egila/Setting",
       cName: "nav-text",
       nActive: "active",
     },
@@ -135,7 +135,10 @@ const Sidebar: React.FC = () => {
             {items.map((item: any, index: any) => {
               return (
                 <li key={index} className={item.cName}>
-                  <NavLink to={item.path} className={item.nActive == "active"? "active":""}>
+                  <NavLink
+                    to={item.path}
+                    className={item.nActive == "active" ? "active" : ""}
+                  >
                     {item.icon}
                     <span>{item.label}</span>
                   </NavLink>
