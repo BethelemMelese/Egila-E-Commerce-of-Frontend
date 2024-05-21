@@ -1,29 +1,25 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Images from "../../Images/Logo 5.png";
+import Images2 from "../../Images/carlos-muza.jpg";
 import Footer from "./footerSide";
-import { Card, Col, Row } from "antd";
-import { IconButton, Grid, Divider } from "@mui/material";
+import { Card, Col, Row, Avatar } from "antd";
+import { IconButton, Grid, Divider, Button } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Badge, { BadgeProps } from '@mui/material/Badge';
+import Badge, { BadgeProps } from "@mui/material/Badge";
+import {
+  EditOutlined,
+  EllipsisOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
 
 const { Meta } = Card;
-
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -80,33 +76,80 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
   },
 }));
 
+const navItems = [
+  {
+    key: 1,
+    name: "Home",
+    route: "/",
+  },
+  {
+    key: 2,
+    name: "Products",
+    route: "Products",
+  },
+  {
+    key: 3,
+    name: "New Arrival",
+    route: "NewArrival",
+  },
+  {
+    key: 4,
+    name: "Category",
+    route: "Category",
+  },
+  {
+    key: 5,
+    name: "Login",
+    route: "login",
+  },
+];
 
-const navItems=[{
-  key:1,
-  name:"Home",
-  route:"Home",
-},{
-  key:2,
-  name:"Products",
-  route:"Products",
-},{
-  key:1,
-  name:"New Arrival",
-  route:"NewArrival",
-},{
-  key:1,
-  name:"Category",
-  route:"Category",
-},{
-  key:1,
-  name:"Login",
-  route:"login",
-},]
-const MainPage = (props: Props) => {
+const ModeDateForCategory = [
+  {
+    id: 1,
+    categoryName: "The First Category",
+    categoryDescription: "The First Category Description",
+    categoryImage: "../../Images/pcsSecond.jpg",
+    items: [],
+  },
+  {
+    id: 2,
+    categoryName: "The Second Category",
+    categoryDescription: "The Second Category Description",
+    categoryImage: "../../Images/Iphones.jpg",
+    items: [],
+  },
+  {
+    id: 3,
+    categoryName: "The Third Category",
+    categoryDescription: "The Third Category Description",
+    categoryImage: "../../Images/carlos-muza.jpg",
+    items: [],
+  },
+  {
+    id: 4,
+    categoryName: "The Fourth Category",
+    categoryDescription: "The Fourth Category Description",
+    categoryImage: "../../Images/brad-pouncy.jpg",
+    items: [],
+  },
+  {
+    id: 5,
+    categoryName: "The Five Category",
+    categoryDescription: "The Five Category Description",
+    categoryImage: "../../Images/james-lewis.jpg",
+    items: [],
+  },
+  {
+    id: 6,
+    categoryName: "The Six Category",
+    categoryDescription: "The Six Category Description",
+    categoryImage: "../../Images/james-lewis.jpg",
+    items: [],
+  },
+];
 
-  const onHandleEvent=(value:any)=>{
-    <a href={`/${value}`}></a>
-  }
+const MainPage = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -126,20 +169,20 @@ const MainPage = (props: Props) => {
               alignSelf: "flex-end",
               fontFamily: "inherit",
               fontSize: "1rem",
-              fontWeight: 200,
+              fontWeight: 100,
             }}
           >
             {navItems.map((item) => (
               <Button
                 key={item.key}
-                sx={{
+                style={{
                   color: "#000",
                   marginLeft: 4,
                   marginTop: 6,
                   fontFamily: "inherit",
                   fontSize: 15,
                 }}
-                onClick={()=>onHandleEvent(item.route)}
+                href={`/${item.route}`}
               >
                 <b> {item.name}</b>
               </Button>
@@ -158,17 +201,12 @@ const MainPage = (props: Props) => {
             </Search>
           </div>
 
-          <IconButton
-            sx={{ color: "#000", backgroundColor: "#fff" }}
-          >
+          <IconButton sx={{ color: "#000", backgroundColor: "#fff" }}>
             {/* <StyledBadge badgeContent={4} color="warning"> */}
-              <ShoppingCartIcon />
+            <ShoppingCartIcon />
             {/* </StyledBadge> */}
           </IconButton>
         </StyledToolbar>
-      </AppBar>
-
-      <Box>
         <div className="main-image">
           <div className="main-text">
             <div className="services">
@@ -176,15 +214,15 @@ const MainPage = (props: Props) => {
                 <Grid item xs={3}>
                   <h2>Free Delivery</h2>
                 </Grid>
-                <Divider orientation="vertical" variant="middle" flexItem />
+                <Divider orientation="vertical" variant="middle" flexItem style={{color:"#fff"}} />
                 <Grid item xs={3}>
                   <h2>24 / 7 Availability</h2>
                 </Grid>
-                <Divider orientation="vertical" variant="middle" flexItem />
+                <Divider orientation="vertical" variant="middle" flexItem style={{color:"#fff"}}/>
                 <Grid item xs={3}>
                   <h2>Customer Satisfaction</h2>
                 </Grid>
-                <Divider orientation="vertical" variant="middle" flexItem />
+                <Divider orientation="vertical" variant="middle" flexItem style={{color:"#fff"}}/>
                 <Grid item xs={2}>
                   <h2>Easy To use</h2>
                 </Grid>
@@ -192,65 +230,49 @@ const MainPage = (props: Props) => {
             </div>
           </div>
         </div>
-      </Box>
+      </AppBar>
 
       <Box sx={{ backgroundColor: "rgba(234, 232, 232, 0.926)" }}>
         <Card className="image-slid">
-          <Row gutter={16}>
-            <Col span={6}>
-              <Card
-                hoverable
-                style={{ width: 240 }}
-                cover={
-                  <img
-                    alt="example"
-                    src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                  />
-                }
-              >
-                <Meta
-                  title="Europe Street beat"
-                  description="www.instagram.com"
-                />
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card
-                hoverable
-                style={{ width: 240 }}
-                cover={
-                  <img
-                    alt="example"
-                    src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                  />
-                }
-              >
-                <Meta
-                  title="Europe Street beat"
-                  description="www.instagram.com"
-                />
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card
-                hoverable
-                style={{ width: 240 }}
-                cover={
-                  <img
-                    alt="example"
-                    src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                  />
-                }
-              >
-                <Meta
-                  title="Europe Street beat"
-                  description="www.instagram.com"
-                />
-              </Card>
-            </Col>
+          <Row gutter={18}>
+            {ModeDateForCategory.map((item: any) => {
+              return (
+                <Col span={6} style={{ marginTop: "20px" }}>
+                  <Card
+                    className="image-items"
+                    hoverable
+                    style={{ width: 300 }}
+                    cover={
+                      <img
+                        alt="Category Images"
+                        src={`${Images2}`}
+                        style={{ width: "100%", height: "80%" }}
+                      />
+                    }
+                    actions={[
+                      <Button
+                        variant="outlined"
+                        style={{
+                          color: "#000",
+                          float: "left",
+                        }}
+                      >
+                        More
+                      </Button>,
+                    ]}
+                  >
+                    <Meta
+                      title={item.categoryName}
+                      description={item.categoryDescription}
+                    />
+                  </Card>
+                </Col>
+              );
+            })}
           </Row>
         </Card>
       </Box>
+
       <Box>
         <Footer />
       </Box>

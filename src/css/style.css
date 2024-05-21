@@ -112,6 +112,7 @@ body {
   backdrop-filter: blur(7px);
 }
 
+
 /* Place text in the middle of the image */
 .main-text {
   text-align: center;
@@ -124,17 +125,27 @@ body {
 .services {
   width: 80%;
   height: 20%;
-  /* margin-bottom: 20%; */
   margin-left: 10%;
   margin-bottom: 5%;
-  margin-top: 10%;
-  background-color: #fff;
-  color: #000;
+  background-image: linear-gradient(
+    rgba(248, 219, 219, 0.4),
+    rgba(244, 242, 216, 0.5)
+  );
+  color: #fff;
 }
 
 .image-slid {
   margin: 0px auto;
-  width: 80%;
+  width: 90%;
+}
+
+.image-items{
+  margin: 0px auto;
+}
+
+.more-btn{
+  color: #000;
+  background-color: #f4e5e8;
 }
 
 /* for the Nav bar */

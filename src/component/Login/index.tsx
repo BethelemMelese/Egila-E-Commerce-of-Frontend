@@ -21,6 +21,7 @@ interface LOGINSTATE {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validationSchema = Yup.object().shape({
@@ -142,7 +143,7 @@ const Login = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <a href="/">Go to home</a>
+                      <Link to="">Go to home</Link>
                     </Grid>
                     <Grid item xs={12}>
                       <Button

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Input, Space, Table, Tooltip, Modal } from "antd";
 import type { GetProp, TableProps } from "antd";
-import { Grid, Button, Paper, Typography, IconButton } from "@mui/material";
+import { Grid, Button, Paper, IconButton } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
 import DetailsIcon from "@mui/icons-material/Details";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
