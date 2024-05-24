@@ -17,6 +17,7 @@ import * as Yup from "yup";
 import { Form } from "../../commonComponent/Form";
 import axios from "axios";
 import { appUrl } from "../../appurl";
+import Notification from "../../commonComponent/notification";
 
 interface REGISTERSTATE {
   firstName: String;
@@ -75,12 +76,44 @@ const Register = () => {
       .oneOf([Yup.ref("password")], "Password must match"),
   });
 
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+
+  const onRegisterSuccess = () => {
+    setNotify({
+      isOpen: true,
+      type: "success",
+      message: "Registration is Successfully Done !",
+    });
+    setTimeout(() => {
+      setIsSubmitting(false);
+      navigate("/");
+    }, 2000);
+  };
+
+  const onRegisterError = (action: any) => {
+    setNotify({
+      isOpen: true,
+      message: action,
+      type: "error",
+    });
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2000);
+  };
+
   const formik = useFormik({
     initialValues: initialState,
     onSubmit: (values) => {
       console.log("values...", values);
       setIsSubmitting(true);
-      navigate("/");
+      axios
+        .post(appUrl + "users", values)
+        .then((response) => onRegisterSuccess())
+        .catch((error) => onRegisterError(error.response.data.message));
     },
     validationSchema: validationSchema,
   });
@@ -318,14 +351,19 @@ const Register = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Button
-                        className="buttonField"
-                        variant="contained"
-                        type="submit"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? "Signing..." : "Sign Up"}
-                      </Button>
+                      {isSubmitting ? (
+                        <Button variant="contained" disabled>
+                          Signing...
+                        </Button>
+                      ) : (
+                        <Button
+                          className="buttonField"
+                          variant="contained"
+                          type="submit"
+                        >
+                          Sign Up
+                        </Button>
+                      )}
                     </Grid>
                     <Grid
                       item
@@ -341,6 +379,7 @@ const Register = () => {
             </Form>
           </Paper>
         </Box>
+        <Notification notify={notify} setNotify={setNotify} />
       </div>
     </>
   );

@@ -5,7 +5,8 @@ import { Grid, Button, Paper, IconButton } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
 import DetailsIcon from "@mui/icons-material/Details";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import CreateRole from "../Create";
+import CreateItemCategory from "../Create";
+import DetailItemCategory from "../Detail";
 import { appUrl } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
@@ -15,13 +16,13 @@ import Dialogs from "../../../commonComponent/dialog";
 const { confirm } = Modal;
 
 interface ItemState {
-  roleName: string;
-  roleDescription: string;
+  categoryName: string;
+  categoryDescription: string;
 }
 
 const initialState: ItemState = {
-  roleName: "",
-  roleDescription: "",
+  categoryName: "",
+  categoryDescription: "",
 };
 
 type TablePaginationConfig = Exclude<
@@ -43,10 +44,10 @@ interface TableParams {
   filters?: Parameters<GetProp<TableProps, "onChange">>[1];
 }
 
-const ViewRole = () => {
+const ViewItemCategory = () => {
   const [data, setData] = useState<DataType[]>();
   const [loading, setLoading] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<any>();
+  const [selectedItemCategory, setSelectedItemCategory] = useState<any>();
   const [dataSource, setDataSource] = useState<any>([]); // to set the response data and display on the table
   const [viewMode, setViewMode] = useState("view"); // to make change of the view for create and edit
   const [query, setQuery] = useState(""); // for search purpose to get the key
@@ -114,7 +115,7 @@ const ViewRole = () => {
   //   for get all data
   const onFetchRole = () => {
     axios
-      .get(appUrl + `roles?search=${query}`)
+      .get(appUrl + `itemCategorys?search=${query}`)
       .then((res) => {
         setLoading(false);
         setDataSource(res.data);
@@ -128,7 +129,7 @@ const ViewRole = () => {
   //   for delete the selected data using modal confirm dialog
   const showConfirm = (value: any) => {
     confirm({
-      title: "Do you want to delete these role?",
+      title: "Do you want to delete these category?",
       icon: <ExclamationCircleFilled />,
       content: "You are unable to undo the deletion of this.",
       okText: "Yes",
@@ -136,7 +137,7 @@ const ViewRole = () => {
       cancelText: "No",
       onOk() {
         axios
-          .delete(appUrl + `roles/${value}`)
+          .delete(appUrl + `itemCategorys/${value}`)
           .then((response) => {
             onDeleteSuccess(response.data);
           })
@@ -155,13 +156,13 @@ const ViewRole = () => {
   //   identify the columns that has to display on the table
   const columns: any = [
     {
-      title: "Role",
-      dataIndex: "roleName",
+      title: "Category",
+      dataIndex: "categoryName",
       sorter: true,
     },
     {
       title: "Description",
-      dataIndex: "roleDescription",
+      dataIndex: "categoryDescription",
       sorter: true,
     },
     {
@@ -173,7 +174,7 @@ const ViewRole = () => {
             <Tooltip title="Edit">
               <IconButton
                 onClick={() => {
-                  setSelectedRole(record);
+                  setSelectedItemCategory(record);
                   setViewMode("edit");
                   setOpenDialog(true);
                 }}
@@ -184,19 +185,20 @@ const ViewRole = () => {
               </IconButton>
             </Tooltip>
             |
-            {/* <Tooltip title="Detail">
+            <Tooltip title="Detail">
               <IconButton
                 onClick={() => {
-                  setSelectedRole(record);
+                  setSelectedItemCategory(record);
                   setViewMode("detail");
+                  setOpenDialog(true);
                 }}
                 aria-label="detail"
-                color="secondary"
+                color="warning"
               >
                 <DetailsIcon />
               </IconButton>
-            </Tooltip> */}
-            {/* | */}
+            </Tooltip>
+            |
             <Tooltip title="Delete">
               <IconButton
                 onClick={() => {
@@ -230,7 +232,7 @@ const ViewRole = () => {
                       marginBottom: "1%",
                     }}
                   >
-                    <b>Role</b>
+                    <b>Category</b>
                   </h2>
                 }
                 extra={
@@ -243,7 +245,7 @@ const ViewRole = () => {
                       setViewMode("new");
                     }}
                   >
-                    New Role
+                    New Category
                   </Button>
                 }
               >
@@ -277,24 +279,35 @@ const ViewRole = () => {
                   openDialog={openDialog}
                   setOpenDialog={openDialog}
                   onFetchRole={onFetchRole}
-                  height="55%"
+                  height="100%"
                   maxHeight="435"
                   children={
-                    viewMode == "new" ? (
-                      <CreateRole
-                        //@ts-ignore
-                        selectedRole={initialState}
-                        viewMode={viewMode}
-                        closeedit={() => setOpenDialog(false)}
-                      />
-                    ) : (
-                      <CreateRole
-                        //@ts-ignore
-                        selectedRole={selectedRole}
-                        viewMode={viewMode}
-                        closeedit={() => setOpenDialog(false)}
-                      />
-                    )
+                    <>
+                      {viewMode == "new" && (
+                        <CreateItemCategory
+                          //@ts-ignore
+                          selectedItemCategory={initialState}
+                          viewMode={viewMode}
+                          closeedit={() => setOpenDialog(false)}
+                        />
+                      )}
+                      {viewMode == "edit" && (
+                        <CreateItemCategory
+                          //@ts-ignore
+                          selectedItemCategory={selectedItemCategory}
+                          viewMode={viewMode}
+                          closeedit={() => setOpenDialog(false)}
+                        />
+                      )}
+                      {viewMode == "detail" && (
+                        <DetailItemCategory
+                          //@ts-ignore
+                          selectedItemCategory={selectedItemCategory}
+                          viewMode={viewMode}
+                          closeedit={() => setOpenDialog(false)}
+                        />
+                      )}
+                    </>
                   }
                 />
               </Card>
@@ -307,4 +320,4 @@ const ViewRole = () => {
   );
 };
 
-export default ViewRole;
+export default ViewItemCategory;

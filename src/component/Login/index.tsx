@@ -146,14 +146,23 @@ const Login = () => {
                       <Link to="">Go to home</Link>
                     </Grid>
                     <Grid item xs={12}>
-                      <Button
-                        className="buttonField"
-                        variant="contained"
-                        type="submit"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? "Signing..." : "Sign In"}
-                      </Button>
+                      {isSubmitting ? (
+                        <Button
+                          variant="contained"
+                          disabled
+                        >
+                          Signing...
+                        </Button>
+                      ) : (
+                        <Button
+                          className="buttonField"
+                          variant="contained"
+                          type="submit"
+                          disabled={isSubmitting}
+                        >
+                          Sign In
+                        </Button>
+                      )}
                     </Grid>
                     <Grid
                       item

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,17 +7,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import Images from "../../Images/Logo 5.png";
-import Images2 from "../../Images/carlos-muza.jpg";
+import Images2 from "../../Images/image.jpg";
 import Footer from "./footerSide";
+import MoreCategory from "./moreCategory";
 import { Card, Col, Row, Avatar } from "antd";
-import { IconButton, Grid, Divider, Button } from "@mui/material";
+import { IconButton, Grid, Divider, Button, Paper } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge, { BadgeProps } from "@mui/material/Badge";
-import {
-  EditOutlined,
-  EllipsisOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import Dialogs from "../../commonComponent/dialog";
 
 const { Meta } = Card;
 
@@ -64,15 +61,6 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   paddingBottom: theme.spacing(1),
   "@media all": {
     minHeight: 94,
-  },
-}));
-
-const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-  "& .MuiBadge-badge": {
-    right: -3,
-    top: 13,
-    border: `1px solid ${theme.palette.background.paper}`,
-    padding: "0 1px",
   },
 }));
 
@@ -150,6 +138,9 @@ const ModeDateForCategory = [
 ];
 
 const MainPage = () => {
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedMore, setSelectedMore] = useState();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -214,15 +205,30 @@ const MainPage = () => {
                 <Grid item xs={3}>
                   <h2>Free Delivery</h2>
                 </Grid>
-                <Divider orientation="vertical" variant="middle" flexItem style={{color:"#fff"}} />
+                <Divider
+                  orientation="vertical"
+                  variant="middle"
+                  flexItem
+                  style={{ color: "#fff" }}
+                />
                 <Grid item xs={3}>
                   <h2>24 / 7 Availability</h2>
                 </Grid>
-                <Divider orientation="vertical" variant="middle" flexItem style={{color:"#fff"}}/>
+                <Divider
+                  orientation="vertical"
+                  variant="middle"
+                  flexItem
+                  style={{ color: "#fff" }}
+                />
                 <Grid item xs={3}>
                   <h2>Customer Satisfaction</h2>
                 </Grid>
-                <Divider orientation="vertical" variant="middle" flexItem style={{color:"#fff"}}/>
+                <Divider
+                  orientation="vertical"
+                  variant="middle"
+                  flexItem
+                  style={{ color: "#fff" }}
+                />
                 <Grid item xs={2}>
                   <h2>Easy To use</h2>
                 </Grid>
@@ -238,44 +244,66 @@ const MainPage = () => {
             {ModeDateForCategory.map((item: any) => {
               return (
                 <Col span={6} style={{ marginTop: "20px" }}>
-                  <Card
-                    className="image-items"
-                    hoverable
-                    style={{ width: 300 }}
-                    cover={
-                      <img
-                        alt="Category Images"
-                        src={`${Images2}`}
-                        style={{ width: "100%", height: "80%" }}
-                      />
-                    }
-                    actions={[
-                      <Button
-                        variant="outlined"
-                        style={{
-                          color: "#000",
-                          float: "left",
-                        }}
-                      >
-                        More
-                      </Button>,
-                    ]}
-                  >
-                    <Meta
-                      title={item.categoryName}
-                      description={item.categoryDescription}
-                    />
-                  </Card>
+                  <Paper elevation={8}>
+                    <div className="responsive">
+                      <div className="gallery">
+                        <img
+                          src={Images2}
+                          alt="Cinque Terre"
+                          width="300"
+                          height="250"
+                          style={{ maxHeight: "300" }}
+                        />
+                        <div className="desc">
+                          <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                              <b> {item.categoryName}</b>
+                              <br />
+                              {item.categoryDescription}
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Button
+                                variant="text"
+                                size="small"
+                                className="more-btn"
+                                color="warning"
+                                onClick={() => {
+                                  setSelectedMore(item);
+                                  setOpenDialog(true);
+                                }}
+                              >
+                                More
+                              </Button>
+                            </Grid>
+                          </Grid>
+                        </div>
+                      </div>
+                    </div>
+                  </Paper>
                 </Col>
               );
             })}
           </Row>
         </Card>
+
+        <Dialogs
+          openDialog={openDialog}
+          setOpenDialog={openDialog}
+          height="100%"
+          maxHeight="435"
+          children={
+            <MoreCategory
+              //@ts-ignore
+              selectedMore={selectedMore}
+              closeedit={() => setOpenDialog(false)}
+            />
+          }
+        />
       </Box>
 
-      <Box>
+      {/* <Box>
         <Footer />
-      </Box>
+      </Box> */}
       <Box>
         <div className="copyrightholder">
           <p>&copy; 2024 Egila Gadgets. All rights reserved</p>

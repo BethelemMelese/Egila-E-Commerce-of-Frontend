@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "antd";
+import { Card, Button as ButtonAnt } from "antd";
 import Controls from "../../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -9,21 +9,31 @@ import axios from "axios";
 import { Grid, Typography, Button } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Notification from "../../../commonComponent/notification";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { Flex, message, Upload } from "antd";
+import type { GetProp, UploadProps } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 interface ItemState {
-  roleName: string;
-  roleDescription: string;
+  categoryName: string;
+  categoryDescription: string;
 }
 
 const initialState: ItemState = {
-  roleName: "",
-  roleDescription: "",
+  categoryName: "",
+  categoryDescription: "",
 };
 
-const CreateRole = ({ ...props }) => {
+const CreateItemCategory = ({ ...props }) => {
   const [viewMode, setViewMode] = useState(props.viewMode);
-  const [selectedRole, setSelectedRole] = useState(props.selectedRole);
+  const [selectedItemCategory, setSelectedItemCategory] = useState(
+    props.selectedItemCategory
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fileList, setFileList] = useState<any[]>([]);
+  const [validFileFormat, setValidFileFormat] = useState(false);
+  const [fileRequired, setFileRequired] = useState(false);
+
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -32,19 +42,19 @@ const CreateRole = ({ ...props }) => {
 
   useEffect(() => {
     setViewMode(props.viewMode);
-    setSelectedRole(props.selectedRole);
+    setSelectedItemCategory(props.selectedItemCategory);
     if (props.viewMode === "new") {
       formik.resetForm({
         values: initialState,
       });
     }
-  }, [props.viewMode, props.selectedRole]);
+  }, [props.viewMode, props.selectedItemCategory]);
 
   const onCreateSuccess = () => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: "Role is Successfully Added !",
+      message: "Category is Successfully Added !",
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -67,7 +77,7 @@ const CreateRole = ({ ...props }) => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: "Role is Successfully Updated !",
+      message: "Category is Successfully Updated !",
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -87,28 +97,60 @@ const CreateRole = ({ ...props }) => {
   };
 
   const validationSchema = Yup.object().shape({
-    roleName: Yup.string().required("Role is required"),
+    categoryName: Yup.string().required("Category is required"),
   });
 
+  const validFile = () => {
+    if ((fileList.length = 0)) {
+      setFileRequired(true);
+    } else {
+      setFileRequired(false);
+    }
+  };
   const formik = useFormik({
-    initialValues: selectedRole,
+    initialValues: selectedItemCategory,
     onSubmit: (values) => {
       if (viewMode == "new") {
-        setIsSubmitting(true);
+        const formData = new FormData();
+        console.log("fileList...",fileList);
+        fileList.forEach((file: any) => {
+          formData.append("categoryImage", file);
+        });
+        formData.append("categoryName", values.categoryName);
+        formData.append("categoryDescription", values.categoryDescription);
+        console.log("formData...", formData);
         axios
-          .post(appUrl + "roles", values)
+          .post(appUrl + "itemCategorys/uploads", formData)
           .then(() => onCreateSuccess())
           .catch((error) => onCreateError(error.response.data.message));
       } else {
         setIsSubmitting(true);
         axios
-          .put(appUrl + `roles/${selectedRole.id}`, values)
+          .put(appUrl + `itemCategorys/${selectedItemCategory.id}`, values)
           .then(() => onUpdateSuccess())
           .catch((error) => onUpdateError(error.response.data.message));
       }
     },
     validationSchema: validationSchema,
   });
+
+  const beforeUpload = (file: any): any => {
+    if (
+      file.type === "image/jpg" ||
+      file.type == "image/jpeg" ||
+      file.type == "image/jpeg"
+    ) {
+      setValidFileFormat(false);
+      setFileRequired(false);
+      setFileList((prev) => {
+        return [...prev, file];
+      });
+      return false;
+    } else {
+      setValidFileFormat(true);
+      return true;
+    }
+  };
 
   return (
     <div className="create-card">
@@ -117,7 +159,7 @@ const CreateRole = ({ ...props }) => {
           <h3
             style={{ marginRight: "87%", marginTop: "2%", marginBottom: "1%" }}
           >
-            {viewMode == "new" ? <b>Add Role</b> : <b>Modify Role</b>}
+            {viewMode == "new" ? <b>Add Category</b> : <b>Modify Category</b>}
           </h3>
         }
         extra={
@@ -131,28 +173,53 @@ const CreateRole = ({ ...props }) => {
             <Grid item xs={12}>
               <Controls.Input
                 required
-                id="roleName"
-                label="Role"
-                {...formik.getFieldProps("roleName")}
+                id="categoryName"
+                label="Category"
+                {...formik.getFieldProps("categoryName")}
                 error={
-                  formik.touched.roleName && formik.errors.roleName
-                    ? formik.errors.roleName
+                  formik.touched.categoryName && formik.errors.categoryName
+                    ? formik.errors.categoryName
                     : ""
                 }
               />
 
               <Controls.Input
-                id="roleDescription"
+                id="categoryDescription"
                 label="Description"
                 multiline
-                {...formik.getFieldProps("roleDescription")}
+                {...formik.getFieldProps("categoryDescription")}
                 error={
-                  formik.touched.roleDescription &&
-                  formik.errors.roleDescription
-                    ? formik.errors.roleDescription
+                  formik.touched.categoryDescription &&
+                  formik.errors.categoryDescription
+                    ? formik.errors.categoryDescription
                     : ""
                 }
               />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Upload
+                listType="picture"
+                defaultFileList={[...fileList]}
+                beforeUpload={beforeUpload}
+                className="upload-list-inline"
+              >
+                <ButtonAnt icon={<UploadOutlined translate={undefined} />}>
+                  Category Image
+                </ButtonAnt>
+                <br />
+                {validFileFormat ? (
+                  <span className="text-danger">
+                    Invalid file format, Only jpg, jpeg and png files are
+                    allowed!
+                  </span>
+                ) : null}
+                {fileRequired ? (
+                  <span className="text-danger">
+                    Category Image is required
+                  </span>
+                ) : null}
+              </Upload>
             </Grid>
           </Grid>
 
@@ -167,7 +234,12 @@ const CreateRole = ({ ...props }) => {
                   Sending...
                 </Button>
               ) : (
-                <Button className="send-btn" variant="contained" type="submit">
+                <Button
+                  className="send-btn"
+                  variant="contained"
+                  type="submit"
+                  onClick={validFile}
+                >
                   Send
                 </Button>
               )}
@@ -196,4 +268,4 @@ const CreateRole = ({ ...props }) => {
   );
 };
 
-export default CreateRole;
+export default CreateItemCategory;

@@ -77,7 +77,7 @@ const Sidebar: React.FC = () => {
       key: "8",
       icon: <CategoryIcon />,
       label: "Category",
-      path: "/egila/ViewCategory",
+      path: "/egila/viewCategory",
       cName: "nav-text",
       nActive: "active",
     },

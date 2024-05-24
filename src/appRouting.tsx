@@ -7,11 +7,11 @@ import Topbar from "./menu/TobBar";
 import Layout from "./menu/layout";
 import MainPage from "./component/Frontpage/mainPage";
 import Notification from "./commonComponent/notification";
-// import {AutoRout} from "./component/polices/AutoRoute";
 import ViewItem from "./component/Item/View";
 import ViewRole from "./component/Role/View";
+import ViewItemCategory from "./component/ItemCategory/View";
 import "./css/style.css";
-// import './css/style.scss';
+import "./css/mediaQuery.css"
 import "./App.css";
 
 const AppRoute = () => {
@@ -43,6 +43,7 @@ const AppRoute = () => {
           <Route path="home" element={<Home />} />
           <Route path="viewItem" element={<ViewItem />} />
           <Route path="ViewRole" element={<ViewRole />} />
+          <Route path="viewCategory" element={<ViewItemCategory/>}/>
         </Route>
       </Routes>
     </div>
