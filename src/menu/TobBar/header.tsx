@@ -3,17 +3,16 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
-import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Images from "../../Images/ProfilePhoto.jpg";
-import { Avatar, Divider, Drawer, Paper } from "@mui/material";
+import { Avatar, Divider } from "@mui/material";
 
 const AppNavBar = () => {
   return (
-    <Box sx={{ flexGrow: 1}}>
-      <Toolbar >
+    <Box sx={{ flexGrow: 1 }}>
+      <Toolbar>
         <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: { xs: "none", md: "flex" }, color:"#000" ,  }}>
+        <Box sx={{ display: { xs: "none", md: "flex" }, color: "#000" }}>
           <IconButton
             size="large"
             aria-label="show 17 new notifications"

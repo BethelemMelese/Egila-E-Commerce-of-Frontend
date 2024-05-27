@@ -53,7 +53,7 @@ const Sidebar: React.FC = () => {
       key: "5",
       icon: <ReceiptIcon />,
       label: "Sales Person",
-      path: "/egila/ViewSalesPerson",
+      path: "/egila/viewSalesPerson",
       cName: "nav-text",
       nActive: "active",
     },

@@ -1,8 +1,7 @@
-import { Layout, theme } from "antd";
+import { Layout } from "antd";
 import Sidebar from "../SideBar/index";
 import AppNavBar from "./header";
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
 const { Header, Content } = Layout;
 
 const Topbar = ({ ...props }) => {
@@ -19,12 +18,10 @@ const Topbar = ({ ...props }) => {
         >
           <AppNavBar />
         </Header>
-        {/* <Content
-          style={{ margin: "0 16px", height:"80%"}}
-        > */}
+        <Content>
           <Outlet />
           {props.children}
-        {/* </Content> */}
+        </Content>
       </Layout>
     </Layout>
   );

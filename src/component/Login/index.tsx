@@ -1,4 +1,4 @@
-import { CssBaseline, Box, Button, Grid, Paper } from "@mui/material";
+import { Box, Button, Grid, Paper } from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Images from "../../Images/Logo 4.png";
@@ -51,6 +51,7 @@ const Login = () => {
       localStorage.setItem("token", response.token);
       localStorage.setItem("name", response.fullName);
       localStorage.setItem("role", response.roleName);
+      navigate("/egila/home")
       setIsSubmitting(false);
     }, 2000);
   };
@@ -86,14 +87,14 @@ const Login = () => {
 
   return (
     <>
-      <div className="loginPage">
-        <CssBaseline />
+      <div>
         <Box
           sx={{
-            mt: 20,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            margin: "0px auto",
+            marginTop: "10%",
           }}
         >
           <Paper elevation={4} className="loginForm">
@@ -147,10 +148,7 @@ const Login = () => {
                     </Grid>
                     <Grid item xs={12}>
                       {isSubmitting ? (
-                        <Button
-                          variant="contained"
-                          disabled
-                        >
+                        <Button variant="contained" disabled>
                           Signing...
                         </Button>
                       ) : (

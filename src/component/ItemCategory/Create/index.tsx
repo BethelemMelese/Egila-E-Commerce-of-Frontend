@@ -6,12 +6,10 @@ import * as Yup from "yup";
 import { Form } from "../../../commonComponent/Form";
 import { appUrl } from "../../../appurl";
 import axios from "axios";
-import { Grid, Typography, Button } from "@mui/material";
+import { Grid, Button, Avatar } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Notification from "../../../commonComponent/notification";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { Flex, message, Upload } from "antd";
-import type { GetProp, UploadProps } from "antd";
+import { Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 
 interface ItemState {
@@ -30,7 +28,7 @@ const CreateItemCategory = ({ ...props }) => {
     props.selectedItemCategory
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [fileList, setFileList] = useState<any[]>([]);
+  const [fileList, setFileList] = useState<any>();
   const [validFileFormat, setValidFileFormat] = useState(false);
   const [fileRequired, setFileRequired] = useState(false);
 
@@ -66,7 +64,7 @@ const CreateItemCategory = ({ ...props }) => {
     setNotify({
       isOpen: true,
       type: "error",
-      message: response.message,
+      message: response,
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -101,7 +99,7 @@ const CreateItemCategory = ({ ...props }) => {
   });
 
   const validFile = () => {
-    if ((fileList.length = 0)) {
+    if (fileList == null) {
       setFileRequired(true);
     } else {
       setFileRequired(false);
@@ -111,22 +109,29 @@ const CreateItemCategory = ({ ...props }) => {
     initialValues: selectedItemCategory,
     onSubmit: (values) => {
       if (viewMode == "new") {
+        if (fileList == null) {
+          setFileRequired(true);
+        } else {
+          setFileRequired(false);
+          const formData = new FormData();
+          formData.append("file", fileList);
+          formData.append("categoryName", values.categoryName);
+          formData.append("categoryDescription", values.categoryDescription);
+          axios
+            .post(appUrl + "itemCategorys", formData)
+            .then(() => onCreateSuccess())
+            .catch((error) => onCreateError(error.response.data.message));
+        }
+      } else {
         const formData = new FormData();
-        console.log("fileList...",fileList);
-        fileList.forEach((file: any) => {
-          formData.append("categoryImage", file);
-        });
+        formData.append(
+          "file",
+          fileList == null ? selectedItemCategory.categoryImage : fileList
+        );
         formData.append("categoryName", values.categoryName);
         formData.append("categoryDescription", values.categoryDescription);
-        console.log("formData...", formData);
         axios
-          .post(appUrl + "itemCategorys/uploads", formData)
-          .then(() => onCreateSuccess())
-          .catch((error) => onCreateError(error.response.data.message));
-      } else {
-        setIsSubmitting(true);
-        axios
-          .put(appUrl + `itemCategorys/${selectedItemCategory.id}`, values)
+          .put(appUrl + `itemCategorys/${selectedItemCategory.id}`, formData)
           .then(() => onUpdateSuccess())
           .catch((error) => onUpdateError(error.response.data.message));
       }
@@ -138,17 +143,13 @@ const CreateItemCategory = ({ ...props }) => {
     if (
       file.type === "image/jpg" ||
       file.type == "image/jpeg" ||
-      file.type == "image/jpeg"
+      file.type == "image/png"
     ) {
       setValidFileFormat(false);
       setFileRequired(false);
-      setFileList((prev) => {
-        return [...prev, file];
-      });
-      return false;
+      setFileList(file);
     } else {
       setValidFileFormat(true);
-      return true;
     }
   };
 
@@ -170,7 +171,19 @@ const CreateItemCategory = ({ ...props }) => {
       >
         <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            {/* {viewMode != "new" && (
+              <Grid item xs={12}>
+                <Avatar
+                  variant="rounded"
+                  style={{width:"100%", height:"10%"}}
+                  src={
+                    appUrl +
+                    `itemCategorys/uploads/${selectedItemCategory.categoryImage}`
+                  }
+                ></Avatar>
+              </Grid>
+            )} */}
+            <Grid item xs={6}>
               <Controls.Input
                 required
                 id="categoryName"
@@ -182,7 +195,8 @@ const CreateItemCategory = ({ ...props }) => {
                     : ""
                 }
               />
-
+            </Grid>
+            <Grid item xs={6}>
               <Controls.Input
                 id="categoryDescription"
                 label="Description"
@@ -200,9 +214,8 @@ const CreateItemCategory = ({ ...props }) => {
             <Grid item xs={12}>
               <Upload
                 listType="picture"
-                defaultFileList={[...fileList]}
-                beforeUpload={beforeUpload}
-                className="upload-list-inline"
+                onChange={(response: any) => beforeUpload(response.file)}
+                beforeUpload={() => false}
               >
                 <ButtonAnt icon={<UploadOutlined translate={undefined} />}>
                   Category Image

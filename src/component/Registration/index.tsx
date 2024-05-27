@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Select,
-} from "@mui/material";
+import { Box, Button, FormControl, Grid, MenuItem, Paper } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Images from "../../Images/Logo 4.png";
@@ -125,10 +116,10 @@ const Register = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(appUrl + "roles")
-      .then((response) => setRoleResponse(response.data))
-      .catch((error) => setRoleResponse(error.response.data.message));
+    // axios
+    //   .get(appUrl + "roles")
+    //   .then((response) => setRoleResponse(response.data))
+    //   .catch((error) => setRoleResponse(error.response.data.message));
   }, []);
 
   return (
@@ -136,10 +127,12 @@ const Register = () => {
       <div className="registerPage">
         <Box
           sx={{
-            mt: 10,
+            // mt: 10,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            margin: "0px auto",
+            marginTop: "5%",
           }}
         >
           <Paper elevation={4} className="registerForm">
@@ -155,7 +148,7 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         required
@@ -170,7 +163,7 @@ const Register = () => {
                         onKeyPress={(event: any) => handleKeyPress(event)}
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         required
@@ -186,7 +179,7 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         id="lastName"
@@ -200,7 +193,7 @@ const Register = () => {
                         onKeyPress={(event: any) => handleKeyPress(event)}
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         id="email"
@@ -214,7 +207,7 @@ const Register = () => {
                         onKeyPress={(event: any) => handleKeyPress(event)}
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         required
@@ -229,7 +222,7 @@ const Register = () => {
                         onKeyPress={(event: any) => handleKeyPress(event)}
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         required
@@ -245,7 +238,7 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Password
                         className="inputField"
                         required
@@ -261,7 +254,7 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Password
                         className="inputField"
                         required
@@ -278,7 +271,7 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         id="address"
@@ -294,7 +287,7 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         required
@@ -310,7 +303,7 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         id="town"
@@ -325,7 +318,7 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <FormControl variant="outlined" className="selectbox">
                         <Controls.Input
                           select
@@ -339,13 +332,15 @@ const Register = () => {
                               : ""
                           }
                         >
-                          {roleResponse.map((value: any) => {
+                          <MenuItem>Admin</MenuItem>
+                          <MenuItem>Customer</MenuItem>
+                          {/* {roleResponse.map((value: any) => {
                             return (
                               <MenuItem value={value.id}>
                                 {value.roleName}
                               </MenuItem>
                             );
-                          })}
+                          })} */}
                         </Controls.Input>
                       </FormControl>
                     </Grid>

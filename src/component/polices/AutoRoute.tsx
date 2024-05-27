@@ -1,13 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Images from "../../Images/modern-stationary-collection-arrangement_23-2149309643.jpg";
+import { userService } from "./userService";
+import NoPermission from "../NoPermission";
+import Login from "../Login";
 
-const ViewItem = () => {
-  return (
-    <div>
-      <h1>Hello World!</h1>
-    </div>
-  );
+interface Props {
+  component: React.ComponentType;
+  path?: string;
+  roles?: Array<any>;
+}
+
+export const AutoRout: React.FC<Props> = ({
+  component: RouteComponent,
+  roles,
+}) => {
+  const role = userService.currentRole;
+  const user = userService.currentUser;
+
+  if (user != null) {
+    if (role) {
+      return <RouteComponent />;
+    } else {
+      return <NoPermission />;
+    }
+  } else {
+    return <Login />;
+  }
 };
-
-export default ViewItem;

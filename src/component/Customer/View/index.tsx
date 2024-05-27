@@ -1,28 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { Card, Input, Space, Table, Tooltip, Modal } from "antd";
 import type { GetProp, TableProps } from "antd";
-import { Grid, Button, Paper, IconButton, Avatar } from "@mui/material";
+import { Grid, Paper, IconButton } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
-import DetailsIcon from "@mui/icons-material/Details";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import CreateItemCategory from "../Create";
-import DetailItemCategory from "../Detail";
+import UpdateCustomer from "../Update";
 import { appUrl } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import Dialogs from "../../../commonComponent/dialog";
+import DetailsIcon from "@mui/icons-material/Details";
 
 const { confirm } = Modal;
 
 interface ItemState {
-  categoryName: string;
-  categoryDescription: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  address: string;
+  subCity: string;
+  town: string;
 }
 
 const initialState: ItemState = {
-  categoryName: "",
-  categoryDescription: "",
+  firstName: "",
+  middleName: "",
+  lastName: "",
+  phone: "",
+  email: "",
+  address: "",
+  subCity: "",
+  town: "",
 };
 
 type TablePaginationConfig = Exclude<
@@ -44,16 +55,14 @@ interface TableParams {
   filters?: Parameters<GetProp<TableProps, "onChange">>[1];
 }
 
-const ViewItemCategory = () => {
+const ViewCustomer = () => {
   const [data, setData] = useState<DataType[]>();
   const [loading, setLoading] = useState(false);
-  const [selectedItemCategory, setSelectedItemCategory] = useState<any>();
+  const [selectedCustomer, setSelectedCustomer] = useState<any>();
   const [dataSource, setDataSource] = useState<any>([]); // to set the response data and display on the table
   const [viewMode, setViewMode] = useState("view"); // to make change of the view for create and edit
-  const [detailMode, setDetailMode] = useState("view");
   const [query, setQuery] = useState(""); // for search purpose to get the key
   const [openDialog, setOpenDialog] = useState(false);
-  const [fileUrl, setFileUrl] = useState<any>(null);
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
@@ -87,7 +96,7 @@ const ViewItemCategory = () => {
       type: "success",
       message: response.message,
     });
-    onFetchRole();
+    onFetchCustomer();
   };
 
   const onDeleteError = (response: any) => {
@@ -115,23 +124,23 @@ const ViewItemCategory = () => {
   };
 
   //   for get all data
-  const onFetchRole = () => {
+  const onFetchCustomer = () => {
     axios
-      .get(appUrl + `itemCategorys?search=${query}`)
+      .get(appUrl + `customers?search=${query}`)
       .then((res) => {
         setLoading(false);
         setDataSource(res.data);
       })
       .catch((error: any) => {
         setLoading(false);
-        onViewError(error.message);
+        onViewError(error.response.data.message);
       });
   };
 
   //   for delete the selected data using modal confirm dialog
   const showConfirm = (value: any) => {
     confirm({
-      title: "Do you want to delete these category?",
+      title: "Do you want to delete these customer?",
       icon: <ExclamationCircleFilled />,
       content: "You are unable to undo the deletion of this.",
       okText: "Yes",
@@ -139,7 +148,7 @@ const ViewItemCategory = () => {
       cancelText: "No",
       onOk() {
         axios
-          .delete(appUrl + `itemCategorys/${value}`)
+          .delete(appUrl + `customers/${value}`)
           .then((response) => {
             onDeleteSuccess(response.data);
           })
@@ -152,32 +161,39 @@ const ViewItemCategory = () => {
   //   to fetch data using useEffect, when every time this page is loaded
   useEffect(() => {
     setLoading(true);
-    onFetchRole();
+    onFetchCustomer();
   }, [query]);
 
   //   identify the columns that has to display on the table
   const columns: any = [
     {
-      title: "Image",
-      dataIndex: "",
-      render: (record: any) => {
-        return (
-          <>
-            <Avatar
-              src={appUrl + `itemCategorys/uploads/${record.categoryImage}`}
-            ></Avatar>
-          </>
-        );
-      },
-    },
-    {
-      title: "Category",
-      dataIndex: "categoryName",
+      title: "Full Name",
+      dataIndex: "fullName",
       sorter: true,
     },
     {
-      title: "Description",
-      dataIndex: "categoryDescription",
+      title: "Email",
+      dataIndex: "email",
+      sorter: true,
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      sorter: true,
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      sorter: true,
+    },
+    {
+      title: "Sub City",
+      dataIndex: "subCity",
+      sorter: true,
+    },
+    {
+      title: "Town",
+      dataIndex: "town",
       sorter: true,
     },
     {
@@ -189,7 +205,7 @@ const ViewItemCategory = () => {
             <Tooltip title="Edit">
               <IconButton
                 onClick={() => {
-                  setSelectedItemCategory(record);
+                  setSelectedCustomer(record);
                   setViewMode("edit");
                   setOpenDialog(true);
                 }}
@@ -203,11 +219,11 @@ const ViewItemCategory = () => {
             <Tooltip title="Detail">
               <IconButton
                 onClick={() => {
-                  setSelectedItemCategory(record);
-                  setDetailMode("detail");
+                  setSelectedCustomer(record);
+                  setViewMode("detail");
                 }}
                 aria-label="detail"
-                color="warning"
+                color="secondary"
               >
                 <DetailsIcon />
               </IconButton>
@@ -236,98 +252,71 @@ const ViewItemCategory = () => {
         <Grid container spacing={4}>
           <Grid item xs={12}>
             <Paper elevation={3} className="main-content">
-              {detailMode == "view" && (
-                <Card
-                  className="main-content-card"
-                  title={
-                    <h2
-                      style={{
-                        marginRight: "90%",
-                        marginTop: "2%",
-                        marginBottom: "1%",
-                      }}
-                    >
-                      <b>Category</b>
-                    </h2>
-                  }
-                  extra={
-                    <Button
-                      variant="contained"
-                      color="success"
-                      size="small"
-                      onClick={() => {
-                        setOpenDialog(true);
-                        setViewMode("new");
-                      }}
-                    >
-                      New Category
-                    </Button>
-                  }
-                >
-                  <Card>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Input
-                          className="input-search"
-                          placeholder="input search text"
-                          addonAfter={<b>Search</b>}
-                          onKeyUp={(event: any) => onSearch(event.target.value)}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Table
-                          className="table-list"
-                          size="small"
-                          columns={columns}
-                          rowKey={(record) => record.id}
-                          dataSource={dataSource}
-                          pagination={tableParams.pagination}
-                          loading={loading}
-                          onChange={handleTableChange}
-                        />
-                      </Grid>
+              <Card
+                className="main-content-card"
+                title={
+                  <h2
+                    style={{
+                      marginRight: "90%",
+                      marginTop: "2%",
+                      marginBottom: "1%",
+                    }}
+                  >
+                    <b>Customer</b>
+                  </h2>
+                }
+              >
+                <Card>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Input
+                        className="input-search"
+                        placeholder="input search text"
+                        addonAfter={<b>Search</b>}
+                        onKeyUp={(event: any) => onSearch(event.target.value)}
+                      />
                     </Grid>
-                  </Card>
-
-                  {/* to open the dialog for create and update form */}
-                  <Dialogs
-                    openDialog={openDialog}
-                    setOpenDialog={openDialog}
-                    onFetchRole={onFetchRole}
-                    height="60%"
-                    maxHeight="435"
-                    children={
-                      <>
-                        {viewMode == "new" && (
-                          <CreateItemCategory
-                            //@ts-ignore
-                            selectedItemCategory={initialState}
-                            viewMode={viewMode}
-                            closeedit={() => setOpenDialog(false)}
-                          />
-                        )}
-                        {viewMode == "edit" && (
-                          <CreateItemCategory
-                            //@ts-ignore
-                            selectedItemCategory={selectedItemCategory}
-                            viewMode={viewMode}
-                            closeedit={() => setOpenDialog(false)}
-                          />
-                        )}
-                      </>
-                    }
-                  />
+                    <Grid item xs={12}>
+                      <Table
+                        className="table-list"
+                        size="small"
+                        columns={columns}
+                        rowKey={(record) => record.id}
+                        dataSource={dataSource}
+                        // dataSource={MokeData}
+                        pagination={tableParams.pagination}
+                        loading={loading}
+                        onChange={handleTableChange}
+                      />
+                    </Grid>
+                  </Grid>
                 </Card>
-              )}
 
-              {detailMode == "detail" && (
-                <DetailItemCategory
-                  //@ts-ignore
-                  selectedItemCategory={selectedItemCategory}
-                  viewMode={viewMode}
-                  closeedit={() => setDetailMode("view")}
+                {/* to open the dialog for create and update form */}
+                <Dialogs
+                  openDialog={openDialog}
+                  setOpenDialog={openDialog}
+                  height="70%"
+                  maxHeight="435"
+                  children={
+                    viewMode == "new" ? (
+                      <UpdateCustomer
+                        //@ts-ignore
+                        selectedCustomer={initialState}
+                        viewMode={viewMode}
+                        closeedit={() => setOpenDialog(false)}
+                      />
+                    ) : (
+                      <UpdateCustomer
+                        //@ts-ignore
+                        selectedCustomer={selectedCustomer}
+                        viewMode={viewMode}
+                        closeedit={() => setOpenDialog(false)}
+                      />
+                    )
+                  }
                 />
-              )}
+              </Card>
             </Paper>
           </Grid>
         </Grid>
@@ -337,4 +326,4 @@ const ViewItemCategory = () => {
   );
 };
 
-export default ViewItemCategory;
+export default ViewCustomer;
