@@ -5,12 +5,12 @@ export const userService = {
   },
 
   get currentUser(): any {
-    const user = localStorage.getItem("name");
-    return user ? user : null;
+    const name = localStorage.getItem("name");
+    return name ? name : null;
   },
 
   get token(): any {
-    const data = localStorage.getItem("token");
-    return data ? data : null;
+    const token = localStorage.getItem("token");
+    return token ? token : null;
   },
 };

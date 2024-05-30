@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Card, Input, Space, Table, Tooltip, Modal } from "antd";
 import type { GetProp, TableProps } from "antd";
-import { Grid, Paper, IconButton } from "@mui/material";
+import { Grid, Paper, IconButton, Avatar } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import UpdateCustomer from "../Update";
+import DetailCustomer from "../Detail";
 import { appUrl } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
@@ -61,6 +62,7 @@ const ViewCustomer = () => {
   const [selectedCustomer, setSelectedCustomer] = useState<any>();
   const [dataSource, setDataSource] = useState<any>([]); // to set the response data and display on the table
   const [viewMode, setViewMode] = useState("view"); // to make change of the view for create and edit
+  const [detailMode, setDetailMode] = useState("view");
   const [query, setQuery] = useState(""); // for search purpose to get the key
   const [openDialog, setOpenDialog] = useState(false);
   const [tableParams, setTableParams] = useState<TableParams>({
@@ -167,6 +169,19 @@ const ViewCustomer = () => {
   //   identify the columns that has to display on the table
   const columns: any = [
     {
+      title: "Photo",
+      dataIndex: "",
+      render: (record: any) => {
+        return (
+          <>
+            <Avatar
+              src={appUrl + `users/uploads/${record.profileImage}`}
+            ></Avatar>
+          </>
+        );
+      },
+    },
+    {
       title: "Full Name",
       dataIndex: "fullName",
       sorter: true,
@@ -184,16 +199,6 @@ const ViewCustomer = () => {
     {
       title: "Address",
       dataIndex: "address",
-      sorter: true,
-    },
-    {
-      title: "Sub City",
-      dataIndex: "subCity",
-      sorter: true,
-    },
-    {
-      title: "Town",
-      dataIndex: "town",
       sorter: true,
     },
     {
@@ -220,10 +225,10 @@ const ViewCustomer = () => {
               <IconButton
                 onClick={() => {
                   setSelectedCustomer(record);
-                  setViewMode("detail");
+                  setDetailMode("detail");
                 }}
                 aria-label="detail"
-                color="secondary"
+                color="warning"
               >
                 <DetailsIcon />
               </IconButton>
@@ -252,71 +257,82 @@ const ViewCustomer = () => {
         <Grid container spacing={4}>
           <Grid item xs={12}>
             <Paper elevation={3} className="main-content">
-              <Card
-                className="main-content-card"
-                title={
-                  <h2
-                    style={{
-                      marginRight: "90%",
-                      marginTop: "2%",
-                      marginBottom: "1%",
-                    }}
-                  >
-                    <b>Customer</b>
-                  </h2>
-                }
-              >
-                <Card>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Input
-                        className="input-search"
-                        placeholder="input search text"
-                        addonAfter={<b>Search</b>}
-                        onKeyUp={(event: any) => onSearch(event.target.value)}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Table
-                        className="table-list"
-                        size="small"
-                        columns={columns}
-                        rowKey={(record) => record.id}
-                        dataSource={dataSource}
-                        // dataSource={MokeData}
-                        pagination={tableParams.pagination}
-                        loading={loading}
-                        onChange={handleTableChange}
-                      />
-                    </Grid>
-                  </Grid>
-                </Card>
-
-                {/* to open the dialog for create and update form */}
-                <Dialogs
-                  openDialog={openDialog}
-                  setOpenDialog={openDialog}
-                  height="70%"
-                  maxHeight="435"
-                  children={
-                    viewMode == "new" ? (
-                      <UpdateCustomer
-                        //@ts-ignore
-                        selectedCustomer={initialState}
-                        viewMode={viewMode}
-                        closeedit={() => setOpenDialog(false)}
-                      />
-                    ) : (
-                      <UpdateCustomer
-                        //@ts-ignore
-                        selectedCustomer={selectedCustomer}
-                        viewMode={viewMode}
-                        closeedit={() => setOpenDialog(false)}
-                      />
-                    )
+              {detailMode == "view" && (
+                <Card
+                  className="main-content-card"
+                  title={
+                    <h2
+                      style={{
+                        marginRight: "90%",
+                        marginTop: "2%",
+                        marginBottom: "1%",
+                      }}
+                    >
+                      <b>Customer</b>
+                    </h2>
                   }
+                >
+                  <Card>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Input
+                          className="input-search"
+                          placeholder="input search text"
+                          addonAfter={<b>Search</b>}
+                          onKeyUp={(event: any) => onSearch(event.target.value)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Table
+                          className="table-list"
+                          size="small"
+                          columns={columns}
+                          rowKey={(record) => record.id}
+                          dataSource={dataSource}
+                          // dataSource={MokeData}
+                          pagination={tableParams.pagination}
+                          loading={loading}
+                          onChange={handleTableChange}
+                        />
+                      </Grid>
+                    </Grid>
+                  </Card>
+
+                  {/* to open the dialog for create and update form */}
+                  <Dialogs
+                    openDialog={openDialog}
+                    setOpenDialog={openDialog}
+                    height="70%"
+                    maxHeight="435"
+                    children={
+                      viewMode == "new" ? (
+                        <UpdateCustomer
+                          //@ts-ignore
+                          selectedCustomer={initialState}
+                          viewMode={viewMode}
+                          closeedit={() => setOpenDialog(false)}
+                        />
+                      ) : (
+                        <UpdateCustomer
+                          //@ts-ignore
+                          selectedCustomer={selectedCustomer}
+                          viewMode={viewMode}
+                          closeedit={() => setOpenDialog(false)}
+                        />
+                      )
+                    }
+                  />
+                </Card>
+              )}
+
+              {detailMode == "detail" && (
+                <DetailCustomer
+                  //@ts-ignore
+                  selectedCustomer={selectedCustomer}
+                  detailMode={detailMode}
+                  closeedit={() => setDetailMode("view")}
                 />
-              </Card>
+              )}
             </Paper>
           </Grid>
         </Grid>

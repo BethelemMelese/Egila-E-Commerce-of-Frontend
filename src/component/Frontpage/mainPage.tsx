@@ -72,21 +72,16 @@ const navItems = [
   },
   {
     key: 2,
-    name: "Products",
-    route: "Products",
-  },
-  {
-    key: 3,
     name: "New Arrival",
     route: "NewArrival",
   },
   {
-    key: 4,
+    key: 3,
     name: "Category",
     route: "Category",
   },
   {
-    key: 5,
+    key: 4,
     name: "Login",
     route: "login",
   },

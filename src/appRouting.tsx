@@ -14,11 +14,13 @@ import ViewRole from "./component/Role/View";
 import ViewItemCategory from "./component/ItemCategory/View";
 import ViewCustomer from "./component/Customer/View";
 import ViewSalesPerson from "./component/SalesPerson/View";
+import Missing from "./component/MissingPage/MissingPage";
+import Setting from "./component/Setting";
 import "./css/style.css";
 import "./css/mediaQuery.css";
 import "./App.css";
 import { AutoRout } from "./component/polices/AutoRoute";
-import Missing from "./component/MissingPage/MissingPage";
+
 
 const AppRoute = () => {
   return (
@@ -51,6 +53,7 @@ const AppRoute = () => {
           <Route path="viewCategory" element={<ViewItemCategory />} />
           <Route path="viewCustomer" element={<ViewCustomer />} />
           <Route path="viewSalesPerson" element={<ViewSalesPerson />} />
+          <Route path="setting" element={<Setting/>}/>
         </Route>
       </Routes>
     </div>

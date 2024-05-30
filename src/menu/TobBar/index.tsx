@@ -12,8 +12,8 @@ const Topbar = ({ ...props }) => {
         <Header
           style={{
             backgroundImage:
-              "linear-gradient(to right,#f00538, #ff7f16,hsl(0, 0%, 100%),hsl(0, 0%, 100%))",
-            height: 75,
+              "linear-gradient(to right,#f00538, #ff7f16,hsl(0, 0%, 100%))",
+            height: 70,
           }}
         >
           <AppNavBar />

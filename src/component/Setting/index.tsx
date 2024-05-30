@@ -1,0 +1,237 @@
+import React, { useEffect, useState } from "react";
+import { Grid, InputLabel, Paper, Badge, Tooltip } from "@mui/material";
+import { Card, List } from "antd";
+import { Avatar, Divider } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SyncLockIcon from "@mui/icons-material/SyncLock";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import { userService } from "../polices/userService";
+import axios from "axios";
+import { appUrl } from "../../appurl";
+import Notification from "../../commonComponent/notification";
+import { useNavigate } from "react-router-dom";
+import ChangePassword from "./changePassword";
+import EditProfile from "./editProfile";
+import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
+import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
+import Dialogs from "../../commonComponent/dialog";
+
+const data = [
+  {
+    title: "User Info",
+    viewMode: "info",
+    icon: <PermIdentityIcon />,
+  },
+  {
+    title: "Edit Profile",
+    viewMode: "editProfile",
+    icon: <AccountCircleIcon />,
+  },
+  {
+    title: "Change Password",
+    viewMode: "changePassword",
+    icon: <SyncLockIcon />,
+  },
+  {
+    title: "Logout",
+    viewMode: "logOut",
+    icon: <LogoutIcon />,
+  },
+];
+
+const Setting = () => {
+  const [viewMode, setViewMode] = useState("info");
+  const [response, setResponse] = useState<any>();
+  const [openDialog, setOpenDialog] = useState(false);
+  const navigate = useNavigate();
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+  const onFetchSuccess = (response: any) => {
+    setResponse(response);
+  };
+
+  const onFetchError = (error: any) => {
+    setNotify({
+      isOpen: true,
+      message: "error",
+      type: "error",
+    });
+  };
+
+  useEffect(() => {
+    const userToken = userService.token;
+
+    axios
+      .get(appUrl + `users/UserInfo/${userToken}`)
+      .then((response: any) => onFetchSuccess(response.data))
+      .catch((error: any) => onFetchError(error));
+  }, []);
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("name");
+    localStorage.removeItem("role");
+    navigate("/login");
+  };
+
+  return (
+    <div className="setting-container">
+      {response != undefined && (
+        <Grid container spacing={4}>
+          <Grid item xs={4}>
+            <Paper elevation={3}>
+              <Card title="Setting">
+                <List
+                  itemLayout="horizontal"
+                  dataSource={data}
+                  size="default"
+                  bordered
+                  renderItem={(item) => (
+                    <List.Item>
+                      <List.Item.Meta
+                        avatar={
+                          <div className="profile-menu-icon">{item.icon}</div>
+                        }
+                        title={
+                          <div className="profile-menu-title">
+                            <a
+                              onClick={() => {
+                                item.viewMode != "logOut"
+                                  ? setViewMode(item.viewMode)
+                                  : logOut();
+                              }}
+                            >
+                              {item.title}
+                            </a>
+                          </div>
+                        }
+                      />
+                    </List.Item>
+                  )}
+                />
+              </Card>
+
+              <Dialogs
+                openDialog={openDialog}
+                setOpenDialog={openDialog}
+                height="55%"
+                maxHeight="435"
+                children={
+                  <Card title="Edit Profile Photo">
+
+                  </Card>
+                }
+              />
+            </Paper>
+          </Grid>
+          <Grid item xs={8}>
+            <Paper elevation={3}>
+              {viewMode == "info" && (
+                <Card title="User Info">
+                  {response != undefined && (
+                    <Card>
+                      <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                          <Badge
+                            overlap="circular"
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "right",
+                            }}
+                            badgeContent={
+                              <a>
+                                <Tooltip title="Edit Profile Photo">
+                                  <ModeEditOutlineIcon
+                                    fontSize="large"
+                                    style={{
+                                      background: "#efefef",
+                                      color: "#000",
+                                      borderRadius: "50%",
+                                    }}
+                                  />
+                                </Tooltip>
+                              </a>
+                            }
+                          >
+                            <Avatar
+                              src={
+                                appUrl +
+                                `users/uploads/${response.profileImage}`
+                              }
+                              sx={{ width: 120, height: 120 }}
+                              className="profile-image"
+                              // onClick={()=> }
+                            ></Avatar>
+                          </Badge>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <InputLabel>First Name: </InputLabel>
+                          <h4>{response.firstName}</h4>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <InputLabel>Middle Name: </InputLabel>
+                          <h4>{response.middleName}</h4>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <InputLabel>Last Name: </InputLabel>
+                          <h4>{response.lastName}</h4>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <InputLabel>Username:</InputLabel>
+                          <h4>{response.username}</h4>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <InputLabel>Email: </InputLabel>
+                          <h4>{response.email}</h4>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <InputLabel>Phone: </InputLabel>
+                          <h4>{response.phone}</h4>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <InputLabel>Address: </InputLabel>
+                          <h4>{response.address}</h4>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <InputLabel>Sub City: </InputLabel>
+                          <h4>{response.subCity}</h4>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <InputLabel>Town: </InputLabel>
+                          <h4>{response.town}</h4>
+                        </Grid>
+                      </Grid>
+                    </Card>
+                  )}
+                </Card>
+              )}
+
+              {viewMode == "editProfile" && (
+                <EditProfile
+                  viewMode={viewMode}
+                  closeedit={() => setViewMode("info")}
+                  editProfile={response}
+                />
+              )}
+              {viewMode == "changePassword" && (
+                <ChangePassword
+                  viewMode={viewMode}
+                  closeedit={() => setViewMode("info")}
+                  editProfile={response}
+                />
+              )}
+            </Paper>
+          </Grid>
+        </Grid>
+      )}
+
+      <Notification notify={notify} setNotify={setNotify} />
+    </div>
+  );
+};
+
+export default Setting;

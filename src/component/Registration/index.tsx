@@ -63,7 +63,7 @@ const Register = () => {
       .required("Password is Required"),
     confirmPassword: Yup.string()
       .required("Confirm Password is required")
-      .min(6)
+      .min(8)
       .oneOf([Yup.ref("password")], "Password must match"),
   });
 

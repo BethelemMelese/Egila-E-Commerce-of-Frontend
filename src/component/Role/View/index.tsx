@@ -3,7 +3,6 @@ import { Card, Input, Space, Table, Tooltip, Modal } from "antd";
 import type { GetProp, TableProps } from "antd";
 import { Grid, Button, Paper, IconButton } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
-import DetailsIcon from "@mui/icons-material/Details";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CreateRole from "../Create";
 import { appUrl } from "../../../appurl";
@@ -276,7 +275,6 @@ const ViewRole = () => {
                 <Dialogs
                   openDialog={openDialog}
                   setOpenDialog={openDialog}
-                  onFetchRole={onFetchRole}
                   height="55%"
                   maxHeight="435"
                   children={

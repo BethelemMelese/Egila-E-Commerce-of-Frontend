@@ -1,4 +1,3 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -6,8 +5,25 @@ import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Images from "../../Images/ProfilePhoto.jpg";
 import { Avatar, Divider } from "@mui/material";
+import { userService } from "../../component/polices/userService";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { appUrl } from "../../appurl";
 
 const AppNavBar = () => {
+  const token = userService.token;
+  const [userInfo, setUserInfo] = useState<any>();
+  const onFetchSuccess = (response: any) => {
+    setUserInfo(response);
+  };
+  const onFetchError = (error: any) => {};
+  useEffect(() => {
+    axios
+      .get(appUrl + `users/UserInfo/${token}`)
+      .then((response: any) => onFetchSuccess(response.data))
+      .catch((error: any) => onFetchError(error));
+  }, []);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Toolbar>
@@ -25,16 +41,21 @@ const AppNavBar = () => {
 
           <IconButton sx={{ p: 1 }}>
             <Divider />
-            <Badge
-              badgeContent="Bethisha"
-              color="warning"
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-            >
-              <Avatar src={Images} sx={{ width: 50, height: 50 }}></Avatar>
-            </Badge>
+            {userInfo != undefined && (
+              <Badge
+                badgeContent={userInfo.firstName}
+                color="warning"
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+              >
+                <Avatar
+                  src={appUrl + `users/uploads/${userInfo.profileImage}`}
+                  sx={{ width: 50, height: 50 }}
+                ></Avatar>
+              </Badge>
+            )}
           </IconButton>
         </Box>
       </Toolbar>

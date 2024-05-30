@@ -3,7 +3,7 @@ import { TextField, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const Input = ({ ...props }) => {
-  const { name, label, value, error = null, onChange, ...other } = props
+  const { name, variant, label, value, error = null, onChange, ...other } = props
   return (
     <TextField
       variant="outlined"

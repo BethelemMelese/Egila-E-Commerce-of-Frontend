@@ -8,7 +8,70 @@ html {
   margin-left: 16%;
   margin-right: 1%;
   margin-bottom: 5%;
-  background-color: #efefef;
+  background-color: #f4efef;
+}
+
+.home-container {
+  margin-top: 2%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 1%;
+}
+
+.setting-container {
+  margin-top: 2%;
+  margin-left: 18%;
+  margin-right: 5%;
+  margin-bottom: 1%;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-layout {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  min-height: 0;
+  background: #f4efef;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-card .ant-card-head-title {
+  display: inline-block;
+  flex: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-list
+  .ant-list-item
+  .ant-list-item-meta
+  .ant-list-item-meta-title {
+  margin: 0 0 4px 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  margin-top: 5px;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-descriptions
+  .ant-descriptions-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  /* flex: 0; */
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 2;
+  margin-right: 86%;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-descriptions
+  [class^="ant-descriptions"],
+:where(.css-dev-only-do-not-override-1okl62o).ant-descriptions
+  [class*=" ant-descriptions"] {
+  box-sizing: border-box;
+  margin-bottom: 6px;
+  margin-left: 10px;
 }
 
 .loginPaper {
@@ -349,9 +412,45 @@ span {
   margin-left: 16px;
 }
 
-/* for the CRUD component */
-.main-content .main-content-card {
-  /* border-radius: 50%; */
+/* For the dashboard */
+
+.home-page {
+  width: 82%;
+  margin-left: 16%;
+  /* margin-top: 1.5%; */
+}
+
+.card-item {
+  border-radius: 2%;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+  /* margin-left: 20%; */
+  border-radius: 10%;
+  box-shadow: 0 1px 1px 0 rgba(243, 243, 243, 0.804);
+  background-image: linear-gradient(
+    to right,
+    hsl(348, 45%, 96%),
+    #fadcc1,
+    hsl(345, 82%, 87%)
+  );
+  width: 60px;
+  padding: 10px;
+}
+
+.card-title {
+  margin-right: 50%;
+}
+
+.card-subTitle {
+  margin-right: 35%;
+}
+
+.area-chart {
+  max-width: 750;
+  max-height: 325;
+  margin-right: 100%;
 }
 
 .table-list {
@@ -403,24 +502,42 @@ span {
 }
 
 /* for No Permission page */
-.error-message{
+.error-message {
   margin-top: 8%;
   background-color: #fff;
   padding-bottom: 5%;
   padding-top: 1%;
 }
 
-.missing-of-btn{
+.missing-of-btn {
   margin-left: 20%;
 }
-.miss-btn1, .miss-btn2 {
+.miss-btn1,
+.miss-btn2 {
   display: block;
   margin-right: 20%;
 }
-/* .miss-btn1 {
-  float: left;
-}
-.miss-btn2 {
-  float: right;
 
-} */
+/* for setting component and related with that */
+.profile-image {
+  margin: 0px auto;
+}
+
+.profile-menu-icon {
+  border-radius: 100%;
+  margin-left: 200%;
+  margin-top: 5px;
+}
+
+.profile-menu-title a {
+  color: #000;
+}
+
+.profile-menu-title a:hover {
+  color: #ab213f;
+}
+
+.chan-password-btn{
+  margin-bottom: 50px;
+  margin-top: 20px;
+}

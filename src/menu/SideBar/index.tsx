@@ -11,6 +11,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import ControlCameraIcon from "@mui/icons-material/ControlCamera";
 import ExtensionIcon from "@mui/icons-material/Extension";
 import AppShortcutIcon from "@mui/icons-material/AppShortcut";
+import GridViewIcon from '@mui/icons-material/GridView';
 import Images from "../../Images/Logo 4.png";
 import { Link, NavLink } from "react-router-dom";
 import { Divider, Paper } from "@mui/material";
@@ -19,8 +20,8 @@ const Sidebar: React.FC = () => {
   const items: any = [
     {
       key: "1",
-      icon: <IconDashboard />,
-      label: "Home",
+      icon: <GridViewIcon />,
+      label: "Dashboard",
       path: "/egila/home",
       cName: "nav-text",
       nActive: "active",
@@ -109,7 +110,7 @@ const Sidebar: React.FC = () => {
       key: "12",
       icon: <SettingsIcon />,
       label: "Setting",
-      path: "/egila/Setting",
+      path: "/egila/setting",
       cName: "nav-text",
       nActive: "active",
     },
