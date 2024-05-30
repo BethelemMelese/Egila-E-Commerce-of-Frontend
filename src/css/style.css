@@ -454,7 +454,7 @@ span {
 }
 
 .table-list {
-  /* background-image: linear-gradient(to right, #f4d7c0, hsl(346, 73%, 90%)); */
+  /* background-image: linear-gradient(to right, #f5e6da, hsl(346, 72%, 94%)); */
   color: #fff;
 }
 
@@ -537,7 +537,17 @@ span {
   color: #ab213f;
 }
 
-.chan-password-btn{
+.chan-password-btn {
   margin-bottom: 50px;
   margin-top: 20px;
 }
+
+.upload-pp {
+  margin-left: 30%;
+}
+
+.text-danger{
+  color: red;
+}
+
+

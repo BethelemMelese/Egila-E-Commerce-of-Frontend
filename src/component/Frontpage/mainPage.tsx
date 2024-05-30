@@ -14,7 +14,7 @@ import { Card, Col, Row, Avatar } from "antd";
 import { IconButton, Grid, Divider, Button, Paper } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge, { BadgeProps } from "@mui/material/Badge";
-import Dialogs from "../../commonComponent/dialog";
+import {Dialogs} from "../../commonComponent/dialog";
 
 const { Meta } = Card;
 

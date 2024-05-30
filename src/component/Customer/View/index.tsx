@@ -10,7 +10,7 @@ import { appUrl } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import Dialogs from "../../../commonComponent/dialog";
+import {Dialogs} from "../../../commonComponent/dialog";
 import DetailsIcon from "@mui/icons-material/Details";
 
 const { confirm } = Modal;

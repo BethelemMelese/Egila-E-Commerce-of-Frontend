@@ -17,6 +17,7 @@
     "@types/react": "^18.2.78",
     "@types/react-dom": "^18.2.25",
     "antd": "^5.17.0",
+    "antd-img-crop": "^4.22.0",
     "axios": "^1.6.8",
     "formik": "^2.4.5",
     "framer-motion": "^11.1.9",

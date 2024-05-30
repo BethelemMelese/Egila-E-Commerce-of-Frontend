@@ -12,7 +12,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const Dialogs = ({ ...props }) => {
+ export const Dialogs = ({ ...props }) => {
   const { children, openDialog, setOpenDialog, height, maxHeight } = props;
 
   return (
@@ -35,4 +35,28 @@ const Dialogs = ({ ...props }) => {
     </React.Fragment>
   );
 };
-export default Dialogs;
+
+export const SamllDialogs = ({ ...props }) => {
+  const { children, openDialog, setOpenDialog, height, maxHeight } = props;
+
+  return (
+    <React.Fragment>
+      <BootstrapDialog
+        aria-labelledby="customized-dialog-title"
+        open={openDialog}
+        sx={{
+          "& .MuiDialog-paper": {
+            width: "20%",
+            height: height,
+            maxHeight: maxHeight,
+          },
+        }}
+        // fullWidth={true}
+        maxWidth="sm"
+      >
+        <DialogContent dividers>{children}</DialogContent>
+      </BootstrapDialog>
+    </React.Fragment>
+  );
+};
+
