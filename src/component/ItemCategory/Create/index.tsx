@@ -31,7 +31,6 @@ const CreateItemCategory = ({ ...props }) => {
   const [fileList, setFileList] = useState<any>();
   const [validFileFormat, setValidFileFormat] = useState(false);
   const [fileRequired, setFileRequired] = useState(false);
-
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -113,6 +112,7 @@ const CreateItemCategory = ({ ...props }) => {
           setFileRequired(true);
         } else {
           setFileRequired(false);
+          setIsSubmitting(true);
           const formData = new FormData();
           formData.append("file", fileList);
           formData.append("categoryName", values.categoryName);
@@ -123,6 +123,7 @@ const CreateItemCategory = ({ ...props }) => {
             .catch((error) => onCreateError(error.response.data.message));
         }
       } else {
+        setIsSubmitting(true);
         const formData = new FormData();
         formData.append(
           "file",
@@ -152,7 +153,6 @@ const CreateItemCategory = ({ ...props }) => {
       setValidFileFormat(true);
     }
   };
-
 
   return (
     <div className="create-card">

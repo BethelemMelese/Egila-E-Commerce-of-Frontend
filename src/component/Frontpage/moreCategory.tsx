@@ -1,44 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "antd";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { Grid } from "@mui/material";
-import Images2 from "../../Images/pcs.jpg";
-import Images3 from "../../Images/brad-pouncy.jpg";
+import { Grid, Paper } from "@mui/material";
 import { List, Space } from "antd";
-
-const itemModeData = [
-  {
-    id: 1,
-    itemName: "Item One",
-    itemDescription: "Item One Description",
-    quantity: 4,
-    brand: "New Brand",
-  },
-  {
-    id: 2,
-    itemName: "Item One",
-    itemDescription: "Item One Description",
-    quantity: 4,
-    brand: "New Brand",
-  },
-  {
-    id: 3,
-    itemName: "Item One",
-    itemDescription: "Item One Description",
-    quantity: 4,
-    brand: "New Brand",
-  },
-  {
-    id: 4,
-    itemName: "Item One",
-    itemDescription: "Item One Description",
-    quantity: 4,
-    brand: "New Brand",
-  },
-];
+import axios from "axios";
+import { appUrl } from "../../appurl";
 
 const MoreCategory = ({ ...props }) => {
   const [selectedMore, setSelectedMore] = useState(props.selectedMore);
+  const [response, setResponse] = useState<any>([]);
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+
+  const onFetchError = (response: any) => {
+    setNotify({
+      isOpen: true,
+      type: "error",
+      message: response,
+    });
+  };
+
+  console.log("response...", response);
+
+  useEffect(() => {
+    axios
+      .get(appUrl + `items/categoryId/${selectedMore.id}`)
+      .then((response) => setResponse(response.data))
+      .catch((error) => onFetchError(error.response.data.message));
+  }, []);
 
   return (
     <div>
@@ -56,27 +48,22 @@ const MoreCategory = ({ ...props }) => {
               <Grid container spacing={2}>
                 <Grid item xs={5}>
                   <img
-                    src={Images2}
+                    src={
+                      appUrl +
+                      `itemCategorys/uploads/${selectedMore.categoryImage}`
+                    }
                     alt="Category Image"
                     width="300"
-                    height="250"
+                    height="200"
                     className="detail-img"
                   />
                 </Grid>
                 <Grid item xs={6}>
-                  {/* <Card title={<b>{selectedMore.categoryName}</b>}> */}
-                  {/* <h5>{selectedMore.categoryDescription}</h5> */}
                   <h4>
                     <b>{selectedMore.categoryName}</b>
                   </h4>
                   <br />
-                  <p>
-                    We supply a series of design principles, practical patterns
-                    and high quality design resources (Sketch and Axure), to
-                    help people create their product prototypes beautifully and
-                    efficiently.
-                  </p>
-                  {/* </Card> */}
+                  <p>{selectedMore.categoryDescription}</p>
                 </Grid>
               </Grid>
             </Card>
@@ -89,17 +76,19 @@ const MoreCategory = ({ ...props }) => {
                 pagination={{
                   pageSize: 2,
                 }}
-                dataSource={itemModeData}
-                renderItem={(item) => (
+                dataSource={response}
+                renderItem={(item: any) => (
                   <List.Item
                     key={item.id}
                     extra={
-                      <img
-                        width="100"
-                        height="100"
-                        alt="Item Image"
-                        src={Images3}
-                      />
+                      <Paper elevation={1}>
+                        <img
+                          width={272}
+                          height={200}
+                          alt="Item Image"
+                          src={appUrl + `items/uploads/${item.itemImage}`}
+                        />
+                      </Paper>
                     }
                   >
                     <List.Item.Meta
@@ -107,8 +96,12 @@ const MoreCategory = ({ ...props }) => {
                       description={item.itemDescription}
                     />
                     Brand: {item.brand}
-                    <br/>
+                    <br />
                     Quantity: {item.quantity}
+                    <br />
+                    <h4>
+                      <b>Price: {item.price}</b>{" "}
+                    </h4>
                   </List.Item>
                 )}
               />

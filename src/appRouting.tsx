@@ -6,6 +6,8 @@ import Home from "./component/Home";
 import Topbar from "./menu/TobBar";
 import Layout from "./menu/layout";
 import MainPage from "./component/Frontpage/mainPage";
+import NewArrival from "./component/Frontpage/newArrival";
+import Category from "./component/Frontpage/category";
 import NoPermission from "./component/NoPermission";
 import Unauthorized from "./component/Unauthorized";
 import Notification from "./commonComponent/notification";
@@ -16,19 +18,24 @@ import ViewCustomer from "./component/Customer/View";
 import ViewSalesPerson from "./component/SalesPerson/View";
 import Missing from "./component/MissingPage/MissingPage";
 import Setting from "./component/Setting";
+import Report from "./component/Report";
+import SampleExample from "./component/Sample";
+import ChangePassword from "./component/Setting/changePassword";
 import "./css/style.css";
 import "./css/mediaQuery.css";
 import "./App.css";
 import { AutoRout } from "./component/polices/AutoRoute";
-
 
 const AppRoute = () => {
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<MainPage />} />
+        <Route path="newArrival" element={<NewArrival />} />
+        <Route path="category" element={<Category />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="sample" element={<SampleExample/>}/>
         <Route
           path="Notification"
           element={
@@ -44,7 +51,6 @@ const AppRoute = () => {
         <Route path="NoPermission" element={<NoPermission />} />
         <Route path="Unauthorized" element={<Unauthorized />} />
         <Route path="/*" element={<Missing />} />
-        <Route path="topBar" element={<Topbar />} />
 
         <Route path="egila" element={<AutoRout component={Layout} />}>
           <Route path="home" element={<Home />} />
@@ -53,7 +59,9 @@ const AppRoute = () => {
           <Route path="viewCategory" element={<ViewItemCategory />} />
           <Route path="viewCustomer" element={<ViewCustomer />} />
           <Route path="viewSalesPerson" element={<ViewSalesPerson />} />
-          <Route path="setting" element={<Setting/>}/>
+          <Route path="setting" element={<Setting />} />
+          <Route path="report" element={<Report />} />
+          <Route path="changePassword" element={<ChangePassword />} />
         </Route>
       </Routes>
     </div>

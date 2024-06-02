@@ -26,6 +26,15 @@ const DetailItemCategory = ({ ...props }) => {
       }
     >
       <Form autoComplete="off">
+        <img
+          alt="Category Image"
+          src={
+            appUrl +
+            `itemCategorys/uploads/${selectedItemCategory.categoryImage}`
+          }
+          width="20%"
+          style={{ maxHeight: "50%", borderRadius: "5%", float: "left" }}
+        />
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <Controls.Input
@@ -43,19 +52,6 @@ const DetailItemCategory = ({ ...props }) => {
               multiline
               disabled
               value={selectedItemCategory.categoryDescription}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <img
-              alt="Category Image"
-              src={
-                appUrl +
-                `itemCategorys/uploads/${selectedItemCategory.categoryImage}`
-              }
-              width="50%"
-              height="30%"
-              style={{maxHeight:"50%", borderRadius:"5%"}}
             />
           </Grid>
         </Grid>

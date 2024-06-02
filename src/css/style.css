@@ -196,6 +196,8 @@ html {
 
 .gallery {
   border-radius: 20px;
+  max-width: 720px;
+  max-height: 660px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -206,7 +208,9 @@ html {
 
 .gallery img {
   width: 100%;
-  height: auto;
+  /* height: auto; */
+  max-width: 720px;
+  max-height: 100px;
   background-color: white;
 }
 
@@ -235,6 +239,48 @@ html {
 .detail-img {
   border-radius: 8px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.arrival-container {
+  margin-top: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.arrival-search {
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
+.category-container {
+  margin-top: 50px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.category-displays {
+  margin-top: 20px;
+}
+
+.category-search {
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+.category-menu {
+  margin-right: 60%;
+}
+
+.category-list {
+  background-color: rgb(249, 225, 214);
+  border-radius: 5px;
+  border-left: 6px solid rgb(254, 104, 39);
+  border-bottom: 1px solid rgb(243, 142, 99);
+}
+
+.category-list:hover {
+  background-color: #fffcfc;
+  border-radius: 5px;
 }
 
 /* for the Nav bar */
@@ -546,8 +592,13 @@ span {
   margin-left: 30%;
 }
 
-.text-danger{
+.text-danger {
   color: red;
 }
 
-
+.report-btn {
+  width: 10%;
+  background-image: linear-gradient(to right, #ff7f16, #f00538);
+  float: right;
+  text-align: left;
+}

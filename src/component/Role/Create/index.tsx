@@ -10,12 +10,12 @@ import { Grid, Typography, Button } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Notification from "../../../commonComponent/notification";
 
-interface ItemState {
+interface RoleState {
   roleName: string;
   roleDescription: string;
 }
 
-const initialState: ItemState = {
+const initialState: RoleState = {
   roleName: "",
   roleDescription: "",
 };
@@ -79,7 +79,7 @@ const CreateRole = ({ ...props }) => {
     setNotify({
       isOpen: true,
       type: "error",
-      message: response.message,
+      message: response,
     });
     setTimeout(() => {
       setIsSubmitting(false);

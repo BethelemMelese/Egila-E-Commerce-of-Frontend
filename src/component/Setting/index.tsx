@@ -53,8 +53,8 @@ const Setting = () => {
   const [imageUrl, setImageUrl] = useState<any>();
   const [validFormat, setValidFormat] = useState(false);
   const [imageSize, setImageSize] = useState(false);
-
   const navigate = useNavigate();
+  
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",

@@ -45,6 +45,8 @@ const Register = () => {
   const [roleResponse, setRoleResponse] = useState<any>([]);
   const navigate = useNavigate();
 
+  const stringRegExp = /^[a-zA-Z_-_ ]*$/;
+
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
     middleName: Yup.string().required("Middle Name is required"),

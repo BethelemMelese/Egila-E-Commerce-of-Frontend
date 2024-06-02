@@ -29,7 +29,7 @@ const initialState: ItemState = {
   username: "",
   address: "",
 };
-const CreateSalesPerson = ({ ...props }) => {
+const EditSalesPerson = ({ ...props }) => {
   const [viewMode, setViewMode] = useState(props.viewMode);
   const [selectedSalesPerson, setSelectedSalesPerson] = useState(
     props.selectedSalesPerson
@@ -51,11 +51,11 @@ const CreateSalesPerson = ({ ...props }) => {
     }
   }, [props.viewMode, props.selectedSalesPerson]);
 
-  const onCreateSuccess = () => {
+  const onUpdateSuccess = () => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: "Sales Person is Successfully Registered !",
+      message: "Sales Person is Successfully Modified !",
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -63,11 +63,11 @@ const CreateSalesPerson = ({ ...props }) => {
     }, 2000);
   };
 
-  const onCreateError = (response: any) => {
+  const onUpdateError = (response: any) => {
     setNotify({
       isOpen: true,
       type: "error",
-      message: response,
+      message: response.message,
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -77,12 +77,7 @@ const CreateSalesPerson = ({ ...props }) => {
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
     middleName: Yup.string().required("Middle Name is required"),
-    email: Yup.string()
-      .email("Please insert the correct email")
-      .required("Email is required"),
-    phone: Yup.string().required("Phone is required"),
     address: Yup.string().required("Address is required"),
-    username: Yup.string().required("Username is required"),
   });
 
   const formik = useFormik({
@@ -90,9 +85,9 @@ const CreateSalesPerson = ({ ...props }) => {
     onSubmit: (values) => {
       setIsSubmitting(true);
       axios
-        .post(appUrl + "salesPersons", values)
-        .then(() => onCreateSuccess())
-        .catch((error) => onCreateError(error.response.data.message));
+        .put(appUrl + `salesPersons/${selectedSalesPerson.id}`, values)
+        .then(() => onUpdateSuccess())
+        .catch((error) => onUpdateError(error.response.data.message));
     },
     validationSchema: validationSchema,
   });
@@ -104,7 +99,7 @@ const CreateSalesPerson = ({ ...props }) => {
           <h3
             style={{ marginRight: "87%", marginTop: "2%", marginBottom: "1%" }}
           >
-            <b>Add Sales Person</b>
+            <b>Modify Sales Person</b>
           </h3>
         }
         extra={
@@ -157,7 +152,6 @@ const CreateSalesPerson = ({ ...props }) => {
                 }
               />
             </Grid>
-
             <Grid item xs={4}>
               <Controls.Input
                 className="inputField"
@@ -172,22 +166,6 @@ const CreateSalesPerson = ({ ...props }) => {
                 }
               />
             </Grid>
-
-            <Grid item xs={4}>
-              <Controls.Input
-                className="inputField"
-                id="username"
-                label="Username"
-                type="username"
-                {...formik.getFieldProps("username")}
-                error={
-                  formik.touched.username && formik.errors.username
-                    ? formik.errors.username
-                    : ""
-                }
-              />
-            </Grid>
-
             <Grid item xs={4}>
               <Controls.Input
                 className="inputField"
@@ -270,4 +248,4 @@ const CreateSalesPerson = ({ ...props }) => {
   );
 };
 
-export default CreateSalesPerson;
+export default EditSalesPerson;

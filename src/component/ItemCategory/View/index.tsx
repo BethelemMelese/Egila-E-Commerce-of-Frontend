@@ -11,7 +11,7 @@ import { appUrl } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import {Dialogs} from "../../../commonComponent/dialog";
+import { Dialogs } from "../../../commonComponent/dialog";
 
 const { confirm } = Modal;
 
@@ -87,7 +87,7 @@ const ViewItemCategory = () => {
       type: "success",
       message: response.message,
     });
-    onFetchRole();
+    onFetchItemCategory();
   };
 
   const onDeleteError = (response: any) => {
@@ -115,7 +115,7 @@ const ViewItemCategory = () => {
   };
 
   //   for get all data
-  const onFetchRole = () => {
+  const onFetchItemCategory = () => {
     axios
       .get(appUrl + `itemCategorys?search=${query}`)
       .then((res) => {
@@ -152,7 +152,7 @@ const ViewItemCategory = () => {
   //   to fetch data using useEffect, when every time this page is loaded
   useEffect(() => {
     setLoading(true);
-    onFetchRole();
+    onFetchItemCategory();
   }, [query]);
 
   //   identify the columns that has to display on the table
@@ -165,6 +165,7 @@ const ViewItemCategory = () => {
           <>
             <Avatar
               src={appUrl + `itemCategorys/uploads/${record.categoryImage}`}
+              variant="rounded"
             ></Avatar>
           </>
         );
@@ -240,13 +241,7 @@ const ViewItemCategory = () => {
                 <Card
                   className="main-content-card"
                   title={
-                    <h2
-                      style={{
-                        marginRight: "90%",
-                        marginTop: "2%",
-                        marginBottom: "1%",
-                      }}
-                    >
+                    <h2>
                       <b>Category</b>
                     </h2>
                   }
@@ -293,7 +288,6 @@ const ViewItemCategory = () => {
                   <Dialogs
                     openDialog={openDialog}
                     setOpenDialog={openDialog}
-                    onFetchRole={onFetchRole}
                     height="60%"
                     maxHeight="435"
                     children={
