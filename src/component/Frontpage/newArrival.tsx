@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import MainLayout from "./mainLayout";
 import axios from "axios";
 import { appUrl } from "../../appurl";
-import { Grid, Paper, AppBar, Box } from "@mui/material";
+import { Grid, Paper, AppBar, Box, Tooltip, Button } from "@mui/material";
 import { Card, Col, Input, Row } from "antd";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { v4 as uuidv4 } from "uuid";
 
 const NewArrival = () => {
   const [response, setResponse] = useState<any>([]);
@@ -34,6 +36,30 @@ const NewArrival = () => {
       .then((response) => setResponse(response.data))
       .catch((error) => onFetchError(error.response.data.message));
   }, [query]);
+
+  const OnAddCart = (item: any) => {
+    const uuid = uuidv4();
+    const sessionCartId = localStorage.getItem("UUCartId");
+    let data;
+    if (sessionCartId == null) {
+      data = {
+        itemId: item,
+        quantity: 1,
+        uuId: uuid,
+      };
+      localStorage.setItem("UUCartId", uuid);
+    } else {
+      data = {
+        itemId: item,
+        quantity: 1,
+        uuId: sessionCartId,
+      };
+    }
+    axios
+      .post(appUrl + "carts", data)
+      .then((response) => window.location.reload())
+      .catch((error) => onFetchError(error.response.data.message));
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -81,6 +107,17 @@ const NewArrival = () => {
                                         }}
                                       />
                                       <div className="desc">
+                                        <Tooltip title="Add To Cart">
+                                          <Button
+                                            variant="text"
+                                            size="small"
+                                            className="more-btn"
+                                            color="warning"
+                                            onClick={() => OnAddCart(item.id)}
+                                          >
+                                            <AddShoppingCartIcon />
+                                          </Button>
+                                        </Tooltip>
                                         <Grid container spacing={2}>
                                           <Grid item xs={12}>
                                             <b> {item.itemName}</b>

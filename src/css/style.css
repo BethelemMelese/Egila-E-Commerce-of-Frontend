@@ -74,6 +74,16 @@ html {
   margin-left: 10px;
 }
 
+:where(.css-dev-only-do-not-override-1okl62o).ant-drawer .ant-drawer-title {
+  flex: 1;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-left: 20%;
+}
+
 .loginPaper {
   margin: 0px auto;
   margin-top: 20%;
@@ -139,11 +149,12 @@ html {
   position: static;
   background-image: linear-gradient(
     to right,
-    hsl(0, 0%, 100%),
+    hsl(0, 100%, 100%),
     hsl(0, 100%, 100%),
     #ff7f16,
     #f00538
   );
+  /* background-color: #fff; */
 }
 
 /* For Main Page css is here */
@@ -283,6 +294,11 @@ html {
   border-radius: 5px;
 }
 
+.cart-container {
+  margin-top: 40px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
 /* for the Nav bar */
 
 .css-hip9hq-MuiPaper-root-MuiAppBar-root {

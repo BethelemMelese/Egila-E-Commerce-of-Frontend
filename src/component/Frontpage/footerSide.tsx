@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import { Tooltip } from "@mui/material";
 
 export const Box = styled.div`
   background-image: linear-gradient(
@@ -16,7 +21,7 @@ export const FooterContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 1000px;
+  max-width: 800px;
   margin: 0 auto;
 `;
 
@@ -24,13 +29,13 @@ export const Column = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
-  margin-left: 60px;
+  margin-left: 50px;
 `;
 
 export const Row = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
-  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 100px;
 
   @media (max-width: 1000px) {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -44,7 +49,7 @@ export const FooterLink = styled.a`
   text-decoration: none;
 
   &:hover {
-    color:#000
+    color: #000;
     transition: 200ms ease-in;
   }
 `;
@@ -62,70 +67,73 @@ const Footer = () => {
       <FooterContainer>
         <Row>
           <Column>
-            <Heading>About Us</Heading>
-            <FooterLink href="#">Aim</FooterLink>
-            <FooterLink href="#">Vision</FooterLink>
-            <FooterLink href="#">Testimonials</FooterLink>
-          </Column>
-          <Column>
             <Heading>Services</Heading>
-            <FooterLink href="#">Writing</FooterLink>
-            <FooterLink href="#">Internships</FooterLink>
-            <FooterLink href="#">Coding</FooterLink>
-            <FooterLink href="#">Teaching</FooterLink>
+            <FooterLink href="#">Free Delivery</FooterLink>
+            <FooterLink href="#">24/7 Availability</FooterLink>
+            <FooterLink href="#">Customer Satisfaction</FooterLink>
+            <FooterLink href="#">Easy To Use</FooterLink>
           </Column>
-          <Column>
-            <Heading>Contact Us</Heading>
-            <FooterLink href="#">Uttar Pradesh</FooterLink>
-            <FooterLink href="#">Ahemdabad</FooterLink>
-            <FooterLink href="#">Indore</FooterLink>
-            <FooterLink href="#">Mumbai</FooterLink>
-          </Column>
+
           <Column>
             <Heading>Social Media</Heading>
             <FooterLink href="#">
-              <i className="fab fa-facebook-f">
-                <span
-                  style={{
-                    marginLeft: "10px",
-                  }}
-                >
-                  Facebook
-                </span>
-              </i>
+              <Tooltip title="Facebook">
+                <i className="fab fa-facebook-f">
+                  <span
+                    style={{
+                      marginLeft: "10px",
+                    }}
+                  >
+                    <FacebookIcon />
+                  </span>
+                </i>
+              </Tooltip>
             </FooterLink>
             <FooterLink href="#">
-              <i className="fab fa-instagram">
-                <span
-                  style={{
-                    marginLeft: "10px",
-                  }}
-                >
-                  Instagram
-                </span>
-              </i>
+              <Tooltip title="Instagram">
+                <i className="fab fa-instagram">
+                  <span
+                    style={{
+                      marginLeft: "10px",
+                    }}
+                  >
+                    <InstagramIcon />
+                  </span>
+                </i>
+              </Tooltip>
             </FooterLink>
             <FooterLink href="#">
-              <i className="fab fa-twitter">
-                <span
-                  style={{
-                    marginLeft: "10px",
-                  }}
-                >
-                  Twitter
-                </span>
-              </i>
+              <Tooltip title="LinkedIn">
+                <i className="fab fa-twitter">
+                  <span
+                    style={{
+                      marginLeft: "10px",
+                    }}
+                  >
+                    <LinkedInIcon />
+                  </span>
+                </i>
+              </Tooltip>
             </FooterLink>
             <FooterLink href="#">
-              <i className="fab fa-youtube">
-                <span
-                  style={{
-                    marginLeft: "10px",
-                  }}
-                >
-                  Youtube
-                </span>
-              </i>
+              <Tooltip title="Youtube">
+                <i className="fab fa-youtube">
+                  <span
+                    style={{
+                      marginLeft: "10px",
+                    }}
+                  >
+                    <YouTubeIcon />
+                  </span>
+                </i>
+              </Tooltip>
+            </FooterLink>
+          </Column>
+          <Column>
+            <Heading>Contact Us</Heading>
+            <FooterLink href="#">Tel: +251941202673</FooterLink>
+            <FooterLink href="#">
+              <p>Email: egila@ecommecrece.et</p>
             </FooterLink>
           </Column>
         </Row>

@@ -21,6 +21,7 @@ import Setting from "./component/Setting";
 import Report from "./component/Report";
 import SampleExample from "./component/Sample";
 import ChangePassword from "./component/Setting/changePassword";
+import ViewCart from "./component/Cart";
 import "./css/style.css";
 import "./css/mediaQuery.css";
 import "./App.css";
@@ -35,6 +36,7 @@ const AppRoute = () => {
         <Route path="category" element={<Category />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="viewCart" element={<ViewCart />} />
         <Route path="sample" element={<SampleExample/>}/>
         <Route
           path="Notification"
@@ -62,6 +64,7 @@ const AppRoute = () => {
           <Route path="setting" element={<Setting />} />
           <Route path="report" element={<Report />} />
           <Route path="changePassword" element={<ChangePassword />} />
+          
         </Route>
       </Routes>
     </div>

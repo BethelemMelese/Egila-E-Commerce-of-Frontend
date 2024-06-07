@@ -368,7 +368,9 @@ const Register = () => {
                       className="loginLink"
                       justifyContent="flex-end"
                     >
-                      <Link to="/login">Already have an account? Sign In</Link>
+                      <Button variant="text" onClick={() => navigate("/login")}>
+                        <u>Already have an account? Sign In</u>
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>

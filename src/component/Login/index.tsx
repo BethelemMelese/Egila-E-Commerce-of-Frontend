@@ -51,7 +51,7 @@ const Login = () => {
       localStorage.setItem("token", response.token);
       localStorage.setItem("name", response.fullName);
       localStorage.setItem("role", response.roleName);
-      navigate("/egila/home")
+      navigate("/egila/home");
       setIsSubmitting(false);
     }, 2000);
   };
@@ -144,7 +144,12 @@ const Login = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Link to="">Go to home</Link>
+                      <Button
+                        variant="text"
+                        onClick={() => navigate("/")}
+                      >
+                        <u>Go to home</u>
+                      </Button>
                     </Grid>
                     <Grid item xs={12}>
                       {isSubmitting ? (
@@ -168,7 +173,12 @@ const Login = () => {
                       className="registerLink"
                       justifyContent="flex-end"
                     >
-                      <Link to="/register">Don't have an account? Sign Up</Link>
+                      <Button
+                        variant="text"
+                        onClick={() => navigate("/register")}
+                      >
+                        <u> Don't have an account? Sign Up</u>
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>

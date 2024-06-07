@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "antd";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { Grid, Paper } from "@mui/material";
+import { Button, Grid, Paper, Tooltip } from "@mui/material";
 import { List, Space } from "antd";
 import axios from "axios";
 import { appUrl } from "../../appurl";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { v4 as uuidv4 } from "uuid";
 
 const MoreCategory = ({ ...props }) => {
   const [selectedMore, setSelectedMore] = useState(props.selectedMore);
@@ -23,14 +25,36 @@ const MoreCategory = ({ ...props }) => {
     });
   };
 
-  console.log("response...", response);
-
   useEffect(() => {
     axios
       .get(appUrl + `items/categoryId/${selectedMore.id}`)
       .then((response) => setResponse(response.data))
       .catch((error) => onFetchError(error.response.data.message));
   }, []);
+
+  const OnAddCart = (item: any) => {
+    const uuid = uuidv4();
+    const sessionCartId = localStorage.getItem("UUCartId");
+    let data;
+    if (sessionCartId == null) {
+      data = {
+        itemId: item,
+        quantity: 1,
+        uuId: uuid,
+      };
+      localStorage.setItem("UUCartId", uuid);
+    } else {
+      data = {
+        itemId: item,
+        quantity: 1,
+        uuId: sessionCartId,
+      };
+    }
+    axios
+      .post(appUrl + "carts", data)
+      .then((response) => window.location.reload())
+      .catch((error) => onFetchError(error.response.data.message));
+  };
 
   return (
     <div>
@@ -80,6 +104,19 @@ const MoreCategory = ({ ...props }) => {
                 renderItem={(item: any) => (
                   <List.Item
                     key={item.id}
+                    actions={[
+                      <Tooltip title="Add To Cart">
+                        <Button
+                          variant="text"
+                          size="small"
+                          className="more-btn"
+                          color="warning"
+                          onClick={() => OnAddCart(item.id)}
+                        >
+                          <AddShoppingCartIcon />
+                        </Button>
+                      </Tooltip>,
+                    ]}
                     extra={
                       <Paper elevation={1}>
                         <img
