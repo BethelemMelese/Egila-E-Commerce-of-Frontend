@@ -35,13 +35,12 @@ const Setting = () => {
   const [imageUrl, setImageUrl] = useState<any>();
   const [validFormat, setValidFormat] = useState(false);
   const [imageSize, setImageSize] = useState(false);
-  const navigate = useNavigate();
-
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
     type: "",
   });
+  
   const onFetchSuccess = (response: any) => {
     setResponse(response);
   };
@@ -58,10 +57,10 @@ const Setting = () => {
     const userToken = userService.token;
     axios
       .create({
-            headers: {
-              Authorization: `Bearer ${headers}`,
-            },
-          })
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
       .get(appUrl + `users/UserInfo/${userToken}`)
       .then((response: any) => onFetchSuccess(response.data))
       .catch((error: any) => onFetchError(error));
@@ -108,10 +107,10 @@ const Setting = () => {
     formDate.append("file", imageUrl);
     axios
       .create({
-            headers: {
-              Authorization: `Bearer ${headers}`,
-            },
-          })
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
       .put(appUrl + `users/profile/${response.id}`, formDate)
       .then((response: any) => onUploadSuccess())
       .catch((error: any) => onUploadError(error));
@@ -132,7 +131,7 @@ const Setting = () => {
                         setViewMode("editProfile");
                       }}
                     >
-                      <AutoFixHighIcon fontSize="medium" color="success"  />
+                      <AutoFixHighIcon fontSize="medium" color="success" />
                     </IconButton>
                   </Tooltip>
                 }
@@ -163,13 +162,22 @@ const Setting = () => {
                             </a>
                           }
                         >
-                          <Avatar
-                            src={
-                              appUrl + `users/uploads/${response.profileImage}`
-                            }
-                            sx={{ width: 120, height: 120 }}
-                            className="profile-image"
-                          ></Avatar>
+                          {response.profileImage != undefined && (
+                            <Avatar
+                              src={
+                                appUrl +
+                                `users/uploads/${response.profileImage}`
+                              }
+                              sx={{ width: 120, height: 120 }}
+                              className="profile-image"
+                            ></Avatar>
+                          )}
+                          {response.profileImage == undefined && (
+                            <Avatar
+                              sx={{ width: 120, height: 120 }}
+                              className="profile-image"
+                            ></Avatar>
+                          )}
                         </Badge>
                       </Grid>
                       <Grid item xs={4}>

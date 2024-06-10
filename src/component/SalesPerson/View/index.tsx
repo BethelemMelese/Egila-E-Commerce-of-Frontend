@@ -126,10 +126,10 @@ const ViewSalesPerson = () => {
   const onFetchSalesPerson = () => {
     axios
       .create({
-            headers: {
-              Authorization: `Bearer ${headers}`,
-            },
-          })
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
       .get(appUrl + `salesPersons?search=${query}`)
       .then((res) => {
         setLoading(false);
@@ -137,7 +137,9 @@ const ViewSalesPerson = () => {
       })
       .catch((error: any) => {
         setLoading(false);
-        onViewError(error.response.data.message);
+        if (error.response.data.error == null) {
+          onViewError(error.response.data.message);
+        } else onViewError(error.response.data.error);
       });
   };
 

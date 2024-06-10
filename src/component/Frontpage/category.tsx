@@ -44,7 +44,7 @@ const Category = () => {
 
   useEffect(() => {
     axios
-      .get(appUrl + "itemCategorys")
+      .get(appUrl + "itemCategorys/names")
       .then((response) => setCategoryResponse(response.data))
       .catch((error) => onFetchError(error.response.data.message));
   }, []);

@@ -4,12 +4,10 @@ import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import {
   Avatar,
-  Button,
   ListItemIcon,
   ListItemText,
   Menu,
   MenuItem,
-  Popover,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -22,7 +20,6 @@ import { useNavigate } from "react-router-dom";
 import SyncLockIcon from "@mui/icons-material/SyncLock";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import { Card } from "antd";
 
 const AppNavBar = () => {
   const token = userService.token;
@@ -55,10 +52,10 @@ const AppNavBar = () => {
   useEffect(() => {
     axios
       .create({
-            headers: {
-              Authorization: `Bearer ${headers}`,
-            },
-          })
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
       .get(appUrl + `users/UserInfo/${token}`)
       .then((response: any) => onFetchSuccess(response.data))
       .catch((error: any) => onFetchError(error));
@@ -78,7 +75,7 @@ const AppNavBar = () => {
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ display: { xs: "none", md: "flex" }, color: "#000" }}>
           <div className="current_role">
-            <Typography sx={{ p: 1, fontFamily:'Gill Sans'}}>
+            <Typography sx={{ p: 1, fontFamily: "Gill Sans" }}>
               Your Role: {userService.currentRole}
             </Typography>
           </div>
@@ -101,10 +98,15 @@ const AppNavBar = () => {
                       horizontal: "right",
                     }}
                   >
-                    <Avatar
-                      src={appUrl + `users/uploads/${userInfo.profileImage}`}
-                      sx={{ width: 50, height: 50 }}
-                    ></Avatar>
+                    {userInfo.profileImage != undefined && (
+                      <Avatar
+                        src={appUrl + `users/uploads/${userInfo.profileImage}`}
+                        sx={{ width: 50, height: 50 }}
+                      ></Avatar>
+                    )}
+                    {userInfo.profileImage == undefined && (
+                      <Avatar sx={{ width: 50, height: 50 }}></Avatar>
+                    )}
                   </Badge>
                 </>
               )}

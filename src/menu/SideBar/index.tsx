@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import IconDashboard from "@mui/icons-material/Dashboard";
 import ReportIcon from "@mui/icons-material/Report";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import PeopleIcon from "@mui/icons-material/People";
 import LocalPoliceIcon from "@mui/icons-material/LocalPolice";
 import CategoryIcon from "@mui/icons-material/Category";
-import SettingsIcon from "@mui/icons-material/Settings";
 import CommentIcon from "@mui/icons-material/Comment";
 import ControlCameraIcon from "@mui/icons-material/ControlCamera";
 import ExtensionIcon from "@mui/icons-material/Extension";

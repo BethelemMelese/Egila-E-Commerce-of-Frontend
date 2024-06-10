@@ -31,7 +31,7 @@ const MainPage = () => {
 
   useEffect(() => {
     axios
-      .get(appUrl + "itemCategorys")
+      .get(appUrl + "itemCategorys/names")
       .then((response) => setResponse(response.data))
       .catch((error) => onFetchError(error.response.data.message));
   }, []);
