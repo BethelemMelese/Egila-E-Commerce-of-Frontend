@@ -2,20 +2,36 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Popover,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { userService } from "../../polices/userService";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { appUrl } from "../../appurl";
+import { appUrl, headers } from "../../appurl";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import SyncLockIcon from "@mui/icons-material/SyncLock";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import { Card } from "antd";
 
 const AppNavBar = () => {
   const token = userService.token;
   const [userInfo, setUserInfo] = useState<any>();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const open2 = Boolean(anchorE2);
+  const id = open ? "simple-popover" : undefined;
   const navigate = useNavigate();
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -23,6 +39,14 @@ const AppNavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleClick2 = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorE2(event.currentTarget);
+  };
+  const handleClose2 = () => {
+    setAnchorE2(null);
+  };
+
   const onFetchSuccess = (response: any) => {
     setUserInfo(response);
   };
@@ -30,6 +54,11 @@ const AppNavBar = () => {
 
   useEffect(() => {
     axios
+      .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
       .get(appUrl + `users/UserInfo/${token}`)
       .then((response: any) => onFetchSuccess(response.data))
       .catch((error: any) => onFetchError(error));
@@ -39,6 +68,7 @@ const AppNavBar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("permission");
     localStorage.removeItem("role");
+    localStorage.removeItem("controllers");
     navigate("/login");
   };
 
@@ -47,16 +77,11 @@ const AppNavBar = () => {
       <Toolbar>
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ display: { xs: "none", md: "flex" }, color: "#000" }}>
-          <IconButton
-            size="large"
-            aria-label="show 17 new notifications"
-            color="inherit"
-          >
-            <Badge badgeContent={17} color="error">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-
+          <div className="current_role">
+            <Typography sx={{ p: 1, fontFamily:'Gill Sans'}}>
+              Your Role: {userService.currentRole}
+            </Typography>
+          </div>
           <Tooltip title="Account settings">
             <IconButton
               onClick={handleClick}
@@ -95,10 +120,24 @@ const AppNavBar = () => {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-            <MenuItem onClick={() => navigate("/egila/setting")}>
-              Setting
+            <MenuItem onClick={() => navigate("/egila/info")}>
+              <ListItemIcon>
+                <PermIdentityIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Profile</ListItemText>
             </MenuItem>
-            <MenuItem onClick={logOut}>Logout</MenuItem>
+            <MenuItem onClick={() => navigate("/egila/changePassword")}>
+              <ListItemIcon>
+                <SyncLockIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Change Password</ListItemText>
+            </MenuItem>
+            <MenuItem onClick={logOut}>
+              <ListItemIcon>
+                <LogoutIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText>Logout</ListItemText>
+            </MenuItem>
           </Menu>
         </Box>
       </Toolbar>

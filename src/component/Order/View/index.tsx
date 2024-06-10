@@ -5,11 +5,11 @@ import { Grid, Button, Paper, IconButton } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 // import CreateOrder from "../Create";
-import { appUrl } from "../../../appurl";
+import { appUrl, headers } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import DetailsIcon from "@mui/icons-material/Details";
 import { Dialogs } from "../../../commonComponent/dialog";
 
@@ -115,6 +115,11 @@ const ViewOrder = () => {
   //   for get all data
   const onFetchOrder = () => {
     axios
+      .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
       .get(appUrl + `orders?search=${query}`)
       .then((res) => {
         setLoading(false);
@@ -137,6 +142,11 @@ const ViewOrder = () => {
       cancelText: "No",
       onOk() {
         axios
+          .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
           .delete(appUrl + `orders/${value}`)
           .then((response) => {
             onDeleteSuccess(response.data);

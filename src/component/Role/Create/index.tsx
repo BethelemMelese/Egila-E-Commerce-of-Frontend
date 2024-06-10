@@ -96,14 +96,22 @@ const CreateRole = ({ ...props }) => {
       if (viewMode == "new") {
         setIsSubmitting(true);
         axios
-          .create(headers)
+          .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
           .post(appUrl + "roles", values)
           .then(() => onCreateSuccess())
           .catch((error) => onCreateError(error.response.data.message));
       } else {
         setIsSubmitting(true);
         axios
-          .create(headers)
+          .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
           .put(appUrl + `roles/${selectedRole.id}`, values)
           .then(() => onUpdateSuccess())
           .catch((error) => onUpdateError(error.response.data.message));

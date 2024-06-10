@@ -4,7 +4,7 @@ import Controls from "../../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../../commonComponent/Form";
-import { appUrl } from "../../../appurl";
+import { appUrl, headers } from "../../../appurl";
 import axios from "axios";
 import { Grid, Button, Avatar } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
@@ -104,7 +104,7 @@ const CreateItemCategory = ({ ...props }) => {
       setFileRequired(false);
     }
   };
-  
+
   const formik = useFormik({
     initialValues: selectedItemCategory,
     onSubmit: (values) => {
@@ -119,6 +119,11 @@ const CreateItemCategory = ({ ...props }) => {
           formData.append("categoryName", values.categoryName);
           formData.append("categoryDescription", values.categoryDescription);
           axios
+            .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
             .post(appUrl + "itemCategorys", formData)
             .then(() => onCreateSuccess())
             .catch((error) => onCreateError(error.response.data.message));
@@ -133,6 +138,11 @@ const CreateItemCategory = ({ ...props }) => {
         formData.append("categoryName", values.categoryName);
         formData.append("categoryDescription", values.categoryDescription);
         axios
+          .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
           .put(appUrl + `itemCategorys/${selectedItemCategory.id}`, formData)
           .then(() => onUpdateSuccess())
           .catch((error) => onUpdateError(error.response.data.message));

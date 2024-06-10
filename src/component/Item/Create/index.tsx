@@ -4,7 +4,7 @@ import Controls from "../../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../../commonComponent/Form";
-import { appUrl } from "../../../appurl";
+import { appUrl, headers } from "../../../appurl";
 import axios from "axios";
 import { FormControl, Grid, MenuItem, Typography, Button } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
@@ -152,6 +152,11 @@ const CreateItem = ({ ...props }) => {
           formData.append("price", values.price);
           formData.append("categoryId", values.categoryId);
           axios
+            .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
             .post(appUrl + "items", formData)
             .then(() => onCreateSuccess())
             .catch((error) => onCreateError(error.response.data.message));
@@ -170,6 +175,11 @@ const CreateItem = ({ ...props }) => {
         formData.append("price", values.price);
         formData.append("categoryId", values.categoryId);
         axios
+          .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
           .put(appUrl + `items/${selectedItem.id}`, formData)
           .then(() => onUpdateSuccess())
           .catch((error) => onUpdateError(error.response.data.message));
@@ -180,6 +190,11 @@ const CreateItem = ({ ...props }) => {
 
   useEffect(() => {
     axios
+      .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
       .get(appUrl + "itemCategorys")
       .then((response) => setCategoryResponse(response.data))
       .catch((error) => setCategoryResponse(error.response.data.message));

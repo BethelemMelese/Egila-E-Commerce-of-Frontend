@@ -4,7 +4,7 @@ import Controls from "../../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../../commonComponent/Form";
-import { appUrl } from "../../../appurl";
+import { appUrl, headers } from "../../../appurl";
 import axios from "axios";
 import { Grid, Button } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
@@ -90,6 +90,11 @@ const CreateSalesPerson = ({ ...props }) => {
     onSubmit: (values) => {
       setIsSubmitting(true);
       axios
+        .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
         .post(appUrl + "salesPersons", values)
         .then(() => onCreateSuccess())
         .catch((error) => onCreateError(error.response.data.message));

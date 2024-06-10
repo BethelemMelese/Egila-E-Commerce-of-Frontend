@@ -2,7 +2,7 @@ import { Form } from "../../commonComponent/Form";
 import Controls from "../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { appUrl } from "../../appurl";
+import { appUrl, headers } from "../../appurl";
 import axios from "axios";
 import { Card } from "antd";
 import { Grid, Button } from "@mui/material";
@@ -48,10 +48,11 @@ const EditProfile = ({ ...props }) => {
     setNotify({
       isOpen: true,
       message: "Your Profile is Updated Successfully !",
-      type: "error",
+      type: "success",
     });
     setTimeout(() => {
       setIsSubmitting(false);
+      window.location.reload();
     }, 2000);
   };
 
@@ -78,8 +79,12 @@ const EditProfile = ({ ...props }) => {
     initialValues: editProfile,
     onSubmit: (values) => {
       setIsSubmitting(true);
-      console.log("values...", values);
       axios
+        .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
         .put(appUrl + `users/updateProfile/${editProfile.id}`, values)
         .then(() => onUpdateSuccess())
         .catch((error) => onUpdateError(error.response.data.message));
@@ -185,50 +190,6 @@ const EditProfile = ({ ...props }) => {
                   error={
                     formik.touched.phone && formik.errors.phone
                       ? formik.errors.phone
-                      : ""
-                  }
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <Controls.Input
-                  className="inputField"
-                  id="address"
-                  label="Address"
-                  required
-                  {...formik.getFieldProps("address")}
-                  error={
-                    formik.touched.address && formik.errors.address
-                      ? formik.errors.address
-                      : ""
-                  }
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <Controls.Input
-                  className="inputField"
-                  required
-                  id="subCity"
-                  label="Sub City"
-                  {...formik.getFieldProps("subCity")}
-                  error={
-                    formik.touched.subCity && formik.errors.subCity
-                      ? formik.errors.subCity
-                      : ""
-                  }
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <Controls.Input
-                  className="inputField"
-                  id="town"
-                  label="Town"
-                  {...formik.getFieldProps("town")}
-                  error={
-                    formik.touched.town && formik.errors.town
-                      ? formik.errors.town
                       : ""
                   }
                 />

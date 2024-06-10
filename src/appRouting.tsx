@@ -63,7 +63,7 @@ const AppRoute = () => {
           <Route path="viewCustomer" element={<ViewCustomer />} />
           <Route path="viewSalesPerson" element={<ViewSalesPerson />} />
           <Route path="ViewOrder" element={<ViewOrder />} />
-          <Route path="setting" element={<Setting />} />
+          <Route path="info" element={<Setting />} />
           <Route path="report" element={<Report />} />
           <Route path="changePassword" element={<ChangePassword />} />
           

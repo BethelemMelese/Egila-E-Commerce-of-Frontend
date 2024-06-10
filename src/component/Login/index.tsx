@@ -51,6 +51,7 @@ const Login = () => {
       localStorage.setItem("token", response.token);
       localStorage.setItem("role", response.role);
       localStorage.setItem("permission", response.userPermissions);
+      localStorage.setItem("controller", response.controllers);
       navigate("/egila/home");
       setIsSubmitting(false);
     }, 2000);

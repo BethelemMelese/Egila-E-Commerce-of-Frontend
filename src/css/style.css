@@ -25,6 +25,14 @@ html {
   margin-bottom: 1%;
 }
 
+.current_role {
+  margin-top: 10px;
+  border-radius: 5%;
+  background-color: rgb(249, 225, 214);
+  border-bottom: 6px solid rgb(254, 104, 39);
+  height: 50px;
+}
+
 :where(.css-dev-only-do-not-override-1okl62o).ant-layout {
   display: flex;
   flex: auto;

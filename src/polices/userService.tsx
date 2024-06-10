@@ -18,4 +18,9 @@ export const userService = {
     const permissions = localStorage.getItem("permission");
     return permissions;
   },
+
+  get userController(): any {
+    const controllers = localStorage.getItem("controller");
+    return controllers;
+  },
 };

@@ -114,7 +114,11 @@ const ViewRole = () => {
   //   for get all data
   const onFetchRole = () => {
     axios
-      .create(headers)
+      .create({
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
       .get(appUrl + `roles?search=${query}`)
       .then((res) => {
         setLoading(false);
@@ -137,7 +141,11 @@ const ViewRole = () => {
       cancelText: "No",
       onOk() {
         axios
-          .create(headers)
+          .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
           .delete(appUrl + `roles/${value}`)
           .then((response) => {
             onDeleteSuccess(response.data);
