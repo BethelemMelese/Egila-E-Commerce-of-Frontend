@@ -13,4 +13,9 @@ export const userService = {
     const token = localStorage.getItem("token");
     return token ? token : null;
   },
+
+  get userPermission(): any {
+    const permissions = localStorage.getItem("permission");
+    return permissions;
+  },
 };

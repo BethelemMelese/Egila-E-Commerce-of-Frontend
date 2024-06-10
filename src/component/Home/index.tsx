@@ -327,13 +327,13 @@ const Home = () => {
               </Grid>
               <Grid item xs={8}>
                 <Card className="card-item" title="Sales">
-                  <div ></div>
+                  <div></div>
                   <AreaChart
                     width={780}
                     height={325}
                     data={dataAreaChart}
                     className="area-chart"
-                    margin={{ top: 10, right: 30, left:0, bottom: 0 }}
+                    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
                   >
                     <defs>
                       <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -380,68 +380,6 @@ const Home = () => {
                       fill="url(#colorPv)"
                     />
                   </AreaChart>
-                </Card>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2}>
-              <Grid item xs={8}>
-                <Card className="card-item" title="Top Ordered Products">
-                  <List
-                    itemLayout="vertical"
-                    size="large"
-                    pagination={{
-                      pageSize: 2,
-                    }}
-                    dataSource={dataForList}
-                    renderItem={(item) => (
-                      <List.Item
-                        key={item.title}
-                        // extra={
-                        //   <img
-                        //     width={272}
-                        //     alt="logo"
-                        //     src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                        //   />
-                        // }
-                      >
-                        <List.Item.Meta
-                          avatar={<Avatar src={item.avatar} />}
-                          title={<a href={item.href}>{item.title}</a>}
-                          description={item.description}
-                        />
-                      </List.Item>
-                    )}
-                  />
-                </Card>
-              </Grid>
-              <Grid item xs={4}>
-                <Card className="card-item" title="New Arrival Items">
-                  {/* OPtional for the new arrival items can't be display in pie chart but just normal description */}
-                  {/* to display the total items, total orders and total sales */}
-                  <PieChart width={400} height={240}>
-                    <Pie
-                      data={data01}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={50}
-                      fill="#f00538"
-                    />
-                    <Pie
-                      data={data02}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={60}
-                      outerRadius={80}
-                      fill="#ff7f16"
-                      label
-                    />
-                  </PieChart>
                 </Card>
               </Grid>
             </Grid>

@@ -6,7 +6,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SyncLockIcon from "@mui/icons-material/SyncLock";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import { userService } from "../polices/userService";
+import { userService } from "../../polices/userService";
 import axios from "axios";
 import { appUrl } from "../../appurl";
 import Notification from "../../commonComponent/notification";

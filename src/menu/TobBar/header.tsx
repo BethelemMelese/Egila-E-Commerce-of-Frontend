@@ -3,14 +3,13 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import Images from "../../Images/ProfilePhoto.jpg";
-import { Avatar, Divider, Menu, MenuItem, Tooltip } from "@mui/material";
-import { userService } from "../../component/polices/userService";
+import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
+import { userService } from "../../polices/userService";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { appUrl } from "../../appurl";
 import React from "react";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AppNavBar = () => {
   const token = userService.token;
@@ -38,7 +37,7 @@ const AppNavBar = () => {
 
   const logOut = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("name");
+    localStorage.removeItem("permission");
     localStorage.removeItem("role");
     navigate("/login");
   };

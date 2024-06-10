@@ -307,6 +307,7 @@ const ViewCart = () => {
             <Checkout
               //@ts-ignore
               viewMode={viewMode}
+              cartDatas={dataSource}
               closeedit={() => setViewMode("view")}
             />
           )}

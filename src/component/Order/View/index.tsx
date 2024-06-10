@@ -4,24 +4,25 @@ import type { GetProp, TableProps } from "antd";
 import { Grid, Button, Paper, IconButton } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import CreateRole from "../Create";
-import { appUrl, headers } from "../../../appurl";
+// import CreateOrder from "../Create";
+import { appUrl } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import DetailsIcon from "@mui/icons-material/Details";
 import { Dialogs } from "../../../commonComponent/dialog";
-import { userService } from "../../../polices/userService";
 
 const { confirm } = Modal;
 
 interface ItemState {
-  roleName: string;
-  roleDescription: string;
+  orderName: string;
+  orderDescription: string;
 }
 
 const initialState: ItemState = {
-  roleName: "",
-  roleDescription: "",
+  orderName: "",
+  orderDescription: "",
 };
 
 type TablePaginationConfig = Exclude<
@@ -43,10 +44,10 @@ interface TableParams {
   filters?: Parameters<GetProp<TableProps, "onChange">>[1];
 }
 
-const ViewRole = () => {
+const ViewOrder = () => {
   const [data, setData] = useState<DataType[]>();
   const [loading, setLoading] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<any>();
+  const [selectedOrder, setSelectedOrder] = useState<any>();
   const [dataSource, setDataSource] = useState<any>([]); // to set the response data and display on the table
   const [viewMode, setViewMode] = useState("view"); // to make change of the view for create and edit
   const [query, setQuery] = useState(""); // for search purpose to get the key
@@ -84,7 +85,7 @@ const ViewRole = () => {
       type: "success",
       message: response.message,
     });
-    onFetchRole();
+    onFetchOrder();
   };
 
   const onDeleteError = (response: any) => {
@@ -112,10 +113,9 @@ const ViewRole = () => {
   };
 
   //   for get all data
-  const onFetchRole = () => {
+  const onFetchOrder = () => {
     axios
-      .create(headers)
-      .get(appUrl + `roles?search=${query}`)
+      .get(appUrl + `orders?search=${query}`)
       .then((res) => {
         setLoading(false);
         setDataSource(res.data);
@@ -129,7 +129,7 @@ const ViewRole = () => {
   //   for delete the selected data using modal confirm dialog
   const showConfirm = (value: any) => {
     confirm({
-      title: "Do you want to delete these role?",
+      title: "Do you want to delete these order?",
       icon: <ExclamationCircleFilled />,
       content: "You are unable to undo the deletion of this.",
       okText: "Yes",
@@ -137,8 +137,7 @@ const ViewRole = () => {
       cancelText: "No",
       onOk() {
         axios
-          .create(headers)
-          .delete(appUrl + `roles/${value}`)
+          .delete(appUrl + `orders/${value}`)
           .then((response) => {
             onDeleteSuccess(response.data);
           })
@@ -151,56 +150,85 @@ const ViewRole = () => {
   //   to fetch data using useEffect, when every time this page is loaded
   useEffect(() => {
     setLoading(true);
-    onFetchRole();
+    onFetchOrder();
   }, [query]);
 
   //   identify the columns that has to display on the table
   const columns: any = [
     {
-      title: "Role",
-      dataIndex: "roleName",
+      title: "Order Owner",
+      dataIndex: "orderOwner",
       sorter: true,
     },
     {
-      title: "Description",
-      dataIndex: "roleDescription",
+      title: "Owner Phone",
+      dataIndex: "orderPhone",
       sorter: true,
     },
+    {
+      title: "Total Amount",
+      dataIndex: "totalAmount",
+      sorter: true,
+    },
+    // {
+    //   title: "Order Date",
+    //   dataIndex: "orderDate",
+    //   sorter: true,
+    // },
+    {
+      title: "Order Status",
+      dataIndex: "orderStatus",
+      sorter: true,
+    },
+    // {
+    //     title: "Shopping Address",
+    //     dataIndex: "shoppingAddress",
+    //     sorter: true,
+    //   },
     {
       title: "Action",
       dataIndex: "",
       render: (record: any) => {
         return (
           <Space size="small">
-            {userService.userPermission.match("update_role") && (
-              <Tooltip title="Edit">
-                <IconButton
-                  onClick={() => {
-                    setSelectedRole(record);
-                    setViewMode("edit");
-                    setOpenDialog(true);
-                  }}
-                  aria-label="edit"
-                  color="primary"
-                >
-                  <EditOutlined />
-                </IconButton>
-              </Tooltip>
-            )}
+            <Tooltip title="Edit">
+              <IconButton
+                onClick={() => {
+                  setSelectedOrder(record);
+                  setViewMode("edit");
+                  setOpenDialog(true);
+                }}
+                aria-label="edit"
+                color="primary"
+              >
+                <EditOutlined />
+              </IconButton>
+            </Tooltip>
             |
-            {userService.userPermission.match("delete_role") && (
-              <Tooltip title="Delete">
-                <IconButton
-                  onClick={() => {
-                    showConfirm(record.id);
-                  }}
-                  aria-label="delete"
-                  color="error"
-                >
-                  <DeleteForeverIcon />
-                </IconButton>
-              </Tooltip>
-            )}
+            {/* <Tooltip title="Detail">
+              <IconButton
+                onClick={() => {
+                  setSelectedOrder(record);
+                  setViewMode("detail");
+                }}
+                aria-label="detail"
+                color="secondary"
+              >
+                <DetailsIcon />
+              </IconButton>
+            </Tooltip> */}
+            {/* | */}
+            <Tooltip title="Delete">
+              <IconButton
+                onClick={() => {
+                  showConfirm(record.id);
+                }}
+                aria-label="delete"
+                color="error"
+              >
+                <DeleteForeverIcon />
+              </IconButton>
+            </Tooltip>
           </Space>
         );
       },
@@ -223,21 +251,8 @@ const ViewRole = () => {
                       marginBottom: "1%",
                     }}
                   >
-                    <b>Role</b>
+                    <b>Order</b>
                   </h2>
-                }
-                extra={
-                  <Button
-                    variant="contained"
-                    color="success"
-                    size="small"
-                    onClick={() => {
-                      setOpenDialog(true);
-                      setViewMode("new");
-                    }}
-                  >
-                    New Role
-                  </Button>
                 }
               >
                 <Card>
@@ -266,29 +281,29 @@ const ViewRole = () => {
                 </Card>
 
                 {/* to open the dialog for create and update form */}
-                <Dialogs
+                {/* <Dialogs
                   openDialog={openDialog}
                   setOpenDialog={openDialog}
                   height="55%"
                   maxHeight="435"
                   children={
                     viewMode == "new" ? (
-                      <CreateRole
+                      <CreateOrder
                         //@ts-ignore
-                        selectedRole={initialState}
+                        selectedOrder={initialState}
                         viewMode={viewMode}
                         closeedit={() => setOpenDialog(false)}
                       />
                     ) : (
-                      <CreateRole
+                      <CreateOrder
                         //@ts-ignore
-                        selectedRole={selectedRole}
+                        selectedOrder={selectedOrder}
                         viewMode={viewMode}
                         closeedit={() => setOpenDialog(false)}
                       />
                     )
                   }
-                />
+                /> */}
               </Card>
             </Paper>
           </Grid>
@@ -299,4 +314,4 @@ const ViewRole = () => {
   );
 };
 
-export default ViewRole;
+export default ViewOrder;

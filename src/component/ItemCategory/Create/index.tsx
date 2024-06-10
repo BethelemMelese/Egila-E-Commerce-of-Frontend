@@ -104,6 +104,7 @@ const CreateItemCategory = ({ ...props }) => {
       setFileRequired(false);
     }
   };
+  
   const formik = useFormik({
     initialValues: selectedItemCategory,
     onSubmit: (values) => {

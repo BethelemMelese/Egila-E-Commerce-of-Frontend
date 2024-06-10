@@ -1,7 +1,7 @@
 import React from "react";
 import { userService } from "./userService";
-import NoPermission from "../NoPermission";
-import Login from "../Login";
+import NoPermission from "../component/NoPermission";
+import Login from "../component/Login";
 
 interface Props {
   component: React.ComponentType;
@@ -14,7 +14,7 @@ export const AutoRout: React.FC<Props> = ({
   roles,
 }) => {
   const role = userService.currentRole;
-  const user = userService.currentUser;
+  const user = userService.token;
 
   if (user != null) {
     if (role) {

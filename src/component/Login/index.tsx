@@ -27,11 +27,11 @@ const Login = () => {
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Username is required"),
     password: Yup.string()
-      // .min(8, "A Password can't insert less than 8 Characters")
-      // .matches(
-      //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/,
-      //   "Must Contain at least 8 Characters, One Uppercase,One Lowercase, One Number and One Special Case Character (!@#$%^&*)"
-      // )
+      .min(8, "A Password can't insert less than 8 Characters")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/,
+        "Must Contain at least 8 Characters, One Uppercase,One Lowercase, One Number and One Special Case Character (!@#$%^&*)"
+      )
       .required("Password is Required"),
   });
 
@@ -49,8 +49,8 @@ const Login = () => {
     });
     setTimeout(() => {
       localStorage.setItem("token", response.token);
-      localStorage.setItem("name", response.fullName);
-      localStorage.setItem("role", response.roleName);
+      localStorage.setItem("role", response.role);
+      localStorage.setItem("permission", response.userPermissions);
       navigate("/egila/home");
       setIsSubmitting(false);
     }, 2000);
@@ -144,10 +144,7 @@ const Login = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Button
-                        variant="text"
-                        onClick={() => navigate("/")}
-                      >
+                      <Button variant="text" onClick={() => navigate("/")}>
                         <u>Go to home</u>
                       </Button>
                     </Grid>

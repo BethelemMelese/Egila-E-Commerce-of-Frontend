@@ -22,10 +22,11 @@ import Report from "./component/Report";
 import SampleExample from "./component/Sample";
 import ChangePassword from "./component/Setting/changePassword";
 import ViewCart from "./component/Cart";
+import ViewOrder from "./component/Order/View";
 import "./css/style.css";
 import "./css/mediaQuery.css";
 import "./App.css";
-import { AutoRout } from "./component/polices/AutoRoute";
+import { AutoRout } from "./polices/AutoRoute";
 
 const AppRoute = () => {
   return (
@@ -61,6 +62,7 @@ const AppRoute = () => {
           <Route path="viewCategory" element={<ViewItemCategory />} />
           <Route path="viewCustomer" element={<ViewCustomer />} />
           <Route path="viewSalesPerson" element={<ViewSalesPerson />} />
+          <Route path="ViewOrder" element={<ViewOrder />} />
           <Route path="setting" element={<Setting />} />
           <Route path="report" element={<Report />} />
           <Route path="changePassword" element={<ChangePassword />} />
