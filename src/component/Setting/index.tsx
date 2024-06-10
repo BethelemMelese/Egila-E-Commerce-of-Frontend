@@ -1,49 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Grid, InputLabel, Paper, Badge, Tooltip, Button } from "@mui/material";
+import {
+  Grid,
+  InputLabel,
+  Paper,
+  Badge,
+  Tooltip,
+  Button,
+  IconButton,
+} from "@mui/material";
 import { Card, List } from "antd";
 import { Avatar, Divider } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SyncLockIcon from "@mui/icons-material/SyncLock";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import { userService } from "../polices/userService";
+import { userService } from "../../polices/userService";
 import axios from "axios";
-import { appUrl } from "../../appurl";
+import { appUrl, headers } from "../../appurl";
 import Notification from "../../commonComponent/notification";
 import { useNavigate } from "react-router-dom";
-import ChangePassword from "./changePassword";
 import EditProfile from "./editProfile";
-import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import { SamllDialogs } from "../../commonComponent/dialog";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload } from "antd";
+import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import type { GetProp, UploadProps } from "antd";
-
-const data = [
-  {
-    title: "User Info",
-    viewMode: "info",
-    icon: <PermIdentityIcon />,
-  },
-  {
-    title: "Edit Profile",
-    viewMode: "editProfile",
-    icon: <AccountCircleIcon />,
-  },
-  {
-    title: "Change Password",
-    viewMode: "changePassword",
-    icon: <SyncLockIcon />,
-  },
-  {
-    title: "Logout",
-    viewMode: "logOut",
-    icon: <LogoutIcon />,
-  },
-];
-
-type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 const Setting = () => {
   const [viewMode, setViewMode] = useState("info");
@@ -54,7 +36,7 @@ const Setting = () => {
   const [validFormat, setValidFormat] = useState(false);
   const [imageSize, setImageSize] = useState(false);
   const navigate = useNavigate();
-  
+
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -75,19 +57,15 @@ const Setting = () => {
   useEffect(() => {
     const userToken = userService.token;
     axios
+      .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
       .get(appUrl + `users/UserInfo/${userToken}`)
       .then((response: any) => onFetchSuccess(response.data))
       .catch((error: any) => onFetchError(error));
   }, []);
-
-  const logOut = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("name");
-    localStorage.removeItem("role");
-    navigate("/login");
-  };
-
-  // For Upload Profile Photo with Crop
 
   const beforeUpload = (file: any) => {
     if (
@@ -129,6 +107,11 @@ const Setting = () => {
     const formDate = new FormData();
     formDate.append("file", imageUrl);
     axios
+      .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
       .put(appUrl + `users/profile/${response.id}`, formDate)
       .then((response: any) => onUploadSuccess())
       .catch((error: any) => onUploadError(error));
@@ -136,45 +119,24 @@ const Setting = () => {
 
   return (
     <div className="setting-container">
-      <Grid container spacing={4}>
-        <Grid item xs={4}>
-          <Paper elevation={3}>
-            <Card title="Setting">
-              <List
-                itemLayout="horizontal"
-                dataSource={data}
-                size="default"
-                bordered
-                renderItem={(item) => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={
-                        <div className="profile-menu-icon">{item.icon}</div>
-                      }
-                      title={
-                        <div className="profile-menu-title">
-                          <a
-                            onClick={() => {
-                              item.viewMode != "logOut"
-                                ? setViewMode(item.viewMode)
-                                : logOut();
-                            }}
-                          >
-                            {item.title}
-                          </a>
-                        </div>
-                      }
-                    />
-                  </List.Item>
-                )}
-              />
-            </Card>
-          </Paper>
-        </Grid>
-        <Grid item xs={8}>
+      <Grid container spacing={0}>
+        <Grid item xs={12}>
           <Paper elevation={3}>
             {viewMode == "info" && (
-              <Card title="User Info">
+              <Card
+                title="User Info"
+                extra={
+                  <Tooltip title="Edit Profile">
+                    <IconButton
+                      onClick={() => {
+                        setViewMode("editProfile");
+                      }}
+                    >
+                      <AutoFixHighIcon fontSize="medium" color="success"  />
+                    </IconButton>
+                  </Tooltip>
+                }
+              >
                 {response != undefined && (
                   <Card>
                     <Grid container spacing={2}>
@@ -254,13 +216,6 @@ const Setting = () => {
 
             {viewMode == "editProfile" && (
               <EditProfile
-                viewMode={viewMode}
-                closeedit={() => setViewMode("info")}
-                editProfile={response}
-              />
-            )}
-            {viewMode == "changePassword" && (
-              <ChangePassword
                 viewMode={viewMode}
                 closeedit={() => setViewMode("info")}
                 editProfile={response}

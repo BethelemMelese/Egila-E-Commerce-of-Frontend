@@ -4,7 +4,7 @@ import Controls from "../../../commonComponent/Controls";
 import { Form } from "../../../commonComponent/Form";
 import { Grid } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { appUrl } from "../../../appurl";
+import { appUrl,headers } from "../../../appurl";
 
 const DetailItemCategory = ({ ...props }) => {
   const [viewMode, setViewMode] = useState(props.viewMode);

@@ -5,11 +5,12 @@ import { Grid, Button, Paper, IconButton } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CreateRole from "../Create";
-import { appUrl } from "../../../appurl";
+import { appUrl, headers } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import {Dialogs} from "../../../commonComponent/dialog";
+import { Dialogs } from "../../../commonComponent/dialog";
+import { userService } from "../../../polices/userService";
 
 const { confirm } = Modal;
 
@@ -113,6 +114,11 @@ const ViewRole = () => {
   //   for get all data
   const onFetchRole = () => {
     axios
+      .create({
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
       .get(appUrl + `roles?search=${query}`)
       .then((res) => {
         setLoading(false);
@@ -135,6 +141,11 @@ const ViewRole = () => {
       cancelText: "No",
       onOk() {
         axios
+          .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
           .delete(appUrl + `roles/${value}`)
           .then((response) => {
             onDeleteSuccess(response.data);
@@ -169,44 +180,35 @@ const ViewRole = () => {
       render: (record: any) => {
         return (
           <Space size="small">
-            <Tooltip title="Edit">
-              <IconButton
-                onClick={() => {
-                  setSelectedRole(record);
-                  setViewMode("edit");
-                  setOpenDialog(true);
-                }}
-                aria-label="edit"
-                color="primary"
-              >
-                <EditOutlined />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("update_role") && (
+              <Tooltip title="Edit">
+                <IconButton
+                  onClick={() => {
+                    setSelectedRole(record);
+                    setViewMode("edit");
+                    setOpenDialog(true);
+                  }}
+                  aria-label="edit"
+                  color="primary"
+                >
+                  <EditOutlined />
+                </IconButton>
+              </Tooltip>
+            )}
             |
-            {/* <Tooltip title="Detail">
-              <IconButton
-                onClick={() => {
-                  setSelectedRole(record);
-                  setViewMode("detail");
-                }}
-                aria-label="detail"
-                color="secondary"
-              >
-                <DetailsIcon />
-              </IconButton>
-            </Tooltip> */}
-            {/* | */}
-            <Tooltip title="Delete">
-              <IconButton
-                onClick={() => {
-                  showConfirm(record.id);
-                }}
-                aria-label="delete"
-                color="error"
-              >
-                <DeleteForeverIcon />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("delete_role") && (
+              <Tooltip title="Delete">
+                <IconButton
+                  onClick={() => {
+                    showConfirm(record.id);
+                  }}
+                  aria-label="delete"
+                  color="error"
+                >
+                  <DeleteForeverIcon />
+                </IconButton>
+              </Tooltip>
+            )}
           </Space>
         );
       },

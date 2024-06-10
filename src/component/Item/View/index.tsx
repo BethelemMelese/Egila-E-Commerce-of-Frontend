@@ -7,7 +7,7 @@ import DetailsIcon from "@mui/icons-material/Details";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CreateItem from "../Create";
 import DetailItem from "../Detail";
-import { appUrl } from "../../../appurl";
+import { appUrl, headers } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
@@ -126,6 +126,11 @@ const ViewItem = () => {
   //   for get all data
   const onFetchItem = () => {
     axios
+      .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
       .get(appUrl + `items?search=${query}`)
       .then((res) => {
         setLoading(false);
@@ -148,6 +153,11 @@ const ViewItem = () => {
       cancelText: "No",
       onOk() {
         axios
+          .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
           .delete(appUrl + `items/${value}`)
           .then((response) => {
             onDeleteSuccess(response.data);

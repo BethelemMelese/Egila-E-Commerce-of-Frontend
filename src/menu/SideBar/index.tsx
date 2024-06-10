@@ -11,10 +11,11 @@ import CommentIcon from "@mui/icons-material/Comment";
 import ControlCameraIcon from "@mui/icons-material/ControlCamera";
 import ExtensionIcon from "@mui/icons-material/Extension";
 import AppShortcutIcon from "@mui/icons-material/AppShortcut";
-import GridViewIcon from '@mui/icons-material/GridView';
+import GridViewIcon from "@mui/icons-material/GridView";
 import Images from "../../Images/Logo 4.png";
 import { Link, NavLink } from "react-router-dom";
 import { Divider, Paper } from "@mui/material";
+import { userService } from "../../polices/userService";
 
 const Sidebar: React.FC = () => {
   const items: any = [
@@ -106,14 +107,6 @@ const Sidebar: React.FC = () => {
       cName: "nav-text",
       nActive: "active",
     },
-    {
-      key: "12",
-      icon: <SettingsIcon />,
-      label: "Setting",
-      path: "/egila/setting",
-      cName: "nav-text",
-      nActive: "active",
-    },
   ];
   return (
     <div
@@ -135,15 +128,19 @@ const Sidebar: React.FC = () => {
           <ul className="nav-menu-items">
             {items.map((item: any, index: any) => {
               return (
-                <li key={index} className={item.cName}>
-                  <NavLink
-                    to={item.path}
-                    className={item.nActive == "active" ? "active" : ""}
-                  >
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </NavLink>
-                </li>
+                userService.userController.match(item.label) && (
+                  <>
+                    <li key={index} className={item.cName}>
+                      <NavLink
+                        to={item.path}
+                        className={item.nActive == "active" ? "active" : ""}
+                      >
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </NavLink>
+                    </li>
+                  </>
+                )
               );
             })}
           </ul>

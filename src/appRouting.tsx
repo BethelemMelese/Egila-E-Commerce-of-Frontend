@@ -23,10 +23,12 @@ import Setting from "./component/Setting";
 import Report from "./component/Report";
 import SampleExample from "./component/Sample";
 import ChangePassword from "./component/Setting/changePassword";
+import ViewCart from "./component/Cart";
+import ViewOrder from "./component/Order/View";
 import "./css/style.css";
 import "./css/mediaQuery.css";
 import "./App.css";
-import { AutoRout } from "./component/polices/AutoRoute";
+import { AutoRout } from "./polices/AutoRoute";
 
 const AppRoute = () => {
   return (
@@ -37,6 +39,7 @@ const AppRoute = () => {
         <Route path="category" element={<Category />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="viewCart" element={<ViewCart />} />
         <Route path="sample" element={<SampleExample/>}/>
         <Route
           path="Notification"
@@ -62,10 +65,12 @@ const AppRoute = () => {
           <Route path="viewCustomer" element={<ViewCustomer />} />
           <Route path="ViewAdmin" element={<ViewAdmin/>} />
           <Route path="viewSalesPerson" element={<ViewSalesPerson />} />
-          <Route path="ViewDeliveries" element={<ViewDeliveryPerson />}/>
-          <Route path="setting" element={<Setting />} />
+          <Route path="ViewOrder" element={<ViewOrder />} />
+          <Route path="info" element={<Setting />} />
           <Route path="report" element={<Report />} />
           <Route path="changePassword" element={<ChangePassword />} />
+          <Route path="ViewDeliveries" element={<ViewDeliveryPerson />}/>
+          
         </Route>
       </Routes>
     </div>

@@ -12,9 +12,11 @@ import {
   Paper,
   Typography,
   Button,
+  Tooltip,
 } from "@mui/material";
 import { Card, Col, Input, List, Row } from "antd";
-import RemoveIcon from "@mui/icons-material/Remove";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { v4 as uuidv4 } from "uuid";
 
 const Category = () => {
   const [itemResponse, setItemResponse] = useState<any>([]);
@@ -63,6 +65,30 @@ const Category = () => {
       .catch((error) => onFetchError(error.response.data.message));
   };
 
+  const OnAddCart = (item: any) => {
+    const uuid = uuidv4();
+    const sessionCartId = localStorage.getItem("UUCartId");
+    let data;
+    if (sessionCartId == null) {
+      data = {
+        itemId: item,
+        quantity: 1,
+        uuId: uuid,
+      };
+      localStorage.setItem("UUCartId", uuid);
+    } else {
+      data = {
+        itemId: item,
+        quantity: 1,
+        uuId: sessionCartId,
+      };
+    }
+    axios
+      .post(appUrl + "carts", data)
+      .then((response) => window.location.reload())
+      .catch((error) => onFetchError(error.response.data.message));
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -78,7 +104,11 @@ const Category = () => {
                   <Paper elevation={2}>
                     <Card
                       title="Category List"
-                      extra={<Button onClick={Restore} color="warning">Restore</Button>}
+                      extra={
+                        <Button onClick={Restore} color="warning">
+                          Restore
+                        </Button>
+                      }
                     >
                       {categoryResponse.map((item: any) => {
                         return (
@@ -86,9 +116,6 @@ const Category = () => {
                             <MenuItem
                               onClick={() => setCategorySelected(item.id)}
                             >
-                              {/* <ListItemIcon>
-                                <RemoveIcon fontSize="small" />
-                              </ListItemIcon> */}
                               <ListItemText className="category-menu">
                                 <Typography variant="body1">
                                   {item.categoryName}
@@ -143,18 +170,28 @@ const Category = () => {
                                               }}
                                             />
                                             <div className="desc">
+                                              <Tooltip title="Add To Cart">
+                                                <Button
+                                                  variant="text"
+                                                  size="small"
+                                                  className="more-btn"
+                                                  color="warning"
+                                                  onClick={() =>
+                                                    OnAddCart(item.id)
+                                                  }
+                                                >
+                                                  <AddShoppingCartIcon />
+                                                </Button>
+                                              </Tooltip>
                                               <Grid container spacing={2}>
                                                 <Grid item xs={12}>
                                                   <b> {item.itemName}</b>
                                                   <br />
-                                                  {item.itemDescription}
-                                                </Grid>
-                                                <Grid item xs={12}>
                                                   Brand: {item.brand}
                                                   <br />
                                                   Quantity: {item.quantity}
                                                   <br />
-                                                  <h4>
+                                                  <h4 style={{ float: "left" }}>
                                                     <b>Price: {item.price}</b>{" "}
                                                   </h4>
                                                 </Grid>

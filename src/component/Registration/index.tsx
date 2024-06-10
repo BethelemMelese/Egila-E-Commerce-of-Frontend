@@ -101,7 +101,6 @@ const Register = () => {
   const formik = useFormik({
     initialValues: initialState,
     onSubmit: (values) => {
-      console.log("values...", values);
       setIsSubmitting(true);
       axios
         .post(appUrl + "users", values)
@@ -118,10 +117,10 @@ const Register = () => {
   };
 
   useEffect(() => {
-    // axios
-    //   .get(appUrl + "roles")
-    //   .then((response) => setRoleResponse(response.data))
-    //   .catch((error) => setRoleResponse(error.response.data.message));
+    axios
+      .get(appUrl + "roles")
+      .then((response) => setRoleResponse(response.data))
+      .catch((error) => setRoleResponse(error.response.data.message));
   }, []);
 
   return (
@@ -368,7 +367,9 @@ const Register = () => {
                       className="loginLink"
                       justifyContent="flex-end"
                     >
-                      <Link to="/login">Already have an account? Sign In</Link>
+                      <Button variant="text" onClick={() => navigate("/login")}>
+                        <u>Already have an account? Sign In</u>
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>

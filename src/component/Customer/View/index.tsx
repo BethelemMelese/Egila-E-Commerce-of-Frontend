@@ -6,11 +6,11 @@ import { EditOutlined } from "@mui/icons-material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import UpdateCustomer from "../Update";
 import DetailCustomer from "../Detail";
-import { appUrl } from "../../../appurl";
+import { appUrl, headers } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import {Dialogs} from "../../../commonComponent/dialog";
+import { Dialogs } from "../../../commonComponent/dialog";
 import DetailsIcon from "@mui/icons-material/Details";
 
 const { confirm } = Modal;
@@ -128,6 +128,11 @@ const ViewCustomer = () => {
   //   for get all data
   const onFetchCustomer = () => {
     axios
+      .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
       .get(appUrl + `customers?search=${query}`)
       .then((res) => {
         setLoading(false);
@@ -150,6 +155,11 @@ const ViewCustomer = () => {
       cancelText: "No",
       onOk() {
         axios
+          .create({
+            headers: {
+              Authorization: `Bearer ${headers}`,
+            },
+          })
           .delete(appUrl + `customers/${value}`)
           .then((response) => {
             onDeleteSuccess(response.data);

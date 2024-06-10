@@ -4,7 +4,7 @@ import Controls from "../../../commonComponent/Controls";
 import { Form } from "../../../commonComponent/Form";
 import { Grid, Avatar } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { appUrl } from "../../../appurl";
+import { appUrl,headers } from "../../../appurl";
 
 const DetailSalesPerson = ({ ...props }) => {
   const [detailMode, setDetailMode] = useState(props.detailMode);

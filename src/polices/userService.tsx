@@ -13,4 +13,14 @@ export const userService = {
     const token = localStorage.getItem("token");
     return token ? token : null;
   },
+
+  get userPermission(): any {
+    const permissions = localStorage.getItem("permission");
+    return permissions;
+  },
+
+  get userController(): any {
+    const controllers = localStorage.getItem("controller");
+    return controllers;
+  },
 };

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Card } from "antd";
 import Controls from "../../../commonComponent/Controls";
 import { Form } from "../../../commonComponent/Form";
-import { Grid, Avatar } from "@mui/material";
+import { Grid } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { appUrl } from "../../../appurl";
+import { appUrl, headers } from "../../../appurl";
 
 const DetailItem = ({ ...props }) => {
   const [viewMode, setViewMode] = useState(props.viewMode);

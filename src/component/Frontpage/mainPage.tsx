@@ -3,6 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import MoreCategory from "./moreCategory";
 import MainLayout from "./mainLayout";
+import Footer from "./footerSide";
 import { Card, Col, Row } from "antd";
 import { Grid, Divider, Button, Paper } from "@mui/material";
 import { Dialogs } from "../../commonComponent/dialog";
@@ -152,9 +153,9 @@ const MainPage = () => {
         />
       </Box>
       <Notification notify={notify} setNotify={setNotify} />
-      {/* <Box>
+      <Box>
         <Footer />
-      </Box> */}
+      </Box>
       <Box>
         <div className="copyrightholder">
           <p>&copy; 2024 Egila Gadgets. All rights reserved</p>
