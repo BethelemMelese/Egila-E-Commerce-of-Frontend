@@ -16,6 +16,8 @@ import ViewRole from "./component/Role/View";
 import ViewItemCategory from "./component/ItemCategory/View";
 import ViewCustomer from "./component/Customer/View";
 import ViewSalesPerson from "./component/SalesPerson/View";
+import ViewDeliveryPerson from "./component/DeliveryPerson/View";
+import ViewAdmin from "./component/Admin/View";
 import Missing from "./component/MissingPage/MissingPage";
 import Setting from "./component/Setting";
 import Report from "./component/Report";
@@ -61,11 +63,13 @@ const AppRoute = () => {
           <Route path="ViewRole" element={<ViewRole />} />
           <Route path="viewCategory" element={<ViewItemCategory />} />
           <Route path="viewCustomer" element={<ViewCustomer />} />
+          <Route path="ViewAdmin" element={<ViewAdmin/>} />
           <Route path="viewSalesPerson" element={<ViewSalesPerson />} />
           <Route path="ViewOrder" element={<ViewOrder />} />
           <Route path="info" element={<Setting />} />
           <Route path="report" element={<Report />} />
           <Route path="changePassword" element={<ChangePassword />} />
+          <Route path="ViewDeliveries" element={<ViewDeliveryPerson />}/>
           
         </Route>
       </Routes>
