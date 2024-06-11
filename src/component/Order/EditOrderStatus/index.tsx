@@ -1,0 +1,278 @@
+import { Card, List } from "antd";
+import { useEffect, useState } from "react";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import {
+  Avatar,
+  Button,
+  Divider,
+  FormControl,
+  Grid,
+  MenuItem,
+  Paper,
+  Tooltip,
+} from "@mui/material";
+import { appUrl, headers } from "../../../appurl";
+import axios from "axios";
+import Controls from "../../../commonComponent/Controls";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Form } from "../../../commonComponent/Form";
+import Notification from "../../../commonComponent/notification";
+
+interface RoleState {
+  orderStatus: string;
+}
+
+const initialState: RoleState = {
+  orderStatus: "",
+};
+
+const EditOrderStatus = ({ ...props }) => {
+  const [viewMode, setViewMode] = useState(props.viewMode);
+  const [selectedOrder, setSelectedOrder] = useState<any>(props.selectedOrder);
+  const [cartResponse, setCartResponse] = useState<any>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+
+  const onUpdateSuccess = () => {
+    setNotify({
+      isOpen: true,
+      type: "success",
+      message: "Delivery Assigned Successfully !",
+    });
+    setTimeout(() => {
+      setIsSubmitting(false);
+      window.location.reload();
+    }, 2000);
+  };
+
+  const onUpdateError = (response: any) => {
+    setNotify({
+      isOpen: true,
+      type: "error",
+      message: response,
+    });
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2000);
+  };
+
+  const validationSchema = Yup.object().shape({
+    orderStatus: Yup.string().required("Order Status is required"),
+  });
+  const formik = useFormik({
+    initialValues: initialState,
+    onSubmit: (values) => {
+      console.log("values...", values);
+      axios
+        .create({
+          headers: {
+            Authorization: `Bearer ${headers}`,
+          },
+        })
+        .put(appUrl + `orders/orderStatus/${selectedOrder.id}`, values)
+        .then(() => onUpdateSuccess())
+        .catch((error) => onUpdateError(error.response.data.message));
+    },
+    validationSchema: validationSchema,
+  });
+
+  useEffect(() => {
+    axios
+      .create({
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
+      .post(appUrl + "carts/viewCartList", { cartIds: selectedOrder.cartIds })
+      .then((response) => setCartResponse(response.data))
+      .catch((error) => setCartResponse(error.response.data.message));
+  }, []);
+
+  return (
+    <div>
+      <Card
+        title="Assign Delivery Person for the Order"
+        extra={
+          <a onClick={() => props.closeedit()}>
+            <CancelOutlinedIcon fontSize="medium" className="close-btn" />
+          </a>
+        }
+      >
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <Card title="Customer Info">
+              <Grid item xs={12}>
+                <p>
+                  Order Owner: <b>{selectedOrder.orderOwner}</b>
+                </p>
+                <Divider
+                  orientation="horizontal"
+                  variant="middle"
+                  flexItem
+                  style={{ color: "#fff" }}
+                />
+                <p>
+                  Owner Phone: <b>{selectedOrder.orderPhone}</b>
+                </p>
+                <Divider
+                  orientation="horizontal"
+                  variant="middle"
+                  flexItem
+                  style={{ color: "#fff" }}
+                />
+                <p>
+                  Total Amount: <b>{selectedOrder.totalAmount}</b>
+                </p>
+                <Divider
+                  orientation="horizontal"
+                  variant="middle"
+                  flexItem
+                  style={{ color: "#fff" }}
+                />
+                <p>
+                  Shopping Address: <b>{selectedOrder.shoppingAddress}</b>
+                </p>
+                <Divider
+                  orientation="horizontal"
+                  variant="middle"
+                  flexItem
+                  style={{ color: "#fff" }}
+                />
+                <p>
+                  Order Date: <b>{selectedOrder.orderDate}</b>
+                </p>
+                <Divider
+                  orientation="horizontal"
+                  variant="middle"
+                  flexItem
+                  style={{ color: "#fff" }}
+                />
+                <p>
+                  Order Status: <b>{selectedOrder.orderStatus}</b>
+                </p>
+                <Divider
+                  orientation="horizontal"
+                  variant="middle"
+                  flexItem
+                  style={{ color: "#fff" }}
+                />
+              </Grid>
+            </Card>
+          </Grid>
+          <Grid item xs={8}>
+            <Card
+              title="List of Item"
+              style={{ height: 550, overflow: "auto" }}
+            >
+              {cartResponse.map((item: any) => {
+                return (
+                  <div style={{ marginTop: 10 }}>
+                    <Card>
+                      <Grid container spacing={2}>
+                        <Grid item xs={2}>
+                          <img
+                            alt="Items Image"
+                            src={appUrl + `items/uploads/${item.itemImage}`}
+                            style={{
+                              height: 100,
+                              marginTop: 20,
+                              width: 100,
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={10}>
+                          <h3 style={{ marginRight: "70%" }}>
+                            {item.itemName}
+                          </h3>
+                          <div>
+                            <p>{item.itemDescription}</p>
+                          </div>
+                          <div style={{ marginRight: "77%" }}>
+                            <p>
+                              <b> Quantity: {item.quantity}</b>
+                            </p>
+                          </div>
+                          <div style={{ marginLeft: "77%" }}>
+                            <p>
+                              <b> Price: {item.price}</b>
+                            </p>
+                          </div>
+                          <div style={{ marginLeft: "70%" }}>
+                            <p>
+                              <b> Sub Total: {item.subTotal}</b>
+                            </p>
+                          </div>
+                        </Grid>
+                      </Grid>
+                    </Card>
+                  </div>
+                );
+              })}
+            </Card>
+          </Grid>
+          <Grid item xs={12}>
+            <Card title="Review Order">
+              <Form
+                autoComplete="off"
+                noValidate
+                onSubmit={formik.handleSubmit}
+              >
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <FormControl variant="outlined" className="selectbox">
+                      <Controls.Input
+                        select
+                        id="orderStatus"
+                        required
+                        label="Order Status"
+                        {...formik.getFieldProps("orderStatus")}
+                        error={
+                          formik.touched.orderStatus &&
+                          formik.errors.orderStatus
+                            ? formik.errors.orderStatus
+                            : ""
+                        }
+                      >
+                        <MenuItem>Delivered</MenuItem>
+                        <MenuItem>Denied</MenuItem>
+                      </Controls.Input>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <div className="btn-form">
+                      {isSubmitting ? (
+                        <Button
+                          className="clicked-btn"
+                          variant="contained"
+                          disabled={isSubmitting}
+                        >
+                          Checking...
+                        </Button>
+                      ) : (
+                        <Button
+                          className="send-btn"
+                          variant="contained"
+                          type="submit"
+                        >
+                          Checked
+                        </Button>
+                      )}
+                    </div>
+                  </Grid>
+                </Grid>
+              </Form>
+            </Card>
+          </Grid>
+        </Grid>
+      </Card>
+      <Notification notify={notify} setNotify={setNotify} />
+    </div>
+  );
+};
+
+export default EditOrderStatus;

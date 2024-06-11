@@ -13,6 +13,7 @@ import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Dialogs } from "../../../commonComponent/dialog";
 import DetailsIcon from "@mui/icons-material/Details";
+import { userService } from "../../../polices/userService";
 
 const { confirm } = Modal;
 
@@ -183,9 +184,13 @@ const ViewSalesPerson = () => {
       render: (record: any) => {
         return (
           <>
-            <Avatar
-              src={appUrl + `users/uploads/${record.profileImage}`}
-            ></Avatar>
+            {record.profileImage != undefined ? (
+              <Avatar
+                src={appUrl + `users/uploads/${record.profileImage}`}
+              ></Avatar>
+            ) : (
+              <Avatar />
+            )}
           </>
         );
       },
@@ -216,44 +221,50 @@ const ViewSalesPerson = () => {
       render: (record: any) => {
         return (
           <Space size="small">
-            <Tooltip title="Edit">
-              <IconButton
-                onClick={() => {
-                  setSelectedSalesPerson(record);
-                  setViewMode("edit");
-                  setOpenDialog(true);
-                }}
-                aria-label="edit"
-                color="primary"
-              >
-                <EditOutlined />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("update_salesPerson") && (
+              <Tooltip title="Edit">
+                <IconButton
+                  onClick={() => {
+                    setSelectedSalesPerson(record);
+                    setViewMode("edit");
+                    setOpenDialog(true);
+                  }}
+                  aria-label="edit"
+                  color="primary"
+                >
+                  <EditOutlined />
+                </IconButton>
+              </Tooltip>
+            )}
             |
-            <Tooltip title="Detail">
-              <IconButton
-                onClick={() => {
-                  setSelectedSalesPerson(record);
-                  setDetailMode("detail");
-                }}
-                aria-label="detail"
-                color="warning"
-              >
-                <DetailsIcon />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("read_salesPerson") && (
+              <Tooltip title="Detail">
+                <IconButton
+                  onClick={() => {
+                    setSelectedSalesPerson(record);
+                    setDetailMode("detail");
+                  }}
+                  aria-label="detail"
+                  color="warning"
+                >
+                  <DetailsIcon />
+                </IconButton>
+              </Tooltip>
+            )}
             |
-            <Tooltip title="Delete">
-              <IconButton
-                onClick={() => {
-                  showConfirm(record.id);
-                }}
-                aria-label="delete"
-                color="error"
-              >
-                <DeleteForeverIcon />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("delete_salesPerson") && (
+              <Tooltip title="Delete">
+                <IconButton
+                  onClick={() => {
+                    showConfirm(record.id);
+                  }}
+                  aria-label="delete"
+                  color="error"
+                >
+                  <DeleteForeverIcon />
+                </IconButton>
+              </Tooltip>
+            )}
           </Space>
         );
       },
@@ -281,17 +292,19 @@ const ViewSalesPerson = () => {
                     </h2>
                   }
                   extra={
-                    <Button
-                      variant="contained"
-                      color="success"
-                      size="small"
-                      onClick={() => {
-                        setOpenDialog(true);
-                        setViewMode("new");
-                      }}
-                    >
-                      New Sales Person
-                    </Button>
+                    userService.userPermission.match("create_salesPerson") && (
+                      <Button
+                        variant="contained"
+                        color="success"
+                        size="small"
+                        onClick={() => {
+                          setOpenDialog(true);
+                          setViewMode("new");
+                        }}
+                      >
+                        New Sales Person
+                      </Button>
+                    )
                   }
                 >
                   <Card>

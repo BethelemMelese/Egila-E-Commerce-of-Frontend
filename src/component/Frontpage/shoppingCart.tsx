@@ -6,44 +6,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { appUrl } from "../../appurl";
 
-const CartList = [
-  {
-    id: 1,
-    itemName: "Item One",
-    itemDescription: "Item One Description",
-    price: 200,
-    quantity: 5,
-    brand: "The First Item One Brand",
-    itemImage: "carlos-muza.jpg",
-  },
-  {
-    id: 2,
-    itemName: "Item One",
-    itemDescription: "Item One Description",
-    price: 200,
-    quantity: 5,
-    brand: "The First Item One Brand",
-    itemImage: "carlos-muza.jpg",
-  },
-  {
-    id: 3,
-    itemName: "Item One",
-    itemDescription: "Item One Description",
-    price: 200,
-    quantity: 5,
-    brand: "The First Item One Brand",
-    itemImage: "carlos-muza.jpg",
-  },
-  {
-    id: 4,
-    itemName: "Item One",
-    itemDescription: "Item One Description",
-    price: 200,
-    quantity: 5,
-    brand: "The First Item One Brand",
-    itemImage: "carlos-muza.jpg",
-  },
-];
+
 
 const ShoppingCart = () => {
   const navigate = useNavigate();

@@ -55,7 +55,6 @@ const Register = () => {
     username: Yup.string().required("Username is required"),
     address: Yup.string().required("Address is required"),
     subCity: Yup.string().required("Sub City is required"),
-    roleId: Yup.string().required("Role is required"),
     password: Yup.string()
       .min(8, "A Password can't insert less than 8 Characters")
       .matches(
@@ -317,33 +316,6 @@ const Register = () => {
                         }
                         onKeyPress={(event: any) => handleKeyPress(event)}
                       />
-                    </Grid>
-
-                    <Grid item xs={4}>
-                      <FormControl variant="outlined" className="selectbox">
-                        <Controls.Input
-                          select
-                          id="roleId"
-                          required
-                          label="Role"
-                          {...formik.getFieldProps("roleId")}
-                          error={
-                            formik.touched.roleId && formik.errors.roleId
-                              ? formik.errors.roleId
-                              : ""
-                          }
-                        >
-                          <MenuItem>Admin</MenuItem>
-                          <MenuItem>Customer</MenuItem>
-                          {/* {roleResponse.map((value: any) => {
-                            return (
-                              <MenuItem value={value.id}>
-                                {value.roleName}
-                              </MenuItem>
-                            );
-                          })} */}
-                        </Controls.Input>
-                      </FormControl>
                     </Grid>
 
                     <Grid item xs={12}>

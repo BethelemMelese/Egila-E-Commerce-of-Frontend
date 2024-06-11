@@ -235,17 +235,19 @@ const ViewRole = () => {
                   </h2>
                 }
                 extra={
-                  <Button
-                    variant="contained"
-                    color="success"
-                    size="small"
-                    onClick={() => {
-                      setOpenDialog(true);
-                      setViewMode("new");
-                    }}
-                  >
-                    New Role
-                  </Button>
+                  userService.userPermission.match("create_role") && (
+                    <Button
+                      variant="contained"
+                      color="success"
+                      size="small"
+                      onClick={() => {
+                        setOpenDialog(true);
+                        setViewMode("new");
+                      }}
+                    >
+                      New Role
+                    </Button>
+                  )
                 }
               >
                 <Card>

@@ -12,6 +12,7 @@ import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Dialogs } from "../../../commonComponent/dialog";
+import { userService } from "../../../polices/userService";
 
 const { confirm } = Modal;
 
@@ -127,10 +128,10 @@ const ViewItem = () => {
   const onFetchItem = () => {
     axios
       .create({
-            headers: {
-              Authorization: `Bearer ${headers}`,
-            },
-          })
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
       .get(appUrl + `items?search=${query}`)
       .then((res) => {
         setLoading(false);
@@ -220,44 +221,50 @@ const ViewItem = () => {
       render: (record: any) => {
         return (
           <Space size="small">
-            <Tooltip title="Edit">
-              <IconButton
-                onClick={() => {
-                  setSelectedItem(record);
-                  setViewMode("edit");
-                  setOpenDialog(true);
-                }}
-                aria-label="edit"
-                color="primary"
-              >
-                <EditOutlined />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("update_item") && (
+              <Tooltip title="Edit">
+                <IconButton
+                  onClick={() => {
+                    setSelectedItem(record);
+                    setViewMode("edit");
+                    setOpenDialog(true);
+                  }}
+                  aria-label="edit"
+                  color="primary"
+                >
+                  <EditOutlined />
+                </IconButton>
+              </Tooltip>
+            )}
             |
-            <Tooltip title="Detail">
-              <IconButton
-                onClick={() => {
-                  setSelectedItem(record);
-                  setDetailMode("detail");
-                }}
-                aria-label="detail"
-                color="warning"
-              >
-                <DetailsIcon />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("read_item") && (
+              <Tooltip title="Detail">
+                <IconButton
+                  onClick={() => {
+                    setSelectedItem(record);
+                    setDetailMode("detail");
+                  }}
+                  aria-label="detail"
+                  color="warning"
+                >
+                  <DetailsIcon />
+                </IconButton>
+              </Tooltip>
+            )}
             |
-            <Tooltip title="Delete">
-              <IconButton
-                onClick={() => {
-                  showConfirm(record.id);
-                }}
-                aria-label="delete"
-                color="error"
-              >
-                <DeleteForeverIcon />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("delete_item") && (
+              <Tooltip title="Delete">
+                <IconButton
+                  onClick={() => {
+                    showConfirm(record.id);
+                  }}
+                  aria-label="delete"
+                  color="error"
+                >
+                  <DeleteForeverIcon />
+                </IconButton>
+              </Tooltip>
+            )}
           </Space>
         );
       },
@@ -279,17 +286,19 @@ const ViewItem = () => {
                     </h2>
                   }
                   extra={
-                    <Button
-                      variant="contained"
-                      color="success"
-                      size="small"
-                      onClick={() => {
-                        setOpenDialog(true);
-                        setViewMode("new");
-                      }}
-                    >
-                      New Item
-                    </Button>
+                    userService.userPermission.match("create_item") && (
+                      <Button
+                        variant="contained"
+                        color="success"
+                        size="small"
+                        onClick={() => {
+                          setOpenDialog(true);
+                          setViewMode("new");
+                        }}
+                      >
+                        New Item
+                      </Button>
+                    )
                   }
                 >
                   <Card>

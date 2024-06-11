@@ -12,6 +12,7 @@ import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Dialogs } from "../../../commonComponent/dialog";
 import DetailsIcon from "@mui/icons-material/Details";
+import { userService } from "../../../polices/userService";
 
 const { confirm } = Modal;
 
@@ -129,10 +130,10 @@ const ViewCustomer = () => {
   const onFetchCustomer = () => {
     axios
       .create({
-            headers: {
-              Authorization: `Bearer ${headers}`,
-            },
-          })
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
       .get(appUrl + `customers?search=${query}`)
       .then((res) => {
         setLoading(false);
@@ -184,9 +185,13 @@ const ViewCustomer = () => {
       render: (record: any) => {
         return (
           <>
-            <Avatar
-              src={appUrl + `users/uploads/${record.profileImage}`}
-            ></Avatar>
+            {record.profileImage != undefined ? (
+              <Avatar
+                src={appUrl + `users/uploads/${record.profileImage}`}
+              ></Avatar>
+            ) : (
+              <Avatar />
+            )}
           </>
         );
       },
@@ -217,44 +222,50 @@ const ViewCustomer = () => {
       render: (record: any) => {
         return (
           <Space size="small">
-            <Tooltip title="Edit">
-              <IconButton
-                onClick={() => {
-                  setSelectedCustomer(record);
-                  setViewMode("edit");
-                  setOpenDialog(true);
-                }}
-                aria-label="edit"
-                color="primary"
-              >
-                <EditOutlined />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("update_customer") && (
+              <Tooltip title="Edit">
+                <IconButton
+                  onClick={() => {
+                    setSelectedCustomer(record);
+                    setViewMode("edit");
+                    setOpenDialog(true);
+                  }}
+                  aria-label="edit"
+                  color="primary"
+                >
+                  <EditOutlined />
+                </IconButton>
+              </Tooltip>
+            )}
             |
-            <Tooltip title="Detail">
-              <IconButton
-                onClick={() => {
-                  setSelectedCustomer(record);
-                  setDetailMode("detail");
-                }}
-                aria-label="detail"
-                color="warning"
-              >
-                <DetailsIcon />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("read_customer") && (
+              <Tooltip title="Detail">
+                <IconButton
+                  onClick={() => {
+                    setSelectedCustomer(record);
+                    setDetailMode("detail");
+                  }}
+                  aria-label="detail"
+                  color="warning"
+                >
+                  <DetailsIcon />
+                </IconButton>
+              </Tooltip>
+            )}
             |
-            <Tooltip title="Delete">
-              <IconButton
-                onClick={() => {
-                  showConfirm(record.id);
-                }}
-                aria-label="delete"
-                color="error"
-              >
-                <DeleteForeverIcon />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("delete_customer") && (
+              <Tooltip title="Delete">
+                <IconButton
+                  onClick={() => {
+                    showConfirm(record.id);
+                  }}
+                  aria-label="delete"
+                  color="error"
+                >
+                  <DeleteForeverIcon />
+                </IconButton>
+              </Tooltip>
+            )}
           </Space>
         );
       },
@@ -299,7 +310,6 @@ const ViewCustomer = () => {
                           columns={columns}
                           rowKey={(record) => record.id}
                           dataSource={dataSource}
-                          // dataSource={MokeData}
                           pagination={tableParams.pagination}
                           loading={loading}
                           onChange={handleTableChange}

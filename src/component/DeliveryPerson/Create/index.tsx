@@ -4,7 +4,7 @@ import Controls from "../../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../../commonComponent/Form";
-import { appUrl } from "../../../appurl";
+import { appUrl, headers } from "../../../appurl";
 import axios from "axios";
 import { Grid, Button } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
@@ -55,7 +55,7 @@ const CreateDeliveryPerson = ({ ...props }) => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: "Delivery Person is Successfully Registered !",
+      message: "Deliveries is Successfully Registered !",
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -90,7 +90,12 @@ const CreateDeliveryPerson = ({ ...props }) => {
     onSubmit: (values) => {
       setIsSubmitting(true);
       axios
-        .post(appUrl + "deliveryPerson", values)
+        .create({
+          headers: {
+            Authorization: `Bearer ${headers}`,
+          },
+        })
+        .post(appUrl + "deliveryPersons", values)
         .then(() => onCreateSuccess())
         .catch((error) => onCreateError(error.response.data.message));
     },
@@ -104,7 +109,7 @@ const CreateDeliveryPerson = ({ ...props }) => {
           <h3
             style={{ marginRight: "87%", marginTop: "2%", marginBottom: "1%" }}
           >
-            <b>Add Delivery Person</b>
+            <b>Add Deliveries</b>
           </h3>
         }
         extra={
@@ -220,47 +225,18 @@ const CreateDeliveryPerson = ({ ...props }) => {
           </Grid>
 
           <div className="btn-form">
-            {viewMode == "new" && (
-              <>
-                {isSubmitting ? (
-                  <Button
-                    className="clicked-btn"
-                    variant="contained"
-                    disabled={isSubmitting}
-                  >
-                    Sending...
-                  </Button>
-                ) : (
-                  <Button
-                    className="send-btn"
-                    variant="contained"
-                    type="submit"
-                  >
-                    Send
-                  </Button>
-                )}
-              </>
-            )}
-            {viewMode == "edit" && (
-              <>
-                {isSubmitting ? (
-                  <Button
-                    className="clicked-btn"
-                    variant="contained"
-                    disabled={isSubmitting}
-                  >
-                    Updating...
-                  </Button>
-                ) : (
-                  <Button
-                    className="send-btn"
-                    variant="contained"
-                    type="submit"
-                  >
-                    Update
-                  </Button>
-                )}
-              </>
+            {isSubmitting ? (
+              <Button
+                className="clicked-btn"
+                variant="contained"
+                disabled={isSubmitting}
+              >
+                Sending...
+              </Button>
+            ) : (
+              <Button className="send-btn" variant="contained" type="submit">
+                Send
+              </Button>
             )}
           </div>
         </Form>

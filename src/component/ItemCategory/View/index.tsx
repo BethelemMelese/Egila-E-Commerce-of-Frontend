@@ -12,6 +12,7 @@ import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Dialogs } from "../../../commonComponent/dialog";
+import { userService } from "../../../polices/userService";
 
 const { confirm } = Modal;
 
@@ -118,10 +119,10 @@ const ViewItemCategory = () => {
   const onFetchItemCategory = () => {
     axios
       .create({
-            headers: {
-              Authorization: `Bearer ${headers}`,
-            },
-          })
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
       .get(appUrl + `itemCategorys?search=${query}`)
       .then((res) => {
         setLoading(false);
@@ -197,44 +198,50 @@ const ViewItemCategory = () => {
       render: (record: any) => {
         return (
           <Space size="small">
-            <Tooltip title="Edit">
-              <IconButton
-                onClick={() => {
-                  setSelectedItemCategory(record);
-                  setViewMode("edit");
-                  setOpenDialog(true);
-                }}
-                aria-label="edit"
-                color="primary"
-              >
-                <EditOutlined />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("update_category") && (
+              <Tooltip title="Edit">
+                <IconButton
+                  onClick={() => {
+                    setSelectedItemCategory(record);
+                    setViewMode("edit");
+                    setOpenDialog(true);
+                  }}
+                  aria-label="edit"
+                  color="primary"
+                >
+                  <EditOutlined />
+                </IconButton>
+              </Tooltip>
+            )}
             |
-            <Tooltip title="Detail">
-              <IconButton
-                onClick={() => {
-                  setSelectedItemCategory(record);
-                  setDetailMode("detail");
-                }}
-                aria-label="detail"
-                color="warning"
-              >
-                <DetailsIcon />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("read_category") && (
+              <Tooltip title="Detail">
+                <IconButton
+                  onClick={() => {
+                    setSelectedItemCategory(record);
+                    setDetailMode("detail");
+                  }}
+                  aria-label="detail"
+                  color="warning"
+                >
+                  <DetailsIcon />
+                </IconButton>
+              </Tooltip>
+            )}
             |
-            <Tooltip title="Delete">
-              <IconButton
-                onClick={() => {
-                  showConfirm(record.id);
-                }}
-                aria-label="delete"
-                color="error"
-              >
-                <DeleteForeverIcon />
-              </IconButton>
-            </Tooltip>
+            {userService.userPermission.match("delete_category") && (
+              <Tooltip title="Delete">
+                <IconButton
+                  onClick={() => {
+                    showConfirm(record.id);
+                  }}
+                  aria-label="delete"
+                  color="error"
+                >
+                  <DeleteForeverIcon />
+                </IconButton>
+              </Tooltip>
+            )}
           </Space>
         );
       },
@@ -256,17 +263,19 @@ const ViewItemCategory = () => {
                     </h2>
                   }
                   extra={
-                    <Button
-                      variant="contained"
-                      color="success"
-                      size="small"
-                      onClick={() => {
-                        setOpenDialog(true);
-                        setViewMode("new");
-                      }}
-                    >
-                      New Category
-                    </Button>
+                    userService.userPermission.match("delete_category") && (
+                      <Button
+                        variant="contained"
+                        color="success"
+                        size="small"
+                        onClick={() => {
+                          setOpenDialog(true);
+                          setViewMode("new");
+                        }}
+                      >
+                        New Category
+                      </Button>
+                    )
                   }
                 >
                   <Card>
