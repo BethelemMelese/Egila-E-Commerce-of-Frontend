@@ -1,10 +1,17 @@
-import { FormControl, Grid, MenuItem, Paper, Button } from "@mui/material";
+import {
+  FormControl,
+  Grid,
+  MenuItem,
+  Paper,
+  Button,
+  Autocomplete,
+} from "@mui/material";
 import { Card } from "antd";
 import Controls from "../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../commonComponent/Form";
-import { appUrl } from "../../appurl";
+import { appUrl, headers } from "../../appurl";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -24,8 +31,10 @@ const initialState: ReportState = {
 
 const Report = ({ ...props }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [categoryResponse, setCategoryResponse] = useState<any>();
-  const [itemResponse, setItemResponse] = useState<any>();
+  const [categoryResponse, setCategoryResponse] = useState<any>([]);
+  const [selectedCategory, setSelectedCategory] = useState();
+  const [itemResponse, setItemResponse] = useState<any>([]);
+  const [selectedItem, setSelectedItem] = useState();
   const [dataSource, setDateSource] = useState();
   const [error, setError] = useState();
 
@@ -34,6 +43,11 @@ const Report = ({ ...props }) => {
     onSubmit: (values) => {
       setIsSubmitting(true);
       axios
+        .create({
+          headers: {
+            Authorization: `Bearer ${headers}`,
+          },
+        })
         .post(appUrl + "report", values)
         .then((response) => setDateSource(response.data))
         .catch((error) => setError(error.response.data.message));
@@ -42,14 +56,24 @@ const Report = ({ ...props }) => {
 
   useEffect(() => {
     axios
-      .get(appUrl + "itemCategorys")
+      .create({
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
+      .get(appUrl + "reports/itemCategory")
       .then((response) => setCategoryResponse(response.data))
       .catch((error) => setCategoryResponse(error.response.data.message));
   }, []);
 
   useEffect(() => {
     axios
-      .get(appUrl + "items")
+      .create({
+        headers: {
+          Authorization: `Bearer ${headers}`,
+        },
+      })
+      .get(appUrl + "reports/itemName")
       .then((response) => setItemResponse(response.data))
       .catch((error) => setItemResponse(error.response.data.message));
   }, []);
@@ -67,56 +91,47 @@ const Report = ({ ...props }) => {
                   onSubmit={formik.handleSubmit}
                 >
                   <Grid container spacing={2}>
-                    <Grid item xs={3}>
-                      <FormControl variant="outlined" className="selectbox">
-                        <Controls.Input
-                          select
-                          id="categoryId"
-                          required
-                          label="Category"
-                          {...formik.getFieldProps("categoryId")}
-                          error={
-                            formik.touched.categoryId &&
-                            formik.errors.categoryId
-                              ? formik.errors.categoryId
-                              : ""
-                          }
-                        >
-                          {/* {categoryResponse.map((value: any) => {
-                            return (
-                              <MenuItem value={value.id}>
-                                {value.categoryName}
-                              </MenuItem>
-                            );
-                          })} */}
-                        </Controls.Input>
-                      </FormControl>
+                    <Grid item xs={4}>
+                      <Autocomplete
+                        id="categoryId"
+                        disableClearable
+                        //@ts-ignore
+                        options={categoryResponse}
+                        getOptionLabel={(item) => item.categoryName}
+                        onChange={(event: any, newValue: any | null) => {
+                          setSelectedCategory(newValue.id);
+                        }}
+                        renderInput={(params) => (
+                          <Controls.Input
+                            {...params}
+                            variant="outlined"
+                            label="Category"
+                            required
+                          ></Controls.Input>
+                        )}
+                      />
                     </Grid>
-                    <Grid item xs={3}>
-                      <FormControl variant="outlined" className="selectbox">
-                        <Controls.Input
-                          select
-                          id="itemId"
-                          required
-                          label="Item"
-                          {...formik.getFieldProps("itemId")}
-                          error={
-                            formik.touched.itemId && formik.errors.itemId
-                              ? formik.errors.itemId
-                              : ""
-                          }
-                        >
-                          {/* {itemResponse.map((value: any) => {
-                            return (
-                              <MenuItem value={value.id}>
-                                {value.itemName}
-                              </MenuItem>
-                            );
-                          })} */}
-                        </Controls.Input>
-                      </FormControl>
+                    <Grid item xs={4}>
+                      <Autocomplete
+                        id="itemId"
+                        disableClearable
+                        //@ts-ignore
+                        options={itemResponse}
+                        getOptionLabel={(item) => item.itemName}
+                        onChange={(event: any, newValue: any | null) => {
+                          setSelectedItem(newValue.id);
+                        }}
+                        renderInput={(params) => (
+                          <Controls.Input
+                            {...params}
+                            variant="outlined"
+                            label="Item"
+                            required
+                          ></Controls.Input>
+                        )}
+                      />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={4}>
                       <FormControl variant="outlined" className="selectbox">
                         <Controls.Input
                           select
@@ -131,13 +146,13 @@ const Report = ({ ...props }) => {
                               : ""
                           }
                         >
-                          <MenuItem value="Ongoing">Ongoing</MenuItem>
-                          <MenuItem value="Payed">Payed</MenuItem>
+                          <MenuItem value="Accepted">Accepted</MenuItem>
                           <MenuItem value="Denied">Denied</MenuItem>
+                          <MenuItem value="Has Issue">Has Issue</MenuItem>
                         </Controls.Input>
                       </FormControl>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={4}>
                       <FormControl variant="outlined" className="selectbox">
                         <Controls.Input
                           select
@@ -152,8 +167,10 @@ const Report = ({ ...props }) => {
                               : ""
                           }
                         >
-                          <MenuItem value="OnCash">On Cash</MenuItem>
-                          <MenuItem value="OnOnline">On Online</MenuItem>
+                          <MenuItem value="In Cash">In Cash</MenuItem>
+                          <MenuItem value="Online Banking">
+                            Online Mobile Banking
+                          </MenuItem>
                         </Controls.Input>
                       </FormControl>
                     </Grid>

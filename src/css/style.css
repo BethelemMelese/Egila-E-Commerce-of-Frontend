@@ -33,6 +33,22 @@ html {
   height: 50px;
 }
 
+:where(.css-dev-only-do-not-override-1okl62o).ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-description {
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  margin-top: 12%;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-title {
+  margin: 0 0 4px 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  margin-top: 5px;
+  float: left;
+}
+
 :where(.css-dev-only-do-not-override-1okl62o).ant-layout {
   display: flex;
   flex: auto;

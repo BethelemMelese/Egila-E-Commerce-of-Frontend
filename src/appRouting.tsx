@@ -25,6 +25,7 @@ import SampleExample from "./component/Sample";
 import ChangePassword from "./component/Setting/changePassword";
 import ViewCart from "./component/Cart";
 import ViewOrder from "./component/Order/View";
+import ViewFeadBack from "./component/FeadBack/View";
 import "./css/style.css";
 import "./css/mediaQuery.css";
 import "./App.css";
@@ -40,7 +41,7 @@ const AppRoute = () => {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="viewCart" element={<ViewCart />} />
-        <Route path="sample" element={<SampleExample/>}/>
+        <Route path="sample" element={<SampleExample />} />
         <Route
           path="Notification"
           element={
@@ -63,14 +64,14 @@ const AppRoute = () => {
           <Route path="ViewRole" element={<ViewRole />} />
           <Route path="viewCategory" element={<ViewItemCategory />} />
           <Route path="viewCustomer" element={<ViewCustomer />} />
-          <Route path="ViewAdmin" element={<ViewAdmin/>} />
+          <Route path="ViewAdmin" element={<ViewAdmin />} />
           <Route path="viewSalesPerson" element={<ViewSalesPerson />} />
           <Route path="ViewOrder" element={<ViewOrder />} />
           <Route path="info" element={<Setting />} />
           <Route path="report" element={<Report />} />
           <Route path="changePassword" element={<ChangePassword />} />
-          <Route path="ViewDeliveries" element={<ViewDeliveryPerson />}/>
-          
+          <Route path="ViewDeliveries" element={<ViewDeliveryPerson />} />
+          <Route path="viewComment" element={<ViewFeadBack />} />
         </Route>
       </Routes>
     </div>

@@ -116,7 +116,7 @@ const ViewOrder = () => {
 
   //   for get all data
   const onFetchOrder = () => {
-    const token=localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     axios
       .create({
         headers: {
@@ -169,7 +169,8 @@ const ViewOrder = () => {
         return (
           <Space size="small">
             {userService.userPermission.match("update_order") &&
-              userService.currentRole.match("Sales Person") && (
+              userService.currentRole.match("Sales Person") &&
+              record.isAssign == false && (
                 <Tooltip title="Assign Deliveries">
                   <IconButton
                     onClick={() => {
@@ -185,7 +186,8 @@ const ViewOrder = () => {
                 </Tooltip>
               )}
             {userService.userPermission.match("update_order") &&
-              userService.currentRole.match("Delivery Person") && (
+              userService.currentRole.match("Delivery Person") &&
+              record.orderStatus != "Accepted" && (
                 <Tooltip title="Edit Order Status">
                   <IconButton
                     onClick={() => {
@@ -194,7 +196,7 @@ const ViewOrder = () => {
                       setOpenDialog(true);
                     }}
                     aria-label="edit"
-                    color="primary"
+                    color="success"
                   >
                     <AssignmentIndIcon />
                   </IconButton>
@@ -216,20 +218,21 @@ const ViewOrder = () => {
               </Tooltip>
             )}
             |
-            {userService.userPermission.match("create_issueReport") && (
-              <Tooltip title="Report Issues">
-                <IconButton
-                  onClick={() => {
-                    setSelectedOrder(record);
-                    setViewMode("report");
-                  }}
-                  aria-label="delete"
-                  color="error"
-                >
-                  <ReportProblemIcon />
-                </IconButton>
-              </Tooltip>
-            )}
+            {userService.userPermission.match("create_issueReport") &&
+              record.orderStatus != "Accepted" && (
+                <Tooltip title="Report Issues">
+                  <IconButton
+                    onClick={() => {
+                      setSelectedOrder(record);
+                      setViewMode("report");
+                    }}
+                    aria-label="delete"
+                    color="error"
+                  >
+                    <ReportProblemIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
           </Space>
         );
       },

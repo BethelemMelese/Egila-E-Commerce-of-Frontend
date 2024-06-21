@@ -82,7 +82,7 @@ const Register = () => {
     });
     setTimeout(() => {
       setIsSubmitting(false);
-      navigate("/");
+      navigate("/login");
     }, 2000);
   };
 
