@@ -4,28 +4,18 @@ import type { GetProp, TableProps } from "antd";
 import { Grid, Button, Paper, IconButton } from "@mui/material";
 import AssignDeliveries from "../AssignDeliveries";
 import EditOrderStatus from "../EditOrderStatus";
+import ViewIssueReport from "../IssuesReport/view";
+import CreateIssueReport from "../IssuesReport/create";
 import DetailOrder from "../Detail";
 import { appUrl, headers } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
-import { ExclamationCircleFilled } from "@ant-design/icons";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import DetailsIcon from "@mui/icons-material/Details";
 import { userService } from "../../../polices/userService";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
-
-const { confirm } = Modal;
-
-interface ItemState {
-  orderName: string;
-  orderDescription: string;
-}
-
-const initialState: ItemState = {
-  orderName: "",
-  orderDescription: "",
-};
+import { Dialogs } from "../../../commonComponent/dialog";
 
 type TablePaginationConfig = Exclude<
   GetProp<TableProps, "pagination">,
@@ -53,7 +43,8 @@ const ViewOrder = () => {
   const [dataSource, setDataSource] = useState<any>([]); // to set the response data and display on the table
   const [viewMode, setViewMode] = useState("view"); // to make change of the view for create and edit
   const [query, setQuery] = useState(""); // for search purpose to get the key
-  const [openDialog, setOpenDialog] = useState(false);
+  const [viewOpenDialog, setViewOpenDialog] = useState(false);
+  const [readOpenDialog, setReadOpenDialog] = useState(false);
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
@@ -176,7 +167,6 @@ const ViewOrder = () => {
                     onClick={() => {
                       setSelectedOrder(record);
                       setViewMode("assign");
-                      setOpenDialog(true);
                     }}
                     aria-label="edit"
                     color="primary"
@@ -193,7 +183,6 @@ const ViewOrder = () => {
                     onClick={() => {
                       setSelectedOrder(record);
                       setViewMode("edit");
-                      setOpenDialog(true);
                     }}
                     aria-label="edit"
                     color="success"
@@ -219,12 +208,27 @@ const ViewOrder = () => {
             )}
             |
             {userService.userPermission.match("create_issueReport") &&
-              record.orderStatus != "Accepted" && (
+              record.orderStatus == "Has Issue" && (
                 <Tooltip title="Report Issues">
                   <IconButton
                     onClick={() => {
                       setSelectedOrder(record);
-                      setViewMode("report");
+                      setReadOpenDialog(true);
+                    }}
+                    aria-label="delete"
+                    color="error"
+                  >
+                    <ReportProblemIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+            {userService.userPermission.match("read_issuesReport") &&
+              record.orderStatus == "Has Issue" && (
+                <Tooltip title="Report Issues">
+                  <IconButton
+                    onClick={() => {
+                      setSelectedOrder(record);
+                      setViewOpenDialog(true);
                     }}
                     aria-label="delete"
                     color="error"
@@ -286,6 +290,34 @@ const ViewOrder = () => {
                   </Card>
 
                   {/* to open the dialog for create and update form */}
+                  <Dialogs
+                    openDialog={readOpenDialog}
+                    setOpenDialog={readOpenDialog}
+                    height="55%"
+                    maxHeight="435"
+                    children={
+                      <CreateIssueReport
+                        //@ts-ignore
+                        selectedOrder={selectedOrder}
+                        viewMode={viewMode}
+                        closeedit={() => setReadOpenDialog(false)}
+                      />
+                    }
+                  />
+                  <Dialogs
+                    openDialog={viewOpenDialog}
+                    setOpenDialog={viewOpenDialog}
+                    height="55%"
+                    maxHeight="435"
+                    children={
+                      <ViewIssueReport
+                        //@ts-ignore
+                        selectedOrder={selectedOrder}
+                        viewMode={viewMode}
+                        closeedit={() => setViewOpenDialog(false)}
+                      />
+                    }
+                  />
                 </Card>
               )}
               {viewMode == "assign" && (

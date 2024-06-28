@@ -46,7 +46,7 @@ interface TableParams {
 const ViewFeadBack = () => {
   const [data, setData] = useState<DataType[]>();
   const [loading, setLoading] = useState(false);
-  const [selectedRole, setSelectedRole] = useState<any>();
+  const [selectedFeedBack, setSelectedFeedBack] = useState<any>();
   const [dataSource, setDataSource] = useState<any>([]); // to set the response data and display on the table
   const [viewMode, setViewMode] = useState("view"); // to make change of the view for create and edit
   const [query, setQuery] = useState(""); // for search purpose to get the key
@@ -84,7 +84,7 @@ const ViewFeadBack = () => {
       type: "success",
       message: response.message,
     });
-    onFetchRole();
+    onFetchFeedBack();
   };
 
   const onDeleteError = (response: any) => {
@@ -112,7 +112,7 @@ const ViewFeadBack = () => {
   };
 
   //   for get all data
-  const onFetchRole = () => {
+  const onFetchFeedBack = () => {
     axios
       .create({
         headers: {
@@ -159,7 +159,7 @@ const ViewFeadBack = () => {
   //   to fetch data using useEffect, when every time this page is loaded
   useEffect(() => {
     setLoading(true);
-    onFetchRole();
+    onFetchFeedBack();
   }, [query]);
 
   //   identify the columns that has to display on the table
@@ -184,7 +184,7 @@ const ViewFeadBack = () => {
               <Tooltip title="Edit">
                 <IconButton
                   onClick={() => {
-                    setSelectedRole(record);
+                    setSelectedFeedBack(record);
                     setViewMode("edit");
                     setOpenDialog(true);
                   }}
@@ -231,7 +231,7 @@ const ViewFeadBack = () => {
                       marginBottom: "1%",
                     }}
                   >
-                    <b>Role</b>
+                    <b>Feedback</b>
                   </h2>
                 }
                 extra={
@@ -245,7 +245,7 @@ const ViewFeadBack = () => {
                         setViewMode("new");
                       }}
                     >
-                      New Role
+                      New Comment
                     </Button>
                   )
                 }
@@ -285,14 +285,14 @@ const ViewFeadBack = () => {
                     viewMode == "new" ? (
                       <CreateFeedBack
                         //@ts-ignore
-                        selectedRole={initialState}
+                        selectedFeedBack={initialState}
                         viewMode={viewMode}
                         closeedit={() => setOpenDialog(false)}
                       />
                     ) : (
                       <CreateFeedBack
                         //@ts-ignore
-                        selectedRole={selectedRole}
+                        selectedFeedBack={selectedFeedBack}
                         viewMode={viewMode}
                         closeedit={() => setOpenDialog(false)}
                       />

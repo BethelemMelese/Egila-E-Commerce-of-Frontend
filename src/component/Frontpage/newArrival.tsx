@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 const NewArrival = () => {
   const [response, setResponse] = useState<any>([]);
   const [query, setQuery] = useState(""); // for search purpose to get the key
-
+  const [getKey, setGetKey] = useState(null);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -64,7 +64,7 @@ const NewArrival = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <MainLayout />
+        <MainLayout inputValue={(value: any) => setGetKey(value)} />
       </AppBar>
 
       <Box sx={{ backgroundColor: "#efefef" }}>

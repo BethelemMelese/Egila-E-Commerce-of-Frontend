@@ -182,10 +182,14 @@ const ViewItem = () => {
       render: (record: any) => {
         return (
           <>
-            <Avatar
-              src={appUrl + `items/uploads/${record.itemImage}`}
-              variant="rounded"
-            ></Avatar>
+            {record.itemImage != undefined ? (
+              <Avatar
+                src={appUrl + `items/uploads/${record.itemImage}`}
+                variant="rounded"
+              ></Avatar>
+            ) : (
+              <Avatar />
+            )}
           </>
         );
       },

@@ -22,7 +22,9 @@ const initialState: FeedBackState = {
 
 const CreateFeedBack = ({ ...props }) => {
   const [viewMode, setViewMode] = useState(props.viewMode);
-  const [selectedFeedBack, setSelectedFeedBack] = useState(props.selectedFeedBack);
+  const [selectedFeedBack, setSelectedFeedBack] = useState(
+    props.selectedFeedBack
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -87,7 +89,8 @@ const CreateFeedBack = ({ ...props }) => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("FeedBack is required"),
+    name: Yup.string().required("Your Name is required"),
+    description: Yup.string().required("Your Comment is required"),
   });
 
   const formik = useFormik({
@@ -127,7 +130,7 @@ const CreateFeedBack = ({ ...props }) => {
           <h3
             style={{ marginRight: "87%", marginTop: "2%", marginBottom: "1%" }}
           >
-            {viewMode == "new" ? <b>Add Feed Back</b> : <b>Modify Feed Back</b>}
+            {viewMode == "new" ? <b>Add Your Feed Back</b> : <b>Modify Your Feed Back</b>}
           </h3>
         }
         extra={
@@ -142,7 +145,7 @@ const CreateFeedBack = ({ ...props }) => {
               <Controls.Input
                 required
                 id="name"
-                label="FeedBack"
+                label="Your Name"
                 {...formik.getFieldProps("name")}
                 error={
                   formik.touched.name && formik.errors.name
@@ -152,8 +155,9 @@ const CreateFeedBack = ({ ...props }) => {
               />
 
               <Controls.Input
+                required
                 id="description"
-                label="Description"
+                label="Your Comment"
                 multiline
                 {...formik.getFieldProps("description")}
                 error={

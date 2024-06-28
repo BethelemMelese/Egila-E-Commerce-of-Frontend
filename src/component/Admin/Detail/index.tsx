@@ -7,7 +7,6 @@ import CancelOutlined from "@mui/icons-material/CancelOutlined";
 import { appUrl } from "../../../appurl";
 
 const DetailAdmin = ({ ...props }) => {
-  const [detailMode, setDetailMode] = useState(props.detailMode);
   const [selectedAdmin, setSelectedAdmin] = useState(props.selectedAdmin);
   return (
     <Card
@@ -25,21 +24,27 @@ const DetailAdmin = ({ ...props }) => {
       <Form autoCpmplete="off">
         <Grid container spacing={2}>
           <Grid item xs={2}>
-            <Avatar
-              src={appUrl + `users/upload/${selectedAdmin.profileImage}`}
-              variant="rounded"
-              sx={{ width: 200, height: 150, marginLeft: 5, marginBottom: 8 }}
-            ></Avatar>
+            {selectedAdmin.profileImage != undefined ? (
+              <Avatar
+                src={appUrl + `users/uploads/${selectedAdmin.profileImage}`}
+                variant="rounded"
+                sx={{ width: 200, height: 150, marginLeft: 5, marginBottom: 8 }}
+              ></Avatar>
+            ) : (
+              <Avatar
+                variant="rounded"
+                sx={{ width: 200, height: 150, marginLeft: 5, marginBottom: 8 }}
+              />
+            )}
           </Grid>
           <Grid item xs={10}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Controls.Input
-                  required
                   id="fullName"
                   label="Full Name"
                   disabled
-                  valur={selectedAdmin.fullName}
+                  value={selectedAdmin.fullName}
                 />
                 <Controls.Input
                   id="email"
@@ -57,7 +62,7 @@ const DetailAdmin = ({ ...props }) => {
                   id="phone"
                   label="Phone"
                   disabled
-                  value={selectedAdmin.phon}
+                  value={selectedAdmin.phone}
                 />
                 <Controls.Input
                   id="address"

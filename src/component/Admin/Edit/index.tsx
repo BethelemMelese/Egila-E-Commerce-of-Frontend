@@ -91,7 +91,7 @@ const EditAdmin = ({ ...props }) => {
         })
         .put(appUrl + `admins/${selectedAdmin.id}`, values)
         .then(() => onUpdateSuccess())
-        .catch((error) => onUpdateError(error.responce.data.message));
+        .catch((error) => onUpdateError(error.response.data.message));
     },
     validationSchema: validationSchema,
   });
@@ -102,13 +102,13 @@ const EditAdmin = ({ ...props }) => {
           <h3
             style={{ marginRight: "87%", marginTop: "2%", marginBottom: "1%" }}
           >
-            extra=
-            {
-              <a onClick={() => props.closedeedit()}>
-                <CancelOutlinedIcon fontSize="medium" className="close-btn" />
-              </a>
-            }
+            Modify Admin
           </h3>
+        }
+        extra={
+          <a onClick={() => props.closedeedit()}>
+            <CancelOutlinedIcon fontSize="medium" className="close-btn" />
+          </a>
         }
       >
         <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
@@ -118,7 +118,7 @@ const EditAdmin = ({ ...props }) => {
                 className="inputField"
                 required
                 id="firstName"
-                label="FirstName"
+                label="First Name"
                 {...formik.getFieldProps("firstName")}
                 error={
                   formik.touched.firstName && formik.errors.firstName

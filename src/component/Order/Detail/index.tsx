@@ -6,13 +6,12 @@ import { appUrl, headers } from "../../../appurl";
 import axios from "axios";
 
 const DetailOrder = ({ ...props }) => {
-  const [viewMode, setViewMode] = useState(props.viewMode);
   const [selectedOrder, setSelectedOrder] = useState<any>(props.selectedOrder);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [deliveryResponse, setDeliveryResponse] = useState();
   const [cartResponse, setCartResponse] = useState<any>();
   const [paymentResponse, setPaymentResponse] = useState<any>();
+  const [deliveryNameResponse, setDeliveryNameResponse] = useState<any>();
 
+  console.log("deliveryNameResponse....", deliveryNameResponse);
   useEffect(() => {
     axios
       .create({
@@ -32,9 +31,9 @@ const DetailOrder = ({ ...props }) => {
           Authorization: `Bearer ${headers}`,
         },
       })
-      .get(appUrl + `payments/${selectedOrder.id}`)
-      .then((response) => setPaymentResponse(response.data))
-      .catch((error) => setPaymentResponse(error.response.data.message));
+      .get(appUrl + `orders/deliveryName/${selectedOrder.deliveryPersonId}`)
+      .then((response) => setDeliveryNameResponse(response.data))
+      .catch((error) => setDeliveryNameResponse(undefined));
   }, [selectedOrder]);
 
   useEffect(() => {
@@ -44,10 +43,10 @@ const DetailOrder = ({ ...props }) => {
           Authorization: `Bearer ${headers}`,
         },
       })
-      .get(appUrl + "deliveryPersons/name")
-      .then((response) => setDeliveryResponse(response.data))
-      .catch((error) => setDeliveryResponse(error.response.data.message));
-  }, []);
+      .get(appUrl + `payments/${selectedOrder.id}`)
+      .then((response) => setPaymentResponse(response.data))
+      .catch((error) => setPaymentResponse(error.response.data.message));
+  }, [selectedOrder]);
 
   return (
     <div>
@@ -174,22 +173,33 @@ const DetailOrder = ({ ...props }) => {
                       </Paper>
                     )}
                   </Grid>
-                  <Grid item xs={12}>
-                    <Paper>
-                      <Card>
-                        <p>
-                          Delivery Person:{" "}
-                          <b>{paymentResponse.paymentMethod}</b>
-                        </p>
-                        <Divider
-                          orientation="horizontal"
-                          variant="middle"
-                          flexItem
-                          style={{ color: "#fff" }}
-                        />
-                      </Card>
-                    </Paper>
-                  </Grid>
+                  {deliveryNameResponse != undefined && (
+                    <Grid item xs={12}>
+                      <Paper>
+                        <Card>
+                          <p>
+                            Delivery Name:{" "}
+                            <b>{deliveryNameResponse.fullName}</b>
+                          </p>
+                          <Divider
+                            orientation="horizontal"
+                            variant="middle"
+                            flexItem
+                            style={{ color: "#fff" }}
+                          />
+                          <p>
+                            Phone: <b>{deliveryNameResponse.phone}</b>
+                          </p>
+                          <Divider
+                            orientation="horizontal"
+                            variant="middle"
+                            flexItem
+                            style={{ color: "#fff" }}
+                          />
+                        </Card>
+                      </Paper>
+                    </Grid>
+                  )}
                 </Grid>
               </Grid>
             </Grid>

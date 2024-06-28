@@ -174,10 +174,14 @@ const ViewItemCategory = () => {
       render: (record: any) => {
         return (
           <>
-            <Avatar
-              src={appUrl + `itemCategorys/uploads/${record.categoryImage}`}
-              variant="rounded"
-            ></Avatar>
+            {record.itemImage != undefined ? (
+              <Avatar
+                src={appUrl + `itemCategorys/uploads/${record.categoryImage}`}
+                variant="rounded"
+              ></Avatar>
+            ) : (
+              <Avatar />
+            )}
           </>
         );
       },

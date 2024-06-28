@@ -1,10 +1,5 @@
-import { Grid, Paper, Typography, Avatar } from "@mui/material";
-import { Card, List, Tooltip } from "antd";
-import PersonIcon from "@mui/icons-material/Person";
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import ReceiptIcon from "@mui/icons-material/Receipt";
-import AppShortcutIcon from "@mui/icons-material/AppShortcut";
-import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
+import { Grid, Paper, Avatar } from "@mui/material";
+import { Card, List } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { headers, appUrl } from "../../appurl";
@@ -14,6 +9,7 @@ const CustomerDashboard = () => {
   const [currentItem, setCurrentItem] = useState<any>(null);
   const [currentOrder, setCurrentOrder] = useState<any>(null);
   const [currentNewArrival, setCurrentNewArrival] = useState<any>(null);
+  const uuId = localStorage.getItem("UUCartId");
 
   useEffect(() => {
     axios
@@ -50,7 +46,7 @@ const CustomerDashboard = () => {
           Authorization: `Bearer ${headers}`,
         },
       })
-      .get(appUrl + `dashboard/currentOrder`)
+      .get(appUrl + `dashboard/currentOrder/${uuId}`)
       .then((response) => {
         setCurrentOrder(response.data);
       })
@@ -72,6 +68,70 @@ const CustomerDashboard = () => {
   }, []);
   return (
     <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <Grid container spacing={2}>
+          <Grid item xs={8}>
+            <Paper elevation={2}>
+              <Card title="Your Orders" style={{ height: 440 }}>
+                {currentOrder != null && (
+                  <List
+                    itemLayout="vertical"
+                    size="small"
+                    dataSource={currentOrder}
+                    pagination={{
+                      pageSize: 2,
+                    }}
+                    renderItem={(item: any, index) => (
+                      <List.Item>
+                        <List.Item.Meta
+                          avatar={
+                            <Avatar
+                              variant="rounded"
+                              src={appUrl + `items/uploads/${item.itemImage}`}
+                            />
+                          }
+                          title={<a>{item.itemName}</a>}
+                          description={item.itemDescription}
+                        />
+                      </List.Item>
+                    )}
+                  />
+                )}
+              </Card>
+            </Paper>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper elevation={2}>
+              <Card title="New Arrivals" style={{ height: 440 }}>
+                {currentNewArrival != null && (
+                  <List
+                    itemLayout="vertical"
+                    size="small"
+                    dataSource={currentNewArrival}
+                    pagination={{
+                      pageSize: 2,
+                    }}
+                    renderItem={(item: any, index) => (
+                      <List.Item>
+                        <List.Item.Meta
+                          avatar={
+                            <Avatar
+                              variant="rounded"
+                              src={appUrl + `items/uploads/${item.itemImage}`}
+                            />
+                          }
+                          title={<a>{item.itemName}</a>}
+                          description={item.itemDescription}
+                        />
+                      </List.Item>
+                    )}
+                  />
+                )}
+              </Card>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Grid>
       <Grid item xs={12}>
         <Grid container spacing={2}>
           <Grid item xs={4}>
@@ -116,70 +176,6 @@ const CustomerDashboard = () => {
                     itemLayout="vertical"
                     size="small"
                     dataSource={currentItem}
-                    pagination={{
-                      pageSize: 2,
-                    }}
-                    renderItem={(item: any, index) => (
-                      <List.Item>
-                        <List.Item.Meta
-                          avatar={
-                            <Avatar
-                              variant="rounded"
-                              src={appUrl + `items/uploads/${item.itemImage}`}
-                            />
-                          }
-                          title={<a>{item.itemName}</a>}
-                          description={item.itemDescription}
-                        />
-                      </List.Item>
-                    )}
-                  />
-                )}
-              </Card>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
-            <Paper elevation={2}>
-              <Card title="Your Orders" style={{ height: 440 }}>
-                {currentOrder != null && (
-                  <List
-                    itemLayout="vertical"
-                    size="small"
-                    dataSource={currentOrder}
-                    pagination={{
-                      pageSize: 2,
-                    }}
-                    renderItem={(item: any, index) => (
-                      <List.Item>
-                        <List.Item.Meta
-                          avatar={
-                            <Avatar
-                              variant="rounded"
-                              src={appUrl + `items/uploads/${item.itemImage}`}
-                            />
-                          }
-                          title={<a>{item.itemName}</a>}
-                          description={item.itemDescription}
-                        />
-                      </List.Item>
-                    )}
-                  />
-                )}
-              </Card>
-            </Paper>
-          </Grid>
-          <Grid item xs={4}>
-            <Paper elevation={2}>
-              <Card title="New Arrivals" style={{ height: 440 }}>
-                {currentNewArrival != null && (
-                  <List
-                    itemLayout="vertical"
-                    size="small"
-                    dataSource={currentNewArrival}
                     pagination={{
                       pageSize: 2,
                     }}

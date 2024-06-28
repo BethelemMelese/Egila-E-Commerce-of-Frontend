@@ -23,6 +23,7 @@ const Category = () => {
   const [categoryResponse, setCategoryResponse] = useState<any>([]);
   const [categorySelected, setCategorySelected] = useState<any>("");
   const [query, setQuery] = useState(""); // for search purpose to get the key
+  const [getKey, setGetKey] = useState(null);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -60,8 +61,8 @@ const Category = () => {
 
   const Restore = () => {
     axios
-      .get(appUrl + "itemCategorys")
-      .then((response) => setCategoryResponse(response.data))
+      .get(appUrl + `items/categorySearch?id=${""}&&search=${""}`)
+      .then((response) => setItemResponse(response.data))
       .catch((error) => onFetchError(error.response.data.message));
   };
 
@@ -92,7 +93,7 @@ const Category = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <MainLayout />
+        <MainLayout inputValue={(value: any) => setGetKey(value)} />
       </AppBar>
 
       <Box sx={{ backgroundColor: "#efefef" }}>

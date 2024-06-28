@@ -27,15 +27,21 @@ const DetailDeliveryPerson = ({ ...props }) => {
       <Form autoComplete="off">
         <Grid container spacing={2}>
           <Grid item xs={2}>
-            <Avatar
-              src={
-                appUrl + `users/uploads/${selectedDeliveryPerson.profileImage}`
-              }
-              variant="rounded"
-              sx={{ width: 20, height: 150, marginLeft: 5, marginBottom: 8 }}
-            >
-              {" "}
-            </Avatar>
+            {selectedDeliveryPerson.profileImage != undefined ? (
+              <Avatar
+                src={
+                  appUrl +
+                  `users/uploads/${selectedDeliveryPerson.profileImage}`
+                }
+                variant="rounded"
+                sx={{ width: 200, height: 150, marginLeft: 5, marginBottom: 8 }}
+              ></Avatar>
+            ) : (
+              <Avatar
+                variant="rounded"
+                sx={{ width: 200, height: 150, marginLeft: 5, marginBottom: 8 }}
+              />
+            )}
           </Grid>
           <Grid item xs={10}>
             <Grid container spacing={2}>

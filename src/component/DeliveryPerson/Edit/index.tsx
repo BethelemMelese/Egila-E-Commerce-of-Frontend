@@ -32,7 +32,7 @@ const initialState: ItemState = {
 const EditDeliveryPerson = ({ ...props }) => {
   const [viewMode, setViewMode] = useState(props.viewMode);
   const [selectedDeliveryPerson, setSelectedDeliveryPerson] = useState(
-    props.selectedDeliveryPersonPerson
+    props.selectedDeliveryPerson
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notify, setNotify] = useState({

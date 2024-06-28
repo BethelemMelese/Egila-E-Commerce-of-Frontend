@@ -83,7 +83,7 @@ const navItems = [
   },
 ];
 
-const MainLayout = () => {
+const MainLayout = ({...props}) => {
   const [open, setOpen] = useState(false);
   const [counter, setCounter] = useState(0);
   const [notify, setNotify] = useState({
@@ -166,6 +166,7 @@ const MainLayout = () => {
               <StyledInputBase
                 placeholder="Search Item ..."
                 inputProps={{ "aria-label": "search" }}
+                onKeyUp={(event:any)=>props.inputValue(event.target.value)}
               />
             </Search>
           </div>

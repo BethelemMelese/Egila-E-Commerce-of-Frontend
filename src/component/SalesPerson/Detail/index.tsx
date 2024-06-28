@@ -4,7 +4,7 @@ import Controls from "../../../commonComponent/Controls";
 import { Form } from "../../../commonComponent/Form";
 import { Grid, Avatar } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { appUrl,headers } from "../../../appurl";
+import { appUrl, headers } from "../../../appurl";
 
 const DetailSalesPerson = ({ ...props }) => {
   const [detailMode, setDetailMode] = useState(props.detailMode);
@@ -28,11 +28,20 @@ const DetailSalesPerson = ({ ...props }) => {
       <Form autoComplete="off">
         <Grid container spacing={2}>
           <Grid item xs={2}>
-            <Avatar
-              src={appUrl + `users/uploads/${selectedSalesPerson.profileImage}`}
-              variant="rounded"
-              sx={{ width: 200, height: 150, marginLeft: 5, marginBottom: 8 }}
-            ></Avatar>
+            {selectedSalesPerson.profileImage != undefined ? (
+              <Avatar
+                src={
+                  appUrl + `users/uploads/${selectedSalesPerson.profileImage}`
+                }
+                variant="rounded"
+                sx={{ width: 200, height: 150, marginLeft: 5, marginBottom: 8 }}
+              ></Avatar>
+            ) : (
+              <Avatar
+                variant="rounded"
+                sx={{ width: 200, height: 150, marginLeft: 5, marginBottom: 8 }}
+              />
+            )}
           </Grid>
           <Grid item xs={10}>
             <Grid container spacing={2}>

@@ -129,33 +129,6 @@ const ViewRole = () => {
         onViewError(error.message);
       });
   };
-
-  //   for delete the selected data using modal confirm dialog
-  const showConfirm = (value: any) => {
-    confirm({
-      title: "Do you want to delete these role?",
-      icon: <ExclamationCircleFilled />,
-      content: "You are unable to undo the deletion of this.",
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      onOk() {
-        axios
-          .create({
-            headers: {
-              Authorization: `Bearer ${headers}`,
-            },
-          })
-          .delete(appUrl + `roles/${value}`)
-          .then((response) => {
-            onDeleteSuccess(response.data);
-          })
-          .catch((error) => onDeleteError(error.response.data.message));
-      },
-      onCancel() {},
-    });
-  };
-
   //   to fetch data using useEffect, when every time this page is loaded
   useEffect(() => {
     setLoading(true);
@@ -173,45 +146,6 @@ const ViewRole = () => {
       title: "Description",
       dataIndex: "roleDescription",
       sorter: true,
-    },
-    {
-      title: "Action",
-      dataIndex: "",
-      render: (record: any) => {
-        return (
-          <Space size="small">
-            {userService.userPermission.match("update_role") && (
-              <Tooltip title="Edit">
-                <IconButton
-                  onClick={() => {
-                    setSelectedRole(record);
-                    setViewMode("edit");
-                    setOpenDialog(true);
-                  }}
-                  aria-label="edit"
-                  color="primary"
-                >
-                  <EditOutlined />
-                </IconButton>
-              </Tooltip>
-            )}
-            |
-            {userService.userPermission.match("delete_role") && (
-              <Tooltip title="Delete">
-                <IconButton
-                  onClick={() => {
-                    showConfirm(record.id);
-                  }}
-                  aria-label="delete"
-                  color="error"
-                >
-                  <DeleteForeverIcon />
-                </IconButton>
-              </Tooltip>
-            )}
-          </Space>
-        );
-      },
     },
   ];
 
