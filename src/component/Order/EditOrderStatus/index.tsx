@@ -2,22 +2,21 @@ import { Card, List } from "antd";
 import { useEffect, useState } from "react";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import {
-  Avatar,
   Divider,
   Grid,
   Button,
-  Autocomplete,
   Tooltip,
   Paper,
   MenuItem,
   FormControl,
 } from "@mui/material";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import axios from "axios";
 import Controls from "../../../commonComponent/Controls";
 import { useFormik } from "formik";
 import { Form } from "../../../commonComponent/Form";
 import Notification from "../../../commonComponent/notification";
+import * as Yup from "yup";
 
 interface OrderStatus {
   orderStatus: any;
@@ -43,7 +42,7 @@ const EditOrderStatus = ({ ...props }) => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: "Delivery Assigned Successfully !",
+      message: "The order has Delivered Successfully !",
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -62,26 +61,31 @@ const EditOrderStatus = ({ ...props }) => {
     }, 2000);
   };
 
+  const validationSchema = Yup.object().shape({
+    orderStatus: Yup.string().required("Order Status is required"),
+  });
+
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (values) => {
       axios
         .create({
           headers: {
-            Authorization: `Bearer ${headers}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         })
         .put(appUrl + `orders/orderStatus/${selectedOrder.id}`, values)
         .then(() => onUpdateSuccess())
         .catch((error) => onUpdateError(error.response.data.message));
     },
+    validationSchema: validationSchema,
   });
 
   useEffect(() => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .post(appUrl + "carts/viewCartList", { cartIds: selectedOrder.cartIds })
@@ -93,7 +97,7 @@ const EditOrderStatus = ({ ...props }) => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `payments/${selectedOrder.id}`)
@@ -105,7 +109,7 @@ const EditOrderStatus = ({ ...props }) => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + "deliveryPersons/name")

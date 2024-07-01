@@ -4,7 +4,7 @@ import Controls from "../../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../../commonComponent/Form";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import axios from "axios";
 import { Grid, Typography, Button } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
@@ -98,7 +98,7 @@ const CreateRole = ({ ...props }) => {
         axios
           .create({
             headers: {
-              Authorization: `Bearer ${headers}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .post(appUrl + "roles", values)
@@ -109,7 +109,7 @@ const CreateRole = ({ ...props }) => {
         axios
           .create({
             headers: {
-              Authorization: `Bearer ${headers}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .put(appUrl + `roles/${selectedRole.id}`, values)

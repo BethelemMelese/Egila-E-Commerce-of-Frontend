@@ -7,7 +7,7 @@ import AppShortcutIcon from "@mui/icons-material/AppShortcut";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { headers, appUrl } from "../../appurl";
+import { token, appUrl } from "../../appurl";
 
 const MainDashboard = () => {
   const [countCustomer, setCountCustomer] = useState(null);
@@ -21,7 +21,7 @@ const MainDashboard = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `dashboard/countCustomer`)
@@ -35,7 +35,7 @@ const MainDashboard = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `dashboard/countDeliveries`)
@@ -49,7 +49,7 @@ const MainDashboard = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `dashboard/countSalesPerson`)
@@ -63,7 +63,7 @@ const MainDashboard = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `dashboard/countOrders`)
@@ -77,7 +77,7 @@ const MainDashboard = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `dashboard/recentOrder`)
@@ -91,7 +91,7 @@ const MainDashboard = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `dashboard/salesList`)

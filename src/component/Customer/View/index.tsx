@@ -6,7 +6,7 @@ import { EditOutlined } from "@mui/icons-material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import UpdateCustomer from "../Update";
 import DetailCustomer from "../Detail";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
@@ -131,7 +131,7 @@ const ViewCustomer = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `customers?search=${query}`)
@@ -158,7 +158,7 @@ const ViewCustomer = () => {
         axios
           .create({
             headers: {
-              Authorization: `Bearer ${headers}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .delete(appUrl + `customers/${value}`)

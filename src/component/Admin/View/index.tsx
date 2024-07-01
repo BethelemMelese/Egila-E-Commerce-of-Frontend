@@ -7,7 +7,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CreateAdmin from "../Create";
 import EditAdmin from "../Edit";
 import DetailAdmin from "../Detail";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
@@ -129,7 +129,7 @@ const ViewAdmin = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `admins?search=${query}`)
@@ -156,7 +156,7 @@ const ViewAdmin = () => {
         axios
           .create({
             headers: {
-              Authorization: `Bearer ${headers}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .delete(appUrl + `admins/${value}`)

@@ -10,7 +10,7 @@ import {
   Tooltip,
   Paper,
 } from "@mui/material";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import axios from "axios";
 import Controls from "../../../commonComponent/Controls";
 import { useFormik } from "formik";
@@ -69,7 +69,7 @@ const AssignDeliveries = ({ ...props }) => {
         axios
           .create({
             headers: {
-              Authorization: `Bearer ${headers}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .put(
@@ -86,7 +86,7 @@ const AssignDeliveries = ({ ...props }) => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .post(appUrl + "carts/viewCartList", { cartIds: selectedOrder.cartIds })
@@ -98,7 +98,7 @@ const AssignDeliveries = ({ ...props }) => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `payments/${selectedOrder.id}`)
@@ -110,7 +110,7 @@ const AssignDeliveries = ({ ...props }) => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + "deliveryPersons/name")

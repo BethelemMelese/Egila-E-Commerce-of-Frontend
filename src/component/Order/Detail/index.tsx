@@ -2,7 +2,7 @@ import { Card, List } from "antd";
 import { useEffect, useState } from "react";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { Divider, Grid, Tooltip, Paper } from "@mui/material";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import axios from "axios";
 
 const DetailOrder = ({ ...props }) => {
@@ -16,7 +16,7 @@ const DetailOrder = ({ ...props }) => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .post(appUrl + "carts/viewCartList", { cartIds: selectedOrder.cartIds })
@@ -28,7 +28,7 @@ const DetailOrder = ({ ...props }) => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `orders/deliveryName/${selectedOrder.deliveryPersonId}`)
@@ -40,7 +40,7 @@ const DetailOrder = ({ ...props }) => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `payments/${selectedOrder.id}`)

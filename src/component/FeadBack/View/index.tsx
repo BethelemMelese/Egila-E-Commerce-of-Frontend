@@ -5,7 +5,7 @@ import { Grid, Button, Paper, IconButton } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CreateFeedBack from "../Create";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
@@ -116,7 +116,7 @@ const ViewFeadBack = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `comments?search=${query}`)
@@ -126,7 +126,7 @@ const ViewFeadBack = () => {
       })
       .catch((error: any) => {
         setLoading(false);
-        onViewError(error.message);
+        onViewError(error.response.data.error);
       });
   };
 
@@ -143,7 +143,7 @@ const ViewFeadBack = () => {
         axios
           .create({
             headers: {
-              Authorization: `Bearer ${headers}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .delete(appUrl + `comments/${value}`)
@@ -231,7 +231,7 @@ const ViewFeadBack = () => {
                       marginBottom: "1%",
                     }}
                   >
-                    <b>Feedback</b>
+                    <b>Comment</b>
                   </h2>
                 }
                 extra={

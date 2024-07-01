@@ -7,7 +7,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CreateSalesPerson from "../Create";
 import EditSalesPerson from "../Edit";
 import DetailSalesPerson from "../Detail";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
@@ -128,7 +128,7 @@ const ViewSalesPerson = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `salesPersons?search=${query}`)
@@ -157,7 +157,7 @@ const ViewSalesPerson = () => {
         axios
           .create({
             headers: {
-              Authorization: `Bearer ${headers}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .delete(appUrl + `salesPersons/${value}`)

@@ -2,7 +2,7 @@ import { Grid, Paper, Avatar } from "@mui/material";
 import { Card, List } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { headers, appUrl } from "../../appurl";
+import { token, appUrl } from "../../appurl";
 
 const CustomerDashboard = () => {
   const [currentCategory, setCurrentCategory] = useState<any>(null);
@@ -15,7 +15,7 @@ const CustomerDashboard = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `dashboard/currentCategories`)
@@ -29,7 +29,7 @@ const CustomerDashboard = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `dashboard/currentItems`)
@@ -43,7 +43,7 @@ const CustomerDashboard = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `dashboard/currentOrder/${uuId}`)
@@ -57,7 +57,7 @@ const CustomerDashboard = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `dashboard/currentNewArrival`)

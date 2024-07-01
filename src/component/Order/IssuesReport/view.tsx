@@ -4,7 +4,7 @@ import Controls from "../../../commonComponent/Controls";
 import { Form } from "../../../commonComponent/Form";
 import { Grid } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import axios from "axios";
 
 const ViewIssueReport = ({ ...props }) => {
@@ -14,7 +14,7 @@ const ViewIssueReport = ({ ...props }) => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `issuesReports/${selectedOrder.id}`)

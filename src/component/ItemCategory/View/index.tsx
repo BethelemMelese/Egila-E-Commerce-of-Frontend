@@ -7,7 +7,7 @@ import DetailsIcon from "@mui/icons-material/Details";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import CreateItemCategory from "../Create";
 import DetailItemCategory from "../Detail";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
@@ -120,7 +120,7 @@ const ViewItemCategory = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `itemCategorys?search=${query}`)
@@ -130,7 +130,7 @@ const ViewItemCategory = () => {
       })
       .catch((error: any) => {
         setLoading(false);
-        onViewError(error.message);
+        onViewError(error.response.data.error);
       });
   };
 
@@ -147,7 +147,7 @@ const ViewItemCategory = () => {
         axios
           .create({
             headers: {
-              Authorization: `Bearer ${headers}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
           .delete(appUrl + `itemCategorys/${value}`)
@@ -174,7 +174,7 @@ const ViewItemCategory = () => {
       render: (record: any) => {
         return (
           <>
-            {record.itemImage != undefined ? (
+            {record.categoryImage != undefined ? (
               <Avatar
                 src={appUrl + `itemCategorys/uploads/${record.categoryImage}`}
                 variant="rounded"

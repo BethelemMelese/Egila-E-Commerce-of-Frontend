@@ -14,7 +14,7 @@ import {
 import { userService } from "../../polices/userService";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { appUrl, headers } from "../../appurl";
+import { appUrl, token } from "../../appurl";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import SyncLockIcon from "@mui/icons-material/SyncLock";
@@ -53,10 +53,10 @@ const AppNavBar = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-      .get(appUrl + `users/UserInfo/${token}`)
+      .get(appUrl + `users/UserInfo/${localStorage.getItem("token")}`)
       .then((response: any) => onFetchSuccess(response.data))
       .catch((error: any) => onFetchError(error));
   }, []);
@@ -65,7 +65,7 @@ const AppNavBar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("permission");
     localStorage.removeItem("role");
-    localStorage.removeItem("controllers");
+    localStorage.removeItem("controller");
     navigate("/login");
   };
 

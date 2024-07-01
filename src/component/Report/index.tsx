@@ -4,7 +4,7 @@ import Controls from "../../commonComponent/Controls";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Form } from "../../commonComponent/Form";
-import { appUrl, headers } from "../../appurl";
+import { appUrl, token } from "../../appurl";
 import axios from "axios";
 import { useState } from "react";
 
@@ -60,7 +60,7 @@ const Report = ({ ...props }) => {
       axios
         .create({
           headers: {
-            Authorization: `Bearer ${headers}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         })
         .post(appUrl + "reports/generateReport", values)

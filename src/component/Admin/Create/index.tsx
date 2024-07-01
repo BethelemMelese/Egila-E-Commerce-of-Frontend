@@ -4,7 +4,7 @@ import Controls from "../../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../../commonComponent/Form";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import { Grid, Button } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Notification from "../../../commonComponent/notification";
@@ -91,7 +91,7 @@ const CreateAdmin = ({ ...props }) => {
       axios
         .create({
           headers: {
-            Authorization: `Bearer ${headers}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         })
         .post(appUrl + "admins", values)

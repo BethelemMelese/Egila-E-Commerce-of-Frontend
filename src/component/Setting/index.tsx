@@ -16,7 +16,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import { userService } from "../../polices/userService";
 import axios from "axios";
-import { appUrl, headers } from "../../appurl";
+import { appUrl, token } from "../../appurl";
 import Notification from "../../commonComponent/notification";
 import { useNavigate } from "react-router-dom";
 import EditProfile from "./editProfile";
@@ -58,7 +58,7 @@ const Setting = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `users/UserInfo/${userToken}`)
@@ -108,7 +108,7 @@ const Setting = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${headers}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .put(appUrl + `users/profile/${response.id}`, formDate)

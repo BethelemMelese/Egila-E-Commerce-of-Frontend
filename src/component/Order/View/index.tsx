@@ -7,7 +7,7 @@ import EditOrderStatus from "../EditOrderStatus";
 import ViewIssueReport from "../IssuesReport/view";
 import CreateIssueReport from "../IssuesReport/create";
 import DetailOrder from "../Detail";
-import { appUrl, headers } from "../../../appurl";
+import { appUrl, token } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
@@ -111,7 +111,7 @@ const ViewOrder = () => {
     axios
       .create({
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .get(appUrl + `orders?search=${query}`)
@@ -121,7 +121,7 @@ const ViewOrder = () => {
       })
       .catch((error: any) => {
         setLoading(false);
-        onViewError(error.message);
+        onViewError(error.response.data.error);
       });
   };
 
@@ -161,7 +161,8 @@ const ViewOrder = () => {
           <Space size="small">
             {userService.userPermission.match("update_order") &&
               userService.currentRole.match("Sales Person") &&
-              record.isAssign == false && (
+              record.isAssign == false && 
+              (
                 <Tooltip title="Assign Deliveries">
                   <IconButton
                     onClick={() => {

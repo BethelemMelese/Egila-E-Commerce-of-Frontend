@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import Notification from "../../commonComponent/notification";
 import axios from "axios";
-import { appUrl, headers } from "../../appurl";
+import { appUrl, token } from "../../appurl";
 import { Grid, Avatar, Button, Paper } from "@mui/material";
 import Images from "../../Images/Logo 4.png";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
@@ -95,7 +95,7 @@ const ChangePassword = ({ ...props }) => {
       axios
         .create({
             headers: {
-              Authorization: `Bearer ${headers}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
         .put(appUrl + `users/changePassword/${response.id}`, data)
@@ -110,7 +110,7 @@ const ChangePassword = ({ ...props }) => {
     axios
       .create({
             headers: {
-              Authorization: `Bearer ${headers}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
       .get(appUrl + `users/UserInfo/${userToken}`)

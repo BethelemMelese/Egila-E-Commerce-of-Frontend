@@ -185,36 +185,45 @@ const ViewCart = () => {
       sorter: false,
     },
     {
+      title: "Status",
+      dataIndex: "cartStatus",
+      sorter: false,
+    },
+    {
       title: "Action",
       dataIndex: "",
       render: (record: any) => {
         return (
           <Space size="small">
-            <Tooltip title="Edit">
-              <IconButton
-                onClick={() => {
-                  setSelectedCart(record);
-                  setEditMode("edit");
-                  setOpenDialog(true);
-                }}
-                aria-label="edit"
-                color="primary"
-              >
-                <EditOutlined />
-              </IconButton>
-            </Tooltip>
-            |
-            <Tooltip title="Delete">
-              <IconButton
-                onClick={() => {
-                  showConfirm(record.id);
-                }}
-                aria-label="delete"
-                color="error"
-              >
-                <DeleteForeverIcon />
-              </IconButton>
-            </Tooltip>
+            {record.cartStatus != "Accepted" && (
+              <>
+                <Tooltip title="Edit">
+                  <IconButton
+                    onClick={() => {
+                      setSelectedCart(record);
+                      setEditMode("edit");
+                      setOpenDialog(true);
+                    }}
+                    aria-label="edit"
+                    color="primary"
+                  >
+                    <EditOutlined />
+                  </IconButton>
+                </Tooltip>
+                |
+                <Tooltip title="Delete">
+                  <IconButton
+                    onClick={() => {
+                      showConfirm(record.id);
+                    }}
+                    aria-label="delete"
+                    color="error"
+                  >
+                    <DeleteForeverIcon />
+                  </IconButton>
+                </Tooltip>
+              </>
+            )}
           </Space>
         );
       },
