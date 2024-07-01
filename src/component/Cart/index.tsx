@@ -50,6 +50,7 @@ const ViewCart = () => {
   const [loading, setLoading] = useState(false);
   const [viewMode, setViewMode] = useState("view");
   const [editMode, setEditMode] = useState("view");
+  const [getKey, setGetKey] = useState(null);
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
@@ -195,7 +196,7 @@ const ViewCart = () => {
       render: (record: any) => {
         return (
           <Space size="small">
-            {record.cartStatus != "Accepted" && (
+            {record.cartStatus == "Pending" && (
               <>
                 <Tooltip title="Edit">
                   <IconButton
@@ -233,7 +234,7 @@ const ViewCart = () => {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-          <MainLayout />
+          <MainLayout inputValue={(value: any) => setGetKey(value)} />
         </AppBar>
       </Box>
       <Box sx={{ backgroundColor: "#efefef" }}>

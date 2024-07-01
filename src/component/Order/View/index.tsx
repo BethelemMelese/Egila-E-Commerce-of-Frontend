@@ -161,8 +161,7 @@ const ViewOrder = () => {
           <Space size="small">
             {userService.userPermission.match("update_order") &&
               userService.currentRole.match("Sales Person") &&
-              record.isAssign == false && 
-              (
+              record.isAssign == false && (
                 <Tooltip title="Assign Deliveries">
                   <IconButton
                     onClick={() => {
@@ -294,8 +293,8 @@ const ViewOrder = () => {
                   <Dialogs
                     openDialog={readOpenDialog}
                     setOpenDialog={readOpenDialog}
-                    height="55%"
-                    maxHeight="435"
+                    height="50%"
+                    maxHeight="200"
                     children={
                       <CreateIssueReport
                         //@ts-ignore
@@ -308,8 +307,8 @@ const ViewOrder = () => {
                   <Dialogs
                     openDialog={viewOpenDialog}
                     setOpenDialog={viewOpenDialog}
-                    height="55%"
-                    maxHeight="435"
+                    height="40%"
+                    maxHeight="200"
                     children={
                       <ViewIssueReport
                         //@ts-ignore

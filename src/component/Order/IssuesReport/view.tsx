@@ -38,7 +38,7 @@ const ViewIssueReport = ({ ...props }) => {
       {response != undefined && (
         <Form autoComplete="off">
           <Grid container spacing={1}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <Controls.Input
                 required
                 id="issuesName"
@@ -46,8 +46,7 @@ const ViewIssueReport = ({ ...props }) => {
                 disabled
                 value={response.issueName}
               />
-            </Grid>
-            <Grid item xs={6}>
+
               <Controls.Input
                 id="issueDescription"
                 label="Description"
