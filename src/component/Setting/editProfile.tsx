@@ -71,8 +71,6 @@ const EditProfile = ({ ...props }) => {
     email: Yup.string().required("Email is required"),
     phone: Yup.string().required("Phone is required"),
     username: Yup.string().required("Username is required"),
-    address: Yup.string().required("Address is required"),
-    subCity: Yup.string().required("Sub City is required"),
   });
 
   const formik = useFormik({

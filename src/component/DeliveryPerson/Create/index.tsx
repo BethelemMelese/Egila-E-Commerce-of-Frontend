@@ -55,7 +55,7 @@ const CreateDeliveryPerson = ({ ...props }) => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: "Deliveries is Successfully Registered !",
+      message: "Delivery Person is Successfully Registered !",
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -109,7 +109,7 @@ const CreateDeliveryPerson = ({ ...props }) => {
           <h3
             style={{ marginRight: "87%", marginTop: "2%", marginBottom: "1%" }}
           >
-            <b>Add Deliveries</b>
+            <b>Add Delivery Person</b>
           </h3>
         }
         extra={

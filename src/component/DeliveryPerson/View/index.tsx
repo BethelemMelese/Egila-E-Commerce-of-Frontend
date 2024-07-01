@@ -146,7 +146,7 @@ const ViewDeliveryPerson = () => {
   //for deleting the selected data using modal confirm dialog
   const showConfirm = (value: any) => {
     confirm({
-      title: "Dou you want to delete the Deliveries",
+      title: "Dou you want to delete the Delivery Person",
       icon: <ExclamationCircleFilled />,
       content: "You are unable to undo the deletion of this.",
       okText: "Yes",
@@ -287,7 +287,7 @@ const ViewDeliveryPerson = () => {
                         marginBottom: "1%",
                       }}
                     >
-                      <b>Deliveries</b>
+                      <b>Delivery Person</b>
                     </h2>
                   }
                   extra={
@@ -301,7 +301,7 @@ const ViewDeliveryPerson = () => {
                           setViewMode("new");
                         }}
                       >
-                        New Deliveries
+                        New Delivery Person
                       </Button>
                     )
                   }

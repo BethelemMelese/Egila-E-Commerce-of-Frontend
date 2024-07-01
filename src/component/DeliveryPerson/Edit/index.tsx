@@ -55,7 +55,7 @@ const EditDeliveryPerson = ({ ...props }) => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: "Deliveries is Successfully Modified !",
+      message: "Delivery Person is Successfully Modified !",
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -104,7 +104,7 @@ const EditDeliveryPerson = ({ ...props }) => {
           <h3
             style={{ marginRight: "87%", marginTop: "2%", marginBottom: "1%" }}
           >
-            <b>Modify Deliveries</b>
+            <b>Modify Delivery Person</b>
           </h3>
         }
         extra={

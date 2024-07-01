@@ -60,8 +60,8 @@ const Sidebar: React.FC = () => {
     {
       key: "6",
       icon: <DeliveryDiningIcon />,
-      label: "Deliveries",
-      path: "/egila/ViewDeliveries",
+      label: "Delivery Person",
+      path: "/egila/viewDeliveryPerson",
       cName: "nav-text",
       nActive: "active",
     },

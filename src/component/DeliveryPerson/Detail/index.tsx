@@ -15,7 +15,7 @@ const DetailDeliveryPerson = ({ ...props }) => {
     <Card
       title={
         <h3 style={{ marginRight: "87%", marginTop: "2%", marginBottom: "1%" }}>
-          Detail for Deliveries
+          Detail for Delivery Person
         </h3>
       }
       extra={

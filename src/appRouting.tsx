@@ -70,7 +70,7 @@ const AppRoute = () => {
           <Route path="info" element={<Setting />} />
           <Route path="report" element={<Report />} />
           <Route path="changePassword" element={<ChangePassword />} />
-          <Route path="ViewDeliveries" element={<ViewDeliveryPerson />} />
+          <Route path="viewDeliveryPerson" element={<ViewDeliveryPerson />} />
           <Route path="viewComment" element={<ViewFeadBack />} />
         </Route>
       </Routes>
