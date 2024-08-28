@@ -317,6 +317,15 @@ const Checkout = ({ ...props }) => {
                     flexItem
                     style={{ color: "#fff" }}
                   />
+                  <p>
+                    Account Number: <b>100023350634</b>
+                  </p>
+                  <Divider
+                    orientation="horizontal"
+                    variant="middle"
+                    flexItem
+                    style={{ color: "#fff" }}
+                  />
                 </Grid>
               </Card>
             </Grid>
