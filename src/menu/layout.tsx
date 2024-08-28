@@ -1,21 +1,10 @@
-import React, { useState } from "react";
-import Sidebar from "./SideBarMenu/index";
-import Home from "../component/Home";
-import MainPage from "../component/Frontpage/mainPage";
+import Topbar from "./TobBar";
+import { Content } from "antd/es/layout/layout";
 
-const Layout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+export default (props: any) => {
   return (
     <div>
-      <button onClick={toggleSidebar}>Toggle Sidebar</button>
-      {isSidebarOpen && <Sidebar />}
-      <Home />
+      <Topbar />
     </div>
   );
 };
-
-export default Layout;

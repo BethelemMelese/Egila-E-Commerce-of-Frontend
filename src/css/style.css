@@ -1,25 +1,128 @@
-/* @mixin basicfullscreen {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100%;
-} */
-
 body,
 html {
-  height: 100%;
+  background-color: #efefef;
 }
 
-body {
-  display: block;
-  /* position: absolute; */
-  top: 0;
-  left: 0;
+.container {
+  margin-top: 2%;
+  margin-left: 16%;
+  margin-right: 1%;
+  margin-bottom: 5%;
+  background-color: #f4efef;
+}
+
+.home-container {
+  margin-top: 2%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-bottom: 1%;
+}
+
+.setting-container {
+  margin-top: 2%;
+  margin-left: 18%;
+  margin-right: 5%;
+  margin-bottom: 1%;
+}
+
+.current_role {
+  margin-top: 10px;
+  border-radius: 5%;
+  background-color: rgb(249, 225, 214);
+  border-bottom: 6px solid rgb(254, 104, 39);
+  height: 50px;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-description {
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  margin-top: 12%;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-title {
+  margin: 0 0 4px 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  margin-top: 5px;
+  float: left;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-layout {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  min-height: 0;
+  background: #f4efef;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-card .ant-card-head-title {
+  display: inline-block;
+  flex: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-list
+  .ant-list-item
+  .ant-list-item-meta
+  .ant-list-item-meta-title {
+  margin: 0 0 4px 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  margin-top: 5px;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-descriptions
+  .ant-descriptions-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  /* flex: 0; */
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 2;
+  margin-right: 86%;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-descriptions
+  [class^="ant-descriptions"],
+:where(.css-dev-only-do-not-override-1okl62o).ant-descriptions
+  [class*=" ant-descriptions"] {
+  box-sizing: border-box;
+  margin-bottom: 6px;
+  margin-left: 10px;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-drawer .ant-drawer-title {
+  flex: 1;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-left: 20%;
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-list
+  .ant-list-item
+  .ant-list-item-meta
+  .ant-list-item-meta-content {
+  flex: auto;
   width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+:where(.css-dev-only-do-not-override-1okl62o).ant-list
+  .ant-list-item
+  .ant-list-item-meta {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
 }
 
 .loginPaper {
@@ -28,13 +131,11 @@ body {
   width: 20%;
 }
 .loginForm {
-  width: 32%;
-  height: 50%;
+  width: 30%;
+  height: 20%;
+  background-color: #efefef;
 }
-.loginLogo {
-  margin-top: 8%;
-  margin-bottom: 8%;
-}
+
 .buttonField {
   background-image: linear-gradient(to right, #ff7f16, #f00538);
   width: 80%;
@@ -49,11 +150,9 @@ body {
   color: #ff0238;
   padding-bottom: 10%;
 }
-.registerPage {
-  width: 40%;
-  height: 40%;
-  margin: 0px auto;
-  margin-top: 5%;
+.registerForm {
+  width: 80%;
+  height: 50%;
 }
 .loginLink {
   padding-bottom: 4%;
@@ -63,48 +162,6 @@ body {
   width: 72%;
   height: 336%;
   display: inline-block;
-}
-fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-  height: 80%;
-}
-
-.demo-wrap {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.demo-wrap {
-  background-image: url("./../Images/images.jpeg");
-  width: 100vw;
-  height: 100vh;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow: hidden;
-  /* opacity: 0.8; */
-}
-
-.demo-wrap .demo-content {
-  position: absolute;
-  top: 0;
-  background-image: linear-gradient(
-    to left,
-    #f00538,
-    #ff7f16
-  ); /* Fallback color */
-  background: rgba(
-    #f00538,
-    #ff7f16,
-    0,
-    0.5
-  ); /* Black background with 0.5 opacity */
-  color: #f1f1f1;
-  width: 100%;
-}
-
-.demo-wrap .demo-content:hover {
-  background-image: linear-gradient(to right, #f00538, #ff7f16);
 }
 
 .link {
@@ -131,15 +188,161 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   -ms-flex-negative: 0;
   flex-shrink: 0;
   position: static;
-  /* background-color: white; */
-  background-image: linear-gradient(to right, #ff7f16, #f00538);
-  /* background-image: linear-gradient(to right, hsl(0, 0%, 100%), hsl(0, 100%, 100%)); */
-  color: #fff;
+  background-image: linear-gradient(
+    to right,
+    hsl(0, 100%, 100%),
+    hsl(0, 100%, 100%),
+    #ff7f16,
+    #f00538
+  );
+  /* background-color: #fff; */
 }
 
 /* For Main Page css is here */
 
+/* The main image */
+.main-image {
+  position: relative;
+  height: 100%;
+  background-color: #000;
+  background-image: linear-gradient(
+      rgba(254, 67, 67, 0.4),
+      rgb(223, 217, 145, 0.5)
+    ),
+    url("/src/Images/image.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  backdrop-filter: blur(7px);
+}
+
+/* Place text in the middle of the image */
+.main-text {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  color: #fff;
+  padding-top: 10%;
+}
+
+.services {
+  width: 80%;
+  height: 20%;
+  margin-left: 10%;
+  margin-bottom: 5%;
+  background-image: linear-gradient(
+    rgba(248, 219, 219, 0.4),
+    rgba(244, 242, 216, 0.5)
+  );
+  color: #fff;
+}
+
+.image-slid {
+  margin: 0px auto;
+  width: 90%;
+}
+
+.image-items {
+  margin: 0px auto;
+}
+
+.gallery {
+  border-radius: 20px;
+  max-width: 720px;
+  max-height: 660px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+.gallery:hover {
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.gallery img {
+  width: 100%;
+  /* height: auto; */
+  max-width: 720px;
+  max-height: 100px;
+  background-color: white;
+}
+
+.gallery img:hover {
+  background-color: white;
+}
+
+.desc {
+  padding: 15px;
+  text-align: left;
+}
+
+.more-btn {
+  color: #000;
+  background-color: #f4e5e8;
+  float: right;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.detail-img {
+  border-radius: 8px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.arrival-container {
+  margin-top: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.arrival-search {
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
+.category-container {
+  margin-top: 50px;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.category-displays {
+  margin-top: 20px;
+}
+
+.category-search {
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+.category-menu {
+  margin-right: 60%;
+}
+
+.category-list {
+  background-color: rgb(249, 225, 214);
+  border-radius: 5px;
+  border-left: 6px solid rgb(254, 104, 39);
+  border-bottom: 1px solid rgb(243, 142, 99);
+}
+
+.category-list:hover {
+  background-color: #fffcfc;
+  border-radius: 5px;
+}
+
+.cart-container {
+  margin-top: 40px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 10%;
+}
 /* for the Nav bar */
+
 .css-hip9hq-MuiPaper-root-MuiAppBar-root {
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
@@ -155,8 +358,8 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   -ms-flex-negative: 0;
   flex-shrink: 0;
   position: static;
-  color: #000;
 }
+
 .css-11b3ww9-MuiPaper-root-MuiAppBar-root {
   -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -169,7 +372,6 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  color: #000;
   background-image: linear-gradient(
     to right,
     hsl(0, 0%, 100%),
@@ -178,61 +380,13 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   height: 10%;
 }
 
-/* .css-19lai89-MuiButtonBase-root-MuiButton-root {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  position: relative;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  background-color: transparent;
-  outline: 0;
-  border: 0;
-  margin: 0;
-  border-radius: 0;
-  padding: 0;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  vertical-align: middle;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  color: inherit;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1.75;
-  letter-spacing: 0.02857em;
-  text-transform: uppercase;
-  min-width: 64px;
-  padding: 6px 8px;
-  border-radius: 4px;
-  -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  color: #000;
-  margin-left: 40px;
-  font-family: inherit;
-  font-size: 15px;
-} */
 .dropMenu {
   margin-left: 10%;
   color: #000;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 15%;
 }
+
 .dropMenu:hover {
   background-color: #000;
   color: #000;
@@ -252,13 +406,257 @@ fieldset.MuiOutlinedInput-notchedOutline.css-1d3z3hw-MuiOutlinedInput-notchedOut
   padding: 10px;
 }
 
+/* For side bar menu here the css */
 
-/* .container .content {
-  position: absolute;
-  bottom: 0;
-  background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.5);
-  color: #f1f1f1;
+/* For Profile Image */
+.profile {
+  margin-bottom: 0%;
+  margin-top: 20px;
+  text-align: center;
   width: 100%;
-  padding: 20px;
+  height: 30%;
+}
+
+.profile img {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.profile p {
+  color: rgb(177, 192, 198);
+  font-size: 14px;
+}
+
+/* for select box  */
+.selectbox {
+  width: 40%;
+  margin-right: 16px;
+  margin-left: 0px;
+  margin-top: 0px;
+  margin-bottom: 8px;
+}
+
+.selectbox .MuiTextField-root {
+  width: 100%;
+}
+
+/* for breakcrumb */
+.breadcrump {
+  margin-left: 15%;
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+
+.breadcrum-items {
+  display: flex;
+  text-align: center;
+  color: #000;
+  font-size: 13px;
+}
+
+/* background-image: linear-gradient(to right, #f6c59d, hsl(347, 86%, 83%)); */
+
+/* Navbar CSS */
+.nav-menu {
+  background-color: #ffffff;
+  width: 220px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  transition: 850ms;
+}
+
+.nav-text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 0px 6px 0px;
+  list-style: none;
+  height: 45px;
+}
+
+.nav-text a {
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.nav-text a:hover {
+  background-image: linear-gradient(to right, #ff7f16, #f00538);
+  color: #fff;
+}
+
+/* .nav-text a.active {
+  background-image: linear-gradient(to right, #f6c59d, hsl(347, 86%, 83%));
+  color: #fff;
 } */
+
+.nav-menu-items {
+  width: 100%;
+}
+
+.navbar-toggle {
+  background-color: #ffffff;
+  width: 80%;
+  height: 80px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+span {
+  margin-left: 16px;
+}
+
+/* For the dashboard */
+
+.home-page {
+  width: 82%;
+  margin-left: 16%;
+  /* margin-top: 1.5%; */
+}
+
+.card-item {
+  border-radius: 2%;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-icon {
+  /* margin-left: 20%; */
+  border-radius: 10%;
+  box-shadow: 0 1px 1px 0 rgba(243, 243, 243, 0.804);
+  background-image: linear-gradient(
+    to right,
+    hsl(348, 45%, 96%),
+    #fadcc1,
+    hsl(345, 82%, 87%)
+  );
+  width: 60px;
+  padding: 10px;
+}
+
+.card-title {
+  margin-right: 50%;
+}
+
+.card-subTitle {
+  margin-right: 35%;
+}
+
+.area-chart {
+  max-width: 750;
+  max-height: 325;
+  margin-right: 100%;
+}
+
+.table-list {
+  /* background-image: linear-gradient(to right, #f5e6da, hsl(346, 72%, 94%)); */
+  color: #fff;
+}
+
+.input-search {
+  width: 80%;
+  border-radius: 8%;
+  margin: 0px auto;
+}
+
+.typo-five {
+  margin-right: 87%;
+  margin-top: 2%;
+  margin-bottom: 1%;
+}
+
+.create-card {
+  /* margin: 0px auto; */
+  width: 100%;
+  height: 100%;
+}
+
+.close-btn {
+  color: black;
+}
+
+.btn-form {
+  margin-top: 5%;
+}
+
+.send-btn {
+  background-image: linear-gradient(to right, #ff7f16, #f00538);
+  float: right;
+  padding: 15px;
+  width: 10%;
+  text-align: right;
+}
+
+.clicked-btn {
+  color: #000;
+  background-color: #fff;
+  float: right;
+  padding: 10px;
+  width: 15%;
+  text-align: right;
+}
+
+/* for No Permission page */
+.error-message {
+  margin-top: 8%;
+  background-color: #fff;
+  padding-bottom: 5%;
+  padding-top: 1%;
+}
+
+.missing-of-btn {
+  margin-left: 20%;
+}
+.miss-btn1,
+.miss-btn2 {
+  display: block;
+  margin-right: 20%;
+}
+
+/* for setting component and related with that */
+.profile-image {
+  margin: 0px auto;
+}
+
+.profile-menu-icon {
+  border-radius: 100%;
+  margin-left: 200%;
+  margin-top: 5px;
+}
+
+.profile-menu-title a {
+  color: #000;
+}
+
+.profile-menu-title a:hover {
+  color: #ab213f;
+}
+
+.chan-password-btn {
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+
+.upload-pp {
+  margin-left: 30%;
+}
+
+.text-danger {
+  color: red;
+}
+
+.report-btn {
+  width: 10%;
+  background-image: linear-gradient(to right, #ff7f16, #f00538);
+  float: right;
+  text-align: left;
+}

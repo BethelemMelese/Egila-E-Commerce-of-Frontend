@@ -1,11 +1,29 @@
-import { Box, Button, Grid, Paper } from "@mui/material";
+import { Box, Button, FormControl, Grid, MenuItem, Paper } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Images from "../../Images/Logo 4.png";
 import Controls from "../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../commonComponent/Form";
+import axios from "axios";
+import { appUrl } from "../../appurl";
+import Notification from "../../commonComponent/notification";
+
+interface REGISTERSTATE {
+  firstName: String;
+  middleName: String;
+  lastName: String;
+  email: String;
+  phone: String;
+  username: String;
+  confirmPassword: String;
+  password: String;
+  address: String;
+  subCity: String;
+  town: String;
+  roleId: String;
+}
 
 const initialState: REGISTERSTATE = {
   firstName: "",
@@ -13,33 +31,30 @@ const initialState: REGISTERSTATE = {
   lastName: "",
   email: "",
   phone: "",
+  username: "",
   confirmPassword: "",
   password: "",
   address: "",
   subCity: "",
-  neighborhood: "",
+  town: "",
+  roleId: "",
 };
-
-interface REGISTERSTATE {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  confirmPassword: string;
-  password: string;
-  address: string;
-  subCity: string;
-  neighborhood: string;
-}
 
 const Register = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [roleResponse, setRoleResponse] = useState<any>([]);
   const navigate = useNavigate();
 
+  const stringRegExp = /^[a-zA-Z_-_ ]*$/;
+
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required("firstName is required"),
-    middleName: Yup.string().required("middleName is required"),
+    firstName: Yup.string().required("First Name is required"),
+    middleName: Yup.string().required("Middle Name is required"),
+    email: Yup.string().required("Email is required"),
+    phone: Yup.string().required("Phone is required"),
+    username: Yup.string().required("Username is required"),
+    address: Yup.string().required("Address is required"),
+    subCity: Yup.string().required("Sub City is required"),
     password: Yup.string()
       .min(8, "A Password can't insert less than 8 Characters")
       .matches(
@@ -47,13 +62,49 @@ const Register = () => {
         "Must Contain at least 8 Characters, One Uppercase,One Lowercase, One Number and One Special Case Character (!@#$%^&*)"
       )
       .required("Password is Required"),
+    confirmPassword: Yup.string()
+      .required("Confirm Password is required")
+      .min(8)
+      .oneOf([Yup.ref("password")], "Password must match"),
   });
+
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+
+  const onRegisterSuccess = () => {
+    setNotify({
+      isOpen: true,
+      type: "success",
+      message: "Registration is Successfully Done !",
+    });
+    setTimeout(() => {
+      setIsSubmitting(false);
+      navigate("/login");
+    }, 2000);
+  };
+
+  const onRegisterError = (action: any) => {
+    setNotify({
+      isOpen: true,
+      message: action,
+      type: "error",
+    });
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2000);
+  };
 
   const formik = useFormik({
     initialValues: initialState,
     onSubmit: (values) => {
       setIsSubmitting(true);
-      navigate("/");
+      axios
+        .post(appUrl + "users", values)
+        .then((response) => onRegisterSuccess())
+        .catch((error) => onRegisterError(error.response.data.message));
     },
     validationSchema: validationSchema,
   });
@@ -64,18 +115,27 @@ const Register = () => {
     }
   };
 
+  useEffect(() => {
+    axios
+      .get(appUrl + "roles")
+      .then((response) => setRoleResponse(response.data))
+      .catch((error) => setRoleResponse(error.response.data.message));
+  }, []);
+
   return (
     <>
       <div className="registerPage">
         <Box
           sx={{
-            mt: 10,
+            // mt: 10,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            margin: "0px auto",
+            marginTop: "5%",
           }}
         >
-          <Paper elevation={2} className="registerForm">
+          <Paper elevation={4} className="registerForm">
             <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
               <Grid container spacing={1}>
                 <Grid item xs={12}>
@@ -88,7 +148,7 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         required
@@ -103,7 +163,7 @@ const Register = () => {
                         onKeyPress={(event: any) => handleKeyPress(event)}
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         required
@@ -119,7 +179,7 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         id="lastName"
@@ -133,7 +193,7 @@ const Register = () => {
                         onKeyPress={(event: any) => handleKeyPress(event)}
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         id="email"
@@ -147,7 +207,7 @@ const Register = () => {
                         onKeyPress={(event: any) => handleKeyPress(event)}
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         required
@@ -162,8 +222,23 @@ const Register = () => {
                         onKeyPress={(event: any) => handleKeyPress(event)}
                       />
                     </Grid>
+                    <Grid item xs={4}>
+                      <Controls.Input
+                        className="inputField"
+                        required
+                        id="username"
+                        label="Username"
+                        {...formik.getFieldProps("username")}
+                        error={
+                          formik.touched.username && formik.errors.username
+                            ? formik.errors.username
+                            : ""
+                        }
+                        onKeyPress={(event: any) => handleKeyPress(event)}
+                      />
+                    </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Password
                         className="inputField"
                         required
@@ -179,7 +254,7 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Password
                         className="inputField"
                         required
@@ -196,7 +271,7 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         id="address"
@@ -212,7 +287,7 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
                         required
@@ -228,16 +303,15 @@ const Register = () => {
                       />
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={4}>
                       <Controls.Input
                         className="inputField"
-                        id="neighborhood"
-                        label="Neighborhood"
-                        {...formik.getFieldProps("neighborhood")}
+                        id="town"
+                        label="Town"
+                        {...formik.getFieldProps("town")}
                         error={
-                          formik.touched.neighborhood &&
-                          formik.errors.neighborhood
-                            ? formik.errors.neighborhood
+                          formik.touched.town && formik.errors.town
+                            ? formik.errors.town
                             : ""
                         }
                         onKeyPress={(event: any) => handleKeyPress(event)}
@@ -245,15 +319,19 @@ const Register = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <Button
-                        className="buttonField"
-                        variant="contained"
-                        type="submit"
-                        disabled={isSubmitting}
-                        // onClick={handleLogin}
-                      >
-                        {isSubmitting ? "Signing..." : "Sign Up"}
-                      </Button>
+                      {isSubmitting ? (
+                        <Button variant="contained" disabled>
+                          Signing...
+                        </Button>
+                      ) : (
+                        <Button
+                          className="buttonField"
+                          variant="contained"
+                          type="submit"
+                        >
+                          Sign Up
+                        </Button>
+                      )}
                     </Grid>
                     <Grid
                       item
@@ -261,7 +339,9 @@ const Register = () => {
                       className="loginLink"
                       justifyContent="flex-end"
                     >
-                      <Link to="/login">Already have an account? Sign In</Link>
+                      <Button variant="text" onClick={() => navigate("/login")}>
+                        <u>Already have an account? Sign In</u>
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -269,6 +349,7 @@ const Register = () => {
             </Form>
           </Paper>
         </Box>
+        <Notification notify={notify} setNotify={setNotify} />
       </div>
     </>
   );

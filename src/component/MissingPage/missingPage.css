@@ -1,0 +1,48 @@
+.messageref {
+  background-color: white;
+}
+#message {
+  text-align: center;
+}
+#titlemessage {
+  text-align: center;
+  margin-left: 10px;
+}
+#subtitlemessage {
+  text-align: center;
+  margin-top: 5px;
+}
+#txtmessage {
+  text-align: center;
+  margin-top: 10px;
+}
+#link {
+  margin-left: 10%;
+}
+.link-signin {
+  margin-bottom: 20px;
+}
+.background {
+  padding-bottom: 20px;
+  margin-top: 10%;
+  background-color: rgba(255, 251, 251, 0.76);
+}
+.MuiTypography-root.MuiTypography-inherit.MuiLink-root.MuiLink-underlineAlways.css-1iwtne7-MuiTypography-root-MuiLink-root {
+  margin-left: 50px;
+}
+#back {
+  margin-left: 40px;
+  font-weight: bold;
+  border-block-width: unset;
+}
+#goHome {
+  margin-left: 30px;
+  font-weight: bold;
+  border-block-width: unset;
+}
+.MuiGrid-root.link {
+  padding: 20px !important;
+}
+button#back {
+  margin: 10px !important;
+}

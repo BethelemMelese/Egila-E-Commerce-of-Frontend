@@ -1,4 +1,4 @@
-import { CssBaseline, Box, Button, Grid, Paper } from "@mui/material";
+import { Box, Button, Grid, Paper } from "@mui/material";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Images from "../../Images/Logo 4.png";
@@ -6,6 +6,9 @@ import Controls from "../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../commonComponent/Form";
+import { appUrl } from "../../appurl";
+import axios from "axios";
+import Notification from "../../commonComponent/notification";
 
 const initialState: LOGINSTATE = {
   username: "",
@@ -18,8 +21,8 @@ interface LOGINSTATE {
 }
 
 const Login = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Username is required"),
@@ -32,9 +35,48 @@ const Login = () => {
       .required("Password is Required"),
   });
 
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+
+  const onLoginSuccess = (response: any) => {
+    setNotify({
+      isOpen: true,
+      type: "success",
+      message: response.message,
+    });
+    setTimeout(() => {
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("role", response.role);
+      localStorage.setItem("permission", response.userPermissions);
+      localStorage.setItem("controller", response.controllers);
+      navigate("/egila/home");
+      setIsSubmitting(false);
+    }, 2000);
+  };
+
+  const onLoginError = (action: any) => {
+    setNotify({
+      isOpen: true,
+      message: action,
+      type: "error",
+    });
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2000);
+  };
+
   const formik = useFormik({
     initialValues: initialState,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      setIsSubmitting(true);
+      axios
+        .post(appUrl + "users/login", values)
+        .then((response) => onLoginSuccess(response.data))
+        .catch((error) => onLoginError(error.response.data.message));
+    },
     validationSchema: validationSchema,
   });
 
@@ -46,17 +88,17 @@ const Login = () => {
 
   return (
     <>
-      <div className="loginPage">
-        <CssBaseline />
+      <div>
         <Box
           sx={{
-            mt: 20,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            margin: "0px auto",
+            marginTop: "10%",
           }}
         >
-          <Paper elevation={2} className="loginForm">
+          <Paper elevation={4} className="loginForm">
             <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -103,17 +145,25 @@ const Login = () => {
                     </Grid>
 
                     <Grid item xs={12}>
-                      <a href="/">Go to home</a>
+                      <Button variant="text" onClick={() => navigate("/")}>
+                        <u>Go to home</u>
+                      </Button>
                     </Grid>
                     <Grid item xs={12}>
-                      <Button
-                        className="buttonField"
-                        variant="contained"
-                        type="submit"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? "Signing..." : "Sign In"}
-                      </Button>
+                      {isSubmitting ? (
+                        <Button variant="contained" disabled>
+                          Signing...
+                        </Button>
+                      ) : (
+                        <Button
+                          className="buttonField"
+                          variant="contained"
+                          type="submit"
+                          disabled={isSubmitting}
+                        >
+                          Sign In
+                        </Button>
+                      )}
                     </Grid>
                     <Grid
                       item
@@ -121,7 +171,12 @@ const Login = () => {
                       className="registerLink"
                       justifyContent="flex-end"
                     >
-                      <Link to="/register">Don't have an account? Sign Up</Link>
+                      <Button
+                        variant="text"
+                        onClick={() => navigate("/register")}
+                      >
+                        <u> Don't have an account? Sign Up</u>
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -129,6 +184,7 @@ const Login = () => {
             </Form>
           </Paper>
         </Box>
+        <Notification notify={notify} setNotify={setNotify} />
       </div>
     </>
   );
