@@ -1,9 +1,7 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Login from "./component/Login";
 import Register from "./component/Registration";
 import Home from "./component/Home";
-import Topbar from "./menu/TobBar";
 import Layout from "./menu/layout";
 import MainPage from "./component/Frontpage/mainPage";
 import NewArrival from "./component/Frontpage/newArrival";
