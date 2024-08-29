@@ -10,7 +10,7 @@ const useStyles = makeStyles<any>()((theme) => ({
 
 const Notification = ({ ...props }) => {
   const { notify, setNotify } = props;
-  const { classes, cx } = useStyles({});
+  const { classes } = useStyles({});
 
   const handleClose = (event: any, reason: any) => {
     if (reason === "clickaway") {

@@ -13,7 +13,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
  export const Dialogs = ({ ...props }) => {
-  const { children, openDialog, setOpenDialog, height, maxHeight } = props;
+  const { children, openDialog, height, maxHeight } = props;
 
   return (
     <React.Fragment>
@@ -37,7 +37,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 };
 
 export const SamllDialogs = ({ ...props }) => {
-  const { children, openDialog, setOpenDialog, height, maxHeight } = props;
+  const { children, openDialog, height, maxHeight } = props;
 
   return (
     <React.Fragment>

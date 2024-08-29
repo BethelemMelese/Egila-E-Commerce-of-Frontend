@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   FormControl,
   InputLabel,
@@ -7,9 +5,6 @@ import {
   MenuItem,
   FormHelperText,
 } from "@mui/material";
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
 
 const Select = ({ ...props }) => {
   const { name, label, value, error = null, onChange, options } = props;

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "antd";
 import Controls from "../../../commonComponent/Controls";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Form } from "../../../commonComponent/Form";
-import { appUrl, token } from "../../../appurl";
+import { appUrl } from "../../../appurl";
 import { Grid, Button } from "@mui/material";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import Notification from "../../../commonComponent/notification";
@@ -39,16 +39,6 @@ const CreateAdmin = ({ ...props }) => {
     message: "",
     type: "",
   });
-
-  useEffect(() => {
-    setViewMode(props.viewMode);
-    setSelectedAdmin(props.selectedAdmin);
-    if (props.viewMode === "new") {
-      formik.resetForm({
-        values: initialState,
-      });
-    }
-  }, [props.viewMode, props.selectedAdmin]);
 
   const onCreateSuccess = () => {
     setNotify({
@@ -100,6 +90,16 @@ const CreateAdmin = ({ ...props }) => {
     },
     validationSchema: validationSchema,
   });
+
+  useEffect(() => {
+    setViewMode(props.viewMode);
+    setSelectedAdmin(props.selectedAdmin);
+    if (props.viewMode === "new") {
+      formik.resetForm({
+        values: initialState,
+      });
+    }
+  }, [props.viewMode, props.selectedAdmin]);
 
   return (
     <div className="create-card">
