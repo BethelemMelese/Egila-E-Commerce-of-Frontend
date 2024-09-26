@@ -1,6 +1,6 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import MainLayout from "../Frontpage/mainLayout";
+import Navmenu from "../Frontpage/mainLayout";
 import {
   Paper,
   Grid,
@@ -234,7 +234,7 @@ const ViewCart = () => {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-          <MainLayout inputValue={(value: any) => setGetKey(value)} />
+          {/* <Navmenu inputValue={(value: any) => setGetKey(value)} /> */}
         </AppBar>
       </Box>
       <Box sx={{ backgroundColor: "#efefef" }}>

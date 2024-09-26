@@ -33,14 +33,20 @@ html {
   height: 50px;
 }
 
-:where(.css-dev-only-do-not-override-1okl62o).ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-description {
+:where(.css-dev-only-do-not-override-1okl62o).ant-list
+  .ant-list-item
+  .ant-list-item-meta
+  .ant-list-item-meta-description {
   color: rgba(0, 0, 0, 0.45);
   font-size: 14px;
   line-height: 1.5714285714285714;
   margin-top: 12%;
 }
 
-:where(.css-dev-only-do-not-override-1okl62o).ant-list .ant-list-item .ant-list-item-meta .ant-list-item-meta-title {
+:where(.css-dev-only-do-not-override-1okl62o).ant-list
+  .ant-list-item
+  .ant-list-item-meta
+  .ant-list-item-meta-title {
   margin: 0 0 4px 0;
   color: rgba(0, 0, 0, 0.88);
   font-size: 14px;
@@ -169,25 +175,18 @@ html {
   background-color: #f00538;
 }
 
-/* for Tob bar css is here */
-.css-hip9hq-MuiPaper-root-MuiAppBar-root {
-  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
+/* for nav-menu style */
+.navmenu-container {
   width: 100%;
-  box-sizing: border-box;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  position: static;
+  display: block;
+  position: fixed;
+  z-index: 1;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
   background-image: linear-gradient(
     to right,
     hsl(0, 100%, 100%),
@@ -195,14 +194,136 @@ html {
     #ff7f16,
     #f00538
   );
-  /* background-color: #fff; */
+}
+
+.top-bar-logo {
+  margin-left: -50px;
+}
+
+.top-bar-logo img {
+  width: 50%;
+  height: 100%;
+}
+
+.search-cart {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-top: 40px;
+  margin-right: 40px;
+}
+
+.nav-bar {
+  display: flex;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  width: 100%;
+  top: 0;
+  box-shadow: 1px 0 0px 0 rgba(0, 0, 0, 0.19), 5px 5px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.nav-item-menu {
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+}
+
+.nav-item-menu li {
+  list-style: none;
+}
+
+.account {
+  display: flex;
+  justify-content: space-between;
+}
+
+.account p {
+  margin: 2px;
+  font-size: 14px;
+  color: #000;
+  margin-right: 5px;
+}
+
+.nav-item-menu .nav-item {
+  text-decoration: none;
+  color: #000;
+  transition: #000 0.3s ease-in-out;
+  font-size: 16px;
+}
+
+.nav-item-menu .nav-item:hover {
+  color: #696969;
+  padding: auto;
+  border-bottom: 1px solid #696969;
+}
+
+.nav-item-menu .active {
+  border-bottom: 1px solid #696969;
+  color: #696969;
+}
+
+/* for footer style */
+.footer-confiner {
+  background-image: linear-gradient(
+    to right,
+    hsla(346, 86%, 83%, 0.504),
+    rgba(240, 223, 129, 0.437)
+  );
+  width: 100%;
+}
+
+.footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+  margin-left: -20px;
+}
+
+.footer-services {
+  margin-right: -100px;
+}
+.footer-services h3 {
+  text-align: center;
+}
+
+.footer-services ul li {
+  text-align: left;
+  text-decoration: none;
+  list-style: none;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.footer-contact h4 {
+  text-align: center;
+}
+
+.footer-contact p {
+  text-align: left;
+}
+
+.sm-item{
+  color: #000;
+}
+
+.sm-item a{
+  color: #000;
+  font-size: 14px;
 }
 
 /* For Main Page css is here */
-
 /* The main image */
 .main-image {
   position: relative;
+  margin-top: 140px;
   height: 100%;
   background-color: #000;
   background-image: linear-gradient(
@@ -239,7 +360,12 @@ html {
 
 .image-slid {
   margin: 0px auto;
-  width: 90%;
+  width: 100%;
+}
+
+
+.top-post{
+  margin-top: 20px;
 }
 
 .image-items {
@@ -260,7 +386,6 @@ html {
 
 .gallery img {
   width: 100%;
-  /* height: auto; */
   max-width: 720px;
   max-height: 100px;
   background-color: white;

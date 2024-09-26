@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import MainLayout from "./mainLayout";
+import Navmenu from "./mainLayout";
 import axios from "axios";
 import { appUrl } from "../../appurl";
 import {
@@ -93,7 +93,7 @@ const Category = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <MainLayout inputValue={(value: any) => setGetKey(value)} />
+      <Navmenu inputValue={(value: any) => setGetKey(value)} />
       </AppBar>
 
       <Box sx={{ backgroundColor: "#efefef" }}>
