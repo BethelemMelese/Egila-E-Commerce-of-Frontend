@@ -120,10 +120,10 @@ const CreateItemCategory = ({ ...props }) => {
           formData.append("categoryDescription", values.categoryDescription);
           axios
             .create({
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            })
             .post(appUrl + "itemCategorys", formData)
             .then(() => onCreateSuccess())
             .catch((error) => onCreateError(error.response.data.message));
@@ -183,18 +183,15 @@ const CreateItemCategory = ({ ...props }) => {
       >
         <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
           <Grid container spacing={2}>
-            {/* {viewMode != "new" && (
+            {viewMode != "new" && (
               <Grid item xs={12}>
                 <Avatar
                   variant="rounded"
-                  style={{width:"100%", height:"10%"}}
-                  src={
-                    appUrl +
-                    `itemCategorys/uploads/${selectedItemCategory.categoryImage}`
-                  }
+                  style={{ width: "100%", height: "10%" }}
+                  src={selectedItemCategory.categoryImage}
                 ></Avatar>
               </Grid>
-            )} */}
+            )}
             <Grid item xs={6}>
               <Controls.Input
                 required

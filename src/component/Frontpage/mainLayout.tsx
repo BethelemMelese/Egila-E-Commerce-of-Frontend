@@ -7,9 +7,9 @@ import ShoppingCart from "./shoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import { Button, Badge, Avatar } from "@mui/material";
+import { Badge, Avatar } from "@mui/material";
 import { Drawer } from "antd";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -131,48 +131,43 @@ const Navmenu = ({ ...props }) => {
         <nav className="main-nav-menu">
           <ul className={`nav-item-menu ${isOpen ? "open" : ""}`}>
             <li>
-              <NavLink to="/" className="nav-item" onClick={toggleMenu}>
+              <Link to="/" className="nav-item" onClick={toggleMenu}>
                 Home
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink to="newArrival" className="nav-item" onClick={toggleMenu}>
-                New Arrival
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="category" className="nav-item" onClick={toggleMenu}>
+              <Link to="category" className="nav-item" onClick={toggleMenu}>
                 Category
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink to="contactMe" className="nav-item" onClick={toggleMenu}>
+              <Link to="contactMe" className="nav-item" onClick={toggleMenu}>
                 About Us
-              </NavLink>
+              </Link>
             </li>
             <li>
-              <NavLink to="contactMe" className="nav-item" onClick={toggleMenu}>
+              <Link to="contactMe" className="nav-item" onClick={toggleMenu}>
                 Contact Us
-              </NavLink>
+              </Link>
             </li>
             <li className="account">
-              <NavLink
+              <Link
                 to="register"
                 className="nav-item account"
                 onClick={toggleMenu}
                 style={{ color: "#ff7f16" }}
               >
                 Sign Up
-              </NavLink>
+              </Link>
               <p> | Already Have an Account? </p>
-              <NavLink
+              <Link
                 to="login"
                 className="nav-item account"
                 onClick={toggleMenu}
                 style={{ color: "#f00538" }}
               >
                 Sign In
-              </NavLink>
+              </Link>
             </li>
           </ul>
         </nav>

@@ -94,10 +94,7 @@ const NewArrival = () => {
                                   <div className="responsive">
                                     <div className="gallery">
                                       <img
-                                        src={
-                                          appUrl +
-                                          `items/uploads/${item.itemImage}`
-                                        }
+                                        src={item.itemImage}
                                         alt="Category Image"
                                         width="100px"
                                         height="250px"

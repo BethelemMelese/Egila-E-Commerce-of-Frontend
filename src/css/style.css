@@ -310,11 +310,11 @@ nav {
   text-align: left;
 }
 
-.sm-item{
+.sm-item {
   color: #000;
 }
 
-.sm-item a{
+.sm-item a {
   color: #000;
   font-size: 14px;
 }
@@ -358,13 +358,16 @@ nav {
   color: #fff;
 }
 
+.new-post {
+  margin: 20px;
+}
+
 .image-slid {
   margin: 0px auto;
   width: 100%;
 }
 
-
-.top-post{
+.top-post {
   margin-top: 20px;
 }
 
@@ -384,15 +387,44 @@ nav {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.gallery img {
+.image-container {
+  position: relative; /* This allows absolute positioning of the button */
   width: 100%;
-  max-width: 720px;
-  max-height: 100px;
-  background-color: white;
+  height: 250px;
 }
 
-.gallery img:hover {
-  background-color: white;
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  filter: blur(0px); /* This applies the blur effect to the image */
+  transition: filter 0.3s ease-in-out;
+}
+
+.image-container img:hover {
+  filter: blur(0px); /* Remove blur on hover */
+}
+
+.add-cart-btn {
+  position: absolute;
+  top: 10px;
+  right: 0%;
+  transform: translateX(-50%);
+  background-color: #f0053895;
+  /* background-image: linear-gradient(to right, #ff7f16a7, #f00538ad); */
+  /* background-color: rgba(255, 255, 255, 0.888); */
+  color: white;
+  padding: 8px 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.add-cart-btn:hover {
+  background-color: #23000895;
+  color: white;
 }
 
 .desc {
@@ -411,6 +443,7 @@ nav {
   float: left;
   width: 100%;
   box-sizing: border-box;
+  transition: transform 0.2s ease-in-out;
 }
 
 .detail-img {
@@ -418,10 +451,41 @@ nav {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
+.arrival-gallery img {
+  width: 100%;
+  max-width: 720px;
+  max-height: 100px;
+  background-color: white;
+}
+
+.arrival-gallery img:hover {
+  background-color: white;
+}
+
+.arrival-gallery {
+  border-radius: 20px;
+  max-width: 720px;
+  max-height: 660px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+.arrival-gallery:hover {
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .arrival-container {
+  margin: 20px;
+}
+
+.arrival-title {
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+.arrival-images {
   margin-top: 20px;
-  margin-left: 40px;
-  margin-right: 40px;
 }
 
 .arrival-search {
@@ -429,10 +493,24 @@ nav {
   margin-right: 70px;
 }
 
+/* for the category style part */
+
 .category-container {
-  margin-top: 50px;
+  margin-top: 10%;
   margin-left: 40px;
   margin-right: 40px;
+}
+
+.category-gallery {
+  border-radius: 20px;
+  max-width: 720px;
+  max-height: 660px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+.category-gallery:hover {
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .category-displays {

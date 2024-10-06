@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "antd";
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { Button, Grid, Paper, Tooltip } from "@mui/material";
 import { List, Space } from "antd";
 import axios from "axios";
 import { appUrl } from "../../appurl";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { v4 as uuidv4 } from "uuid";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const MoreCategory = ({ ...props }) => {
   const [selectedMore, setSelectedMore] = useState(props.selectedMore);
@@ -61,9 +61,17 @@ const MoreCategory = ({ ...props }) => {
       <Card
         title="More"
         extra={
-          <a onClick={() => props.closeedit()}>
-            <CancelOutlinedIcon fontSize="medium" className="close-btn" />
-          </a>
+          <Button
+            variant="text"
+            size="small"
+            color="error"
+            startIcon={<ArrowBackIcon />}
+            onClick={() => {
+              props.closeedit();
+            }}
+          >
+            Back
+          </Button>
         }
       >
         <Grid container spacing={2}>
@@ -72,10 +80,7 @@ const MoreCategory = ({ ...props }) => {
               <Grid container spacing={2}>
                 <Grid item xs={5}>
                   <img
-                    src={
-                      appUrl +
-                      `itemCategorys/uploads/${selectedMore.categoryImage}`
-                    }
+                    src={selectedMore.categoryImage}
                     alt="Category Image"
                     width="300"
                     height="200"
@@ -123,7 +128,7 @@ const MoreCategory = ({ ...props }) => {
                           width={272}
                           height={200}
                           alt="Item Image"
-                          src={appUrl + `items/uploads/${item.itemImage}`}
+                          src={item.itemImage}
                         />
                       </Paper>
                     }

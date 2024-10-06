@@ -176,7 +176,7 @@ const ViewItemCategory = () => {
           <>
             {record.categoryImage != undefined ? (
               <Avatar
-                src={appUrl + `itemCategorys/uploads/${record.categoryImage}`}
+                src={record.categoryImage}
                 variant="rounded"
               ></Avatar>
             ) : (

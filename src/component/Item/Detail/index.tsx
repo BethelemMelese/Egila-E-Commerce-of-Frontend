@@ -26,7 +26,7 @@ const DetailItem = ({ ...props }) => {
       <Form autoComplete="off">
         <img
           alt="Item Image"
-          src={appUrl + `items/uploads/${selectedItem.itemImage}`}
+          src={selectedItem.itemImage}
           width="20%"
           style={{ maxHeight: "50%", borderRadius: "5%", float: "left" }}
         />

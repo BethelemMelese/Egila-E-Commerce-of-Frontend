@@ -184,7 +184,7 @@ const ViewItem = () => {
           <>
             {record.itemImage != undefined ? (
               <Avatar
-                src={appUrl + `items/uploads/${record.itemImage}`}
+                src={record.itemImage}
                 variant="rounded"
               ></Avatar>
             ) : (

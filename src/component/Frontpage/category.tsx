@@ -93,7 +93,7 @@ const Category = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-      <Navmenu inputValue={(value: any) => setGetKey(value)} />
+        <Navmenu inputValue={(value: any) => setGetKey(value)} />
       </AppBar>
 
       <Box sx={{ backgroundColor: "#efefef" }}>
@@ -156,34 +156,30 @@ const Category = () => {
                                     <Col span={8} style={{ marginTop: "20px" }}>
                                       <Paper elevation={8}>
                                         <div className="responsive">
-                                          <div className="gallery">
-                                            <img
-                                              src={
-                                                appUrl +
-                                                `items/uploads/${item.itemImage}`
-                                              }
-                                              alt="Category Image"
-                                              width="100px"
-                                              height="250px"
-                                              style={{
-                                                maxWidth: "720px",
-                                                maxHeight: "500px",
-                                              }}
-                                            />
-                                            <div className="desc">
+                                          <div className="category-gallery">
+                                            <div className="image-container">
+                                              <img
+                                                src={item.itemImage}
+                                                alt="Category Image"
+                                                width="100px"
+                                                height="200px"
+                                                style={{
+                                                  maxWidth: "720px",
+                                                  maxHeight: "500px",
+                                                }}
+                                              />
                                               <Tooltip title="Add To Cart">
-                                                <Button
-                                                  variant="text"
-                                                  size="small"
-                                                  className="more-btn"
-                                                  color="warning"
+                                                <button
+                                                  className="add-cart-btn"
                                                   onClick={() =>
                                                     OnAddCart(item.id)
                                                   }
                                                 >
                                                   <AddShoppingCartIcon />
-                                                </Button>
+                                                </button>
                                               </Tooltip>
+                                            </div>
+                                            <div className="desc">
                                               <Grid container spacing={2}>
                                                 <Grid item xs={12}>
                                                   <b> {item.itemName}</b>

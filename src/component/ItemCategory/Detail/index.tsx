@@ -27,10 +27,7 @@ const DetailItemCategory = ({ ...props }) => {
       <Form autoComplete="off">
         <img
           alt="Category Image"
-          src={
-            appUrl +
-            `itemCategorys/uploads/${selectedItemCategory.categoryImage}`
-          }
+          src={selectedItemCategory.categoryImage}
           width="20%"
           style={{ maxHeight: "50%", borderRadius: "5%", float: "left" }}
         />

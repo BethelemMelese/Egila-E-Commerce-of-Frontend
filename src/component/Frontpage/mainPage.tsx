@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import MoreCategory from "./moreCategory";
 import Navmenu from "./mainLayout";
 import Footer from "./footerSide";
-import { Card, Col, Row } from "antd";
+import { Card, Col, Input, Row } from "antd";
 import { Grid, Divider, Button, Paper, Tooltip } from "@mui/material";
 import { Dialogs } from "../../commonComponent/dialog";
 import axios from "axios";
@@ -18,6 +18,8 @@ const MainPage = () => {
   const [selectedMore, setSelectedMore] = useState<any>([]);
   const [response, setResponse] = useState<any>([]);
   const [itemResponse, setItemResponse] = useState<any>();
+  const [arrivalResponse, setArrivalResponse] = useState<any>([]);
+  const [query, setQuery] = useState("");
   const [getKey, setGetKey] = useState(null);
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -73,6 +75,18 @@ const MainPage = () => {
       .catch((error) => onFetchError(error.response.data.message));
   };
 
+  //   For searching based on the content
+  const onSearch = (query: any) => {
+    setQuery(query);
+  };
+
+  useEffect(() => {
+    axios
+      .get(appUrl + `items/newArrival?search=${query}`)
+      .then((response) => setArrivalResponse(response.data))
+      .catch((error) => onFetchError(error.response.data.message));
+  }, [query]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -120,6 +134,70 @@ const MainPage = () => {
       {getKey == null && (
         <Box sx={{ backgroundColor: "#efefef" }}>
           <Card className="image-slid">
+            {arrivalResponse.length != 0 && (
+              <Card className="arrival-container">
+                <h3 className="arrival-title">New Arrived Products</h3>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} className="arrival-images">
+                    <div className="image-slid">
+                      <Row gutter={18}>
+                        {arrivalResponse.map((item: any) => {
+                          return (
+                            <Col span={6} style={{ marginTop: "20px" }}>
+                              <Paper elevation={8}>
+                                <div className="responsive">
+                                  <div className="gallery">
+                                    <div className="image-container">
+                                      <img
+                                        src={item.itemImage}
+                                        alt="Category Image"
+                                        width="100px"
+                                        height="200px"
+                                        style={{
+                                          maxWidth: "720px",
+                                          maxHeight: "500px",
+                                        }}
+                                      />
+                                      <Tooltip title="Add To Cart">
+                                        <button
+                                          className="add-cart-btn"
+                                          onClick={() => OnAddCart(item.id)}
+                                        >
+                                          <AddShoppingCartIcon />
+                                        </button>
+                                      </Tooltip>
+                                    </div>
+                                    <div className="desc">
+                                      <Grid container spacing={2}>
+                                        <Grid item xs={12}>
+                                          <b> {item.itemName}</b>
+                                          <br />
+                                          {item.itemDescription.slice(0, 100) +
+                                            "..."}
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                          Brand: {item.brand}
+                                          <br />
+                                          Quantity: {item.quantity}
+                                          <br />
+                                          <h4>
+                                            Price: <b> {item.price}</b>{" "}
+                                          </h4>
+                                        </Grid>
+                                      </Grid>
+                                    </div>
+                                  </div>
+                                </div>
+                              </Paper>
+                            </Col>
+                          );
+                        })}
+                      </Row>
+                    </div>
+                  </Grid>
+                </Grid>
+              </Card>
+            )}
             <Card className="new-post">
               <Row gutter={18}>
                 {response != undefined && (
@@ -129,15 +207,12 @@ const MainPage = () => {
                         <Col span={6} style={{ marginTop: "20px" }}>
                           <Paper elevation={8}>
                             <div className="responsive">
-                              <div className="gallery">
+                              <div className="arrival-gallery">
                                 <img
-                                  src={
-                                    appUrl +
-                                    `itemCategorys/uploads/${item.categoryImage}`
-                                  }
+                                  src={item.categoryImage}
                                   alt="Category Image"
                                   width="100px"
-                                  height="250px"
+                                  height="200px"
                                   style={{
                                     maxWidth: "720px",
                                     maxHeight: "500px",
@@ -148,7 +223,8 @@ const MainPage = () => {
                                     <Grid item xs={12}>
                                       <b> {item.categoryName}</b>
                                       <br />
-                                      {item.categoryDescription}
+                                      {item.categoryDescription.slice(0, 100) +
+                                        "..."}
                                     </Grid>
                                     <Grid item xs={12}>
                                       <Button
@@ -189,16 +265,16 @@ const MainPage = () => {
                 }
               />
             </Card>
-            <Card className="top-post">
+            {/* <Card className="top-post">
               <h3>Top Salad Product</h3>
-            </Card>
+            </Card> */}
           </Card>
         </Box>
       )}
 
       {getKey != null && (
         <Box sx={{ backgroundColor: "#efefef" }}>
-          <Card className="image-slid">
+          <Card title="Product category's" className="image-slid">
             <Row gutter={18}>
               {itemResponse != undefined && (
                 <>
