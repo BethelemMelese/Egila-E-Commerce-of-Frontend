@@ -17,6 +17,7 @@ import {
 import { Card, Col, Input, List, Row } from "antd";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { v4 as uuidv4 } from "uuid";
+import Footer from "./footerSide";
 
 const Category = () => {
   const [itemResponse, setItemResponse] = useState<any>([]);
@@ -98,7 +99,7 @@ const Category = () => {
 
       <Box sx={{ backgroundColor: "#efefef" }}>
         <div className="category-container">
-          <Paper elevation={3}>
+          {/* <Paper elevation={3}> */}
             <Card>
               <Grid container spacing={2}>
                 <Grid item xs={3}>
@@ -210,13 +211,13 @@ const Category = () => {
                 </Grid>
               </Grid>
             </Card>
-          </Paper>
+          {/* </Paper> */}
         </div>
       </Box>
       <Box>
-        <div className="copyrightholder">
-          <p>&copy; 2024 Egila Gadgets. All rights reserved</p>
-        </div>
+        <section>
+          <Footer />
+        </section>
       </Box>
     </Box>
   );

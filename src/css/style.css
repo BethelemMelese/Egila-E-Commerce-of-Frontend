@@ -1,6 +1,7 @@
 body,
 html {
   background-color: #efefef;
+  margin: 0;
 }
 
 .container {
@@ -197,7 +198,7 @@ html {
 }
 
 .top-bar-logo {
-  margin-left: -50px;
+  margin-left: 50px;
 }
 
 .top-bar-logo img {
@@ -862,4 +863,244 @@ span {
   background-image: linear-gradient(to right, #ff7f16, #f00538);
   float: right;
   text-align: left;
+}
+
+/* for Contact Us Page Style */
+
+.contactus-container {
+  margin-top: 10%;
+  width: 100%;
+}
+
+.contact-form {
+  background-image: linear-gradient(to right, #fde4cf, #ebc6ce);
+  width: 100%;
+  height: 100%;
+  padding-bottom: 20px;
+}
+
+.contact-title {
+  margin: 100px;
+  text-align: justify;
+}
+
+.contact-title h1 {
+  font-size: 3rem;
+  margin-bottom: -10px;
+}
+
+.contact-title p {
+  width: 50%;
+  margin-left: 5px;
+}
+
+.contact-info {
+  display: flex;
+  text-align: justify;
+  margin-left: 100px;
+  margin-top: -20px;
+}
+
+.contact-info .info-desc {
+  width: 60%;
+}
+
+.contact-field {
+  margin-top: 50px;
+  margin-right: 100px;
+  border-radius: 30px;
+  border: none;
+  box-shadow: 8px 10px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.contact-field h2 {
+  margin-top: -10px;
+}
+
+.contact-field p {
+  margin-top: -10px;
+}
+
+.inputField {
+  width: 50%;
+  background-color: #8483833a;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.contact-inputs {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root
+  .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 0.5rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  position: relative;
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  border-radius: 30px;
+  font-size: 12px;
+}
+
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root
+  .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  position: relative;
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  border-radius: 30px;
+  font-size: 13px;
+}
+
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root
+  .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  position: relative;
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  border-radius: 33px;
+  font-size: 13px;
+}
+
+.css-1u3bzj6-MuiFormControl-root-MuiTextField-root
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  color: rgba(0, 0, 0, 0.6);
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  position: relative;
+  display: block;
+  transform-origin: top left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 24px);
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-transform: translate(14px, 16px) scale(1);
+  -moz-transform: translate(14px, 16px) scale(1);
+  -ms-transform: translate(14px, 16px) scale(1);
+  transform: translate(14px, 16px) scale(1);
+  -webkit-transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    -webkit-transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.contactInputFiled {
+  width: 100%;
+}
+
+.contact-textarea {
+  width: 100%;
+  color: rgba(0, 0, 0, 0.6);
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  padding: 0;
+  position: relative;
+  border-radius: 20px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  padding: 10px;
+  resize: vertical;
+}
+
+
+.contact-textarea:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contact-btn {
+  width: 100%;
+  margin: 0px auto;
+  border-radius: 30px;
+}
+
+.contact-btn p {
+  width: 80%;
+  margin: 0px auto;
+}
+
+/* .map-location{
+  margin: 50px;
+} */
+
+.contact-location{
+  margin-left: 100px;
+}
+
+.location{
+  width: 60%;
+  height: 60%;
+  border-radius: 20px;
+  margin: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.current-location{
+  margin: 200px;
+  margin-left: -10%;
+}
+
+.current-location p{
+  margin-top: -5px;
+  font-size: 14px;
 }

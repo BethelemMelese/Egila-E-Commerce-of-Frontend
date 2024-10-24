@@ -63,6 +63,9 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <div className="copyrightholder">
+        <p>&copy; 2024 Egila Gadgets. All rights reserved</p>
+      </div>
     </div>
   );
 };

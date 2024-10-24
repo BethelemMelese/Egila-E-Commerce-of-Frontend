@@ -24,6 +24,7 @@ import ChangePassword from "./component/Setting/changePassword";
 import ViewCart from "./component/Cart";
 import ViewOrder from "./component/Order/View";
 import ViewFeadBack from "./component/FeadBack/View";
+import ContactUs from "./component/ContactUs";
 import Navmenu from "./component/Frontpage/mainLayout";
 import "./css/style.css";
 import "./css/mediaQuery.css";
@@ -38,6 +39,7 @@ const AppRoute = () => {
         <Route path="nav" element={<Navmenu />} />
         <Route path="newArrival" element={<NewArrival />} />
         <Route path="category" element={<Category />} />
+        <Route path="contactus" element={<ContactUs />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="viewCart" element={<ViewCart />} />

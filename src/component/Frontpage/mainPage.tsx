@@ -340,11 +340,6 @@ const MainPage = () => {
       <Box>
         <Footer />
       </Box>
-      <Box>
-        <div className="copyrightholder">
-          <p>&copy; 2024 Egila Gadgets. All rights reserved</p>
-        </div>
-      </Box>
     </Box>
   );
 };

@@ -9,7 +9,7 @@ import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import { Badge, Avatar } from "@mui/material";
 import { Drawer } from "antd";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -131,24 +131,19 @@ const Navmenu = ({ ...props }) => {
         <nav className="main-nav-menu">
           <ul className={`nav-item-menu ${isOpen ? "open" : ""}`}>
             <li>
-              <Link to="/" className="nav-item" onClick={toggleMenu}>
+              <NavLink to="/" className="nav-item" onClick={toggleMenu}>
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="category" className="nav-item" onClick={toggleMenu}>
+              <NavLink to="category" className="nav-item" onClick={toggleMenu}>
                 Category
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="contactMe" className="nav-item" onClick={toggleMenu}>
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link to="contactMe" className="nav-item" onClick={toggleMenu}>
+              <NavLink to="contactus" className="nav-item" onClick={toggleMenu}>
                 Contact Us
-              </Link>
+              </NavLink>
             </li>
             <li className="account">
               <Link
