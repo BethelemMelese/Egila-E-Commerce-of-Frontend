@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import location from "../../Images/Current Map.png";
 import Footer from "../Frontpage/footerSide";
+import Notification from "../../commonComponent/notification";
 
 interface ContactUsState {
   firstName: string;
@@ -53,7 +54,7 @@ const ContactUs = () => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: "FeedBack is Successfully Added !",
+      message: "Thank You , We will contact you soon !",
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -73,11 +74,11 @@ const ContactUs = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string().required("Your First Name is required"),
-    lastName: Yup.string().required("Your Last Name is required"),
-    email: Yup.string().required("Your Email is required"),
-    phone: Yup.string().required("Your Phone is required"),
-    message: Yup.string().required("Your Message is required"),
+    firstName: Yup.string().required("First Name is required"),
+    lastName: Yup.string().required("Last Name is required"),
+    email: Yup.string().required("Email is required"),
+    phone: Yup.string().required("Phone is required"),
+    message: Yup.string().required("Message is required"),
   });
 
   const formik = useFormik({
@@ -90,7 +91,7 @@ const ContactUs = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         })
-        .post(appUrl + "comments", values)
+        .post(appUrl + "contactUs", values)
         .then(() => onCreateSuccess())
         .catch((error) => onCreateError(error.response.data.message));
     },
@@ -106,7 +107,7 @@ const ContactUs = () => {
       <div className="contactus-container">
         <section className="contact-form">
           <Grid container spacing={0}>
-            <Grid item xs={8}>
+            <Grid item xs={7}>
               <div className="contact-title">
                 <h1>Contact Us</h1>
                 <p>
@@ -134,7 +135,7 @@ const ContactUs = () => {
                 </div>
               </div>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={5}>
               <Card className="contact-field">
                 <h2>Get In Touch</h2>
                 <p>you can reach us anytime</p>
@@ -165,10 +166,10 @@ const ContactUs = () => {
                           id="lastName"
                           label="Your Last Name"
                           {...formik.getFieldProps("lastName")}
-                          {...(formik.touched.firstName &&
-                          formik.errors.firstName ? (
+                          {...(formik.touched.lastName &&
+                          formik.errors.lastName ? (
                             <div className="error">
-                              {formik.errors.firstName}
+                              {formik.errors.lastName}
                             </div>
                           ) : (
                             ""
@@ -182,11 +183,8 @@ const ContactUs = () => {
                           id="email"
                           label="Your Email"
                           {...formik.getFieldProps("email")}
-                          {...(formik.touched.firstName &&
-                          formik.errors.firstName ? (
-                            <div className="error">
-                              {formik.errors.firstName}
-                            </div>
+                          {...(formik.touched.email && formik.errors.email ? (
+                            <div className="error">{formik.errors.email}</div>
                           ) : (
                             ""
                           ))}
@@ -199,11 +197,8 @@ const ContactUs = () => {
                           id="phone"
                           label="Your Phone"
                           {...formik.getFieldProps("phone")}
-                          {...(formik.touched.firstName &&
-                          formik.errors.firstName ? (
-                            <div className="error">
-                              {formik.errors.firstName}
-                            </div>
+                          {...(formik.touched.phone && formik.errors.phone ? (
+                            <div className="error">{formik.errors.phone}</div>
                           ) : (
                             ""
                           ))}
@@ -211,12 +206,12 @@ const ContactUs = () => {
                       </Grid>
                       <Grid item xs={12}>
                         <textarea
-                          id="textarea"
-                          {...formik.getFieldProps("message")}
+                          id="message"
                           rows={5}
                           cols={30}
                           placeholder="How can we help?"
                           className="contact-textarea"
+                          {...formik.getFieldProps("message")}
                           {...(formik.touched.message &&
                           formik.errors.message ? (
                             <div className="error">{formik.errors.message}</div>
@@ -256,6 +251,7 @@ const ContactUs = () => {
               </Card>
             </Grid>
           </Grid>
+          <Notification notify={notify} setNotify={setNotify} />
         </section>
         <section className="contact-location">
           <Grid container spacing={0}>

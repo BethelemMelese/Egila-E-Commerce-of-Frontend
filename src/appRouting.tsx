@@ -26,6 +26,7 @@ import ViewOrder from "./component/Order/View";
 import ViewFeadBack from "./component/FeadBack/View";
 import ContactUs from "./component/ContactUs";
 import Navmenu from "./component/Frontpage/mainLayout";
+import ViewContactUs from "./component/ContactUs/View";
 import "./css/style.css";
 import "./css/mediaQuery.css";
 import "./App.css";
@@ -74,6 +75,7 @@ const AppRoute = () => {
           <Route path="changePassword" element={<ChangePassword />} />
           <Route path="viewDeliveryPerson" element={<ViewDeliveryPerson />} />
           <Route path="viewComment" element={<ViewFeadBack />} />
+          <Route path="viewContact" element={<ViewContactUs />} />
         </Route>
       </Routes>
     </div>

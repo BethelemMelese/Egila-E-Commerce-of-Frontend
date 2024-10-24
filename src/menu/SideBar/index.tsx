@@ -85,23 +85,31 @@ const Sidebar: React.FC = () => {
       key: "9",
       icon: <AppShortcutIcon />,
       label: "Order",
-      path: "/egila/ViewOrder",
+      path: "/egila/viewOrder",
       cName: "nav-text",
       nActive: "active",
     },
     {
       key: "10",
-      icon: <CommentIcon />,
-      label: "Comment",
-      path: "/egila/ViewComment",
+      icon: <ReportIcon />,
+      label: "Report",
+      path: "/egila/Report",
       cName: "nav-text",
       nActive: "active",
     },
     {
       key: "11",
-      icon: <ReportIcon />,
-      label: "Report",
-      path: "/egila/Report",
+      icon: <CommentIcon />,
+      label: "Comment",
+      path: "/egila/viewComment",
+      cName: "nav-text",
+      nActive: "active",
+    },
+    {
+      key: "12",
+      icon: <CommentIcon />,
+      label: "Contacts",
+      path: "/egila/viewContact",
       cName: "nav-text",
       nActive: "active",
     },
@@ -129,10 +137,7 @@ const Sidebar: React.FC = () => {
                 userService.userController.match(item.label) && (
                   <>
                     <li key={index} className={item.cName}>
-                      <NavLink
-                        to={item.path}
-                        className={item.nActive == "active" ? "active" : ""}
-                      >
+                      <NavLink to={item.path}>
                         {item.icon}
                         <span>{item.label}</span>
                       </NavLink>

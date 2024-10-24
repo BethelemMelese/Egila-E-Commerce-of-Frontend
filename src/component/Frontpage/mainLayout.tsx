@@ -136,12 +136,12 @@ const Navmenu = ({ ...props }) => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="category" className="nav-item" onClick={toggleMenu}>
+              <NavLink to="/category" className="nav-item" onClick={toggleMenu}>
                 Category
               </NavLink>
             </li>
             <li>
-              <NavLink to="contactus" className="nav-item" onClick={toggleMenu}>
+              <NavLink to="/contactus" className="nav-item" onClick={toggleMenu}>
                 Contact Us
               </NavLink>
             </li>
