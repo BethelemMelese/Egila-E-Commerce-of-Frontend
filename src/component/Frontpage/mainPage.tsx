@@ -20,7 +20,7 @@ const MainPage = () => {
   const [itemResponse, setItemResponse] = useState<any>();
   const [arrivalResponse, setArrivalResponse] = useState<any>([]);
   const [query, setQuery] = useState("");
-  const [getKey, setGetKey] = useState(null);
+  const [getKey, setGetKey] = useState("");
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -43,13 +43,15 @@ const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    if (getKey != null) {
+    if (getKey != "") {
       axios
         .get(appUrl + `items/search?search=${getKey}`)
         .then((response) => setItemResponse(response.data))
         .catch((error) => onFetchError(error.response.data.message));
     }
   }, [getKey]);
+
+  console.log("getKey...",getKey);
 
   const OnAddCart = (item: any) => {
     const uuid = uuidv4();
@@ -131,7 +133,7 @@ const MainPage = () => {
         </div>
       </AppBar>
 
-      {getKey == null && (
+      {getKey == "" && (
         <Box sx={{ backgroundColor: "#efefef" }}>
           <Card className="image-slid">
             {arrivalResponse.length != 0 && (
@@ -171,9 +173,6 @@ const MainPage = () => {
                                       <Grid container spacing={2}>
                                         <Grid item xs={12}>
                                           <b> {item.itemName}</b>
-                                          <br />
-                                          {item.itemDescription.slice(0, 100) +
-                                            "..."}
                                         </Grid>
                                         <Grid item xs={12}>
                                           Brand: {item.brand}
@@ -272,9 +271,9 @@ const MainPage = () => {
         </Box>
       )}
 
-      {getKey != null && (
+      {getKey != "" && (
         <Box sx={{ backgroundColor: "#efefef" }}>
-          <Card title="Product category's" className="image-slid">
+          <Card className="image-slid">
             <Row gutter={18}>
               {itemResponse != undefined && (
                 <>
@@ -284,33 +283,30 @@ const MainPage = () => {
                         <Paper elevation={8}>
                           <div className="responsive">
                             <div className="gallery">
-                              <img
-                                src={appUrl + `items/uploads/${item.itemImage}`}
-                                alt="Category Image"
-                                width="100px"
-                                height="250px"
-                                style={{
-                                  maxWidth: "720px",
-                                  maxHeight: "500px",
-                                }}
-                              />
-                              <div className="desc">
+                              <div className="image-container">
+                                <img
+                                  src={item.itemImage}
+                                  alt="Category Image"
+                                  width="100px"
+                                  height="200px"
+                                  style={{
+                                    maxWidth: "720px",
+                                    maxHeight: "500px",
+                                  }}
+                                />
                                 <Tooltip title="Add To Cart">
-                                  <Button
-                                    variant="text"
-                                    size="small"
-                                    className="more-btn"
-                                    color="warning"
+                                  <button
+                                    className="add-cart-btn"
                                     onClick={() => OnAddCart(item.id)}
                                   >
                                     <AddShoppingCartIcon />
-                                  </Button>
+                                  </button>
                                 </Tooltip>
+                              </div>
+                              <div className="desc">
                                 <Grid container spacing={2}>
                                   <Grid item xs={12}>
                                     <b> {item.itemName}</b>
-                                    <br />
-                                    {item.itemDescription}
                                   </Grid>
                                   <Grid item xs={12}>
                                     Brand: {item.brand}
@@ -318,7 +314,7 @@ const MainPage = () => {
                                     Quantity: {item.quantity}
                                     <br />
                                     <h4>
-                                      <b>Price: {item.price}</b>{" "}
+                                      Price: <b> {item.price}</b>{" "}
                                     </h4>
                                   </Grid>
                                 </Grid>

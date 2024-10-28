@@ -86,6 +86,7 @@ const Navmenu = ({ ...props }) => {
     setIsOpen((prevState) => !prevState);
   };
 
+
   return (
     <div className="navmenu-container">
       <div className="top-bar">

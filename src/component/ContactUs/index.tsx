@@ -29,6 +29,16 @@ const initialState: ContactUsState = {
   message: "",
 };
 
+interface FeedBackState {
+  name: string;
+  email: string;
+}
+
+const feedBackInitialState: FeedBackState = {
+  name: "",
+  email: "",
+};
+
 const mapContainerStyle = {
   width: "60%",
   height: "60%",
@@ -42,6 +52,7 @@ const center = {
 const ContactUs = () => {
   const [getKey, setGetKey] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSecondSubmitting, setIsSecondSubmitting] = useState(false);
   const apiKey: any = process.env.REACT_APP_API_KEY;
 
   const [notify, setNotify] = useState({
@@ -73,12 +84,40 @@ const ContactUs = () => {
     }, 2000);
   };
 
+  const onFeedbackSuccess = () => {
+    setNotify({
+      isOpen: true,
+      type: "success",
+      message: "Thank You for your feedback, it means a lot to us !",
+    });
+    setTimeout(() => {
+      setIsSubmitting(false);
+      window.location.reload();
+    }, 2000);
+  };
+
+  const onFeedbackError = (response: any) => {
+    setNotify({
+      isOpen: true,
+      type: "error",
+      message: response.message,
+    });
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2000);
+  };
+
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string().required("Last Name is required"),
     email: Yup.string().required("Email is required"),
     phone: Yup.string().required("Phone is required"),
     message: Yup.string().required("Message is required"),
+  });
+
+  const feedBackValidationSchema = Yup.object().shape({
+    name: Yup.string().required("Name is required"),
+    email: Yup.string().required("Email is required"),
   });
 
   const formik = useFormik({
@@ -96,6 +135,24 @@ const ContactUs = () => {
         .catch((error) => onCreateError(error.response.data.message));
     },
     validationSchema: validationSchema,
+  });
+
+  const FeedBackformik = useFormik({
+    initialValues: feedBackInitialState,
+    onSubmit: (values) => {
+      console.log("values...",values);
+      setIsSecondSubmitting(true);
+      axios
+        .create({
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .post(appUrl + "comments", values)
+        .then(() => onFeedbackSuccess())
+        .catch((error) => onFeedbackError(error.response.data.message));
+    },
+    validationSchema: feedBackValidationSchema,
   });
 
   return (
@@ -141,7 +198,7 @@ const ContactUs = () => {
                 <p>you can reach us anytime</p>
                 <Grid item xs={12} className="contact-inputs">
                   <form onSubmit={formik.handleSubmit}>
-                    <Grid container spacing={2} className="">
+                    <Grid container spacing={2}>
                       <Grid item xs={6}>
                         <TextField
                           className="contactInputFiled name"
@@ -276,6 +333,65 @@ const ContactUs = () => {
                 <p>Ayer Tena,</p>
                 <p>Addis Ababa,</p>
                 <p>Ethiopia</p>
+              </div>
+              <div className="feedback-content">
+                <form>
+                  <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                      <TextField
+                        className="contactInputFiled name"
+                        required
+                        id="name"
+                        label="Name"
+                        {...FeedBackformik.getFieldProps("name")}
+                        {...(FeedBackformik.touched.name &&
+                        FeedBackformik.errors.name ? (
+                          <div className="error">
+                            {FeedBackformik.errors.name}
+                          </div>
+                        ) : (
+                          ""
+                        ))}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        className="contactInputFiled name"
+                        required
+                        id="email"
+                        label="Email"
+                        {...FeedBackformik.getFieldProps("email")}
+                        {...(FeedBackformik.touched.email &&
+                        FeedBackformik.errors.email ? (
+                          <div className="error">
+                            {FeedBackformik.errors.email}
+                          </div>
+                        ) : (
+                          ""
+                        ))}
+                      />
+                    </Grid>
+                    <div className="feedback-btn">
+                      {isSecondSubmitting ? (
+                        <Button
+                          className="contact-btn clicked-btn"
+                          variant="contained"
+                          disabled={isSecondSubmitting}
+                        >
+                          Sending...
+                        </Button>
+                      ) : (
+                        <Button
+                          className="contact-btn send-btn"
+                          variant="contained"
+                          onClick={()=>FeedBackformik.handleSubmit()}
+                        >
+                          Send
+                        </Button>
+                      )}
+                    </div>
+                  </Grid>
+                </form>
               </div>
             </Grid>
           </Grid>
