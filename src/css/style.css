@@ -137,10 +137,16 @@ html {
   margin-top: 20%;
   width: 20%;
 }
-.loginForm {
+
+.login_container {
   width: 30%;
-  height: 20%;
+  height: 30%;
+  margin: 0px auto;
   background-color: #efefef;
+}
+
+.login_Form{
+ padding-left: 20%;
 }
 
 .buttonField {
@@ -260,7 +266,6 @@ nav {
 .nav-item-menu .nav-item:hover {
   border-bottom: 1px solid #696969;
   color: #000;
-  border-radius: 5px;
 }
 
 .nav-item-menu .active {
@@ -496,9 +501,10 @@ nav {
 /* for the category style part */
 
 .category-container {
-  /* margin-top: 10%; */
+  margin-top: 20px;
   margin-left: 40px;
   margin-right: 40px;
+  margin-bottom: 20px;
 }
 
 .category-gallery {
@@ -517,25 +523,19 @@ nav {
   margin-top: 20px;
 }
 
-.category-search {
-  margin-left: 60px;
-  margin-right: 60px;
-}
-
-.category-menu {
-  margin-right: 60%;
-}
-
 .category-list {
-  background-color: rgb(249, 225, 214);
-  border-radius: 5px;
-  border-left: 6px solid rgb(254, 104, 39);
   border-bottom: 1px solid rgb(243, 142, 99);
 }
 
 .category-list:hover {
   background-color: #fffcfc;
   border-radius: 5px;
+}
+
+.category-menu-active {
+  background-color: #d4d4d4c7;
+  border-radius: 5px;
+  border-bottom: 1px solid #d4d4d4c7;
 }
 
 .cart-container {
@@ -799,9 +799,9 @@ span {
 }
 
 .input-search {
-  width: 80%;
-  border-radius: 8%;
+  width: 100%;
   margin: 0px auto;
+  border-radius: 8%;
 }
 
 .typo-five {
@@ -953,14 +953,6 @@ span {
 
 .contact-field p {
   margin-top: -10px;
-}
-
-.inputField {
-  width: 50%;
-  background-color: #8483833a;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
 }
 
 .contact-inputs {

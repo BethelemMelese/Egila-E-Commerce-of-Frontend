@@ -91,16 +91,13 @@ const Login = () => {
       <div>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
             margin: "0px auto",
             marginTop: "10%",
           }}
         >
-          <Paper elevation={4} className="loginForm">
+          <Paper elevation={4} className="login_container">
             <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
-              <Grid container spacing={2}>
+              <Grid container spacing={2} className="login_Form">
                 <Grid item xs={12}>
                   <img
                     className="loginLogo"

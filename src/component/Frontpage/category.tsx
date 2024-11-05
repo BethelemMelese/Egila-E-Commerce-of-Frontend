@@ -99,119 +99,111 @@ const Category = () => {
 
       <Box sx={{ backgroundColor: "#efefef" }}>
         <div className="category-container">
-          {/* <Paper elevation={3}> */}
-            {/* <Card> */}
-              <Grid container spacing={2}>
-                <Grid item xs={3}>
-                  {/* <Paper elevation={2}> */}
-                    <Card
-                      title="Category List"
-                      extra={
-                        <Button onClick={Restore} color="warning">
-                          Restore
-                        </Button>
+          <Grid container spacing={2}>
+            <Grid item xs={3}>
+              <Card
+                title="Category List"
+                extra={
+                  <Button onClick={Restore} color="warning">
+                    Restore
+                  </Button>
+                }
+              >
+                {categoryResponse.map((item: any) => {
+                  return (
+                    <MenuList
+                      className={
+                        categorySelected == item.id
+                          ? "category-list category-menu-active"
+                          : "category-list"
                       }
                     >
-                      {categoryResponse.map((item: any) => {
-                        return (
-                          <MenuList className="category-list">
-                            <MenuItem
-                              onClick={() => setCategorySelected(item.id)}
-                            >
-                              <ListItemText className="category-menu">
-                                <Typography variant="body1">
-                                  {item.categoryName}
-                                </Typography>
-                              </ListItemText>
-                              <br />
-                            </MenuItem>
-                          </MenuList>
-                        );
-                      })}
-                    </Card>
-                  {/* </Paper> */}
-                </Grid>
+                      <MenuItem onClick={() => setCategorySelected(item.id)}>
+                        <ListItemText>
+                          <Typography variant="body1">
+                            {item.categoryName}
+                          </Typography>
+                        </ListItemText>
+                        <br />
+                      </MenuItem>
+                    </MenuList>
+                  );
+                })}
+              </Card>
+            </Grid>
 
-                <Grid item xs={9} className="category-displays">
-                  {/* <Paper elevation={2}> */}
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Card className="category-search">
-                          <Input
-                            className="input-search"
-                            placeholder="input search text"
-                            addonAfter={<b>Search</b>}
-                            onKeyUp={(event: any) =>
-                              onSearch(event.target.value)
-                            }
-                          />
-                        </Card>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Card className="image-slid">
-                          <Row gutter={8}>
-                            {itemResponse != undefined && (
-                              <>
-                                {itemResponse.map((item: any) => {
-                                  return (
-                                    <Col span={8} style={{ marginTop: "20px" }}>
-                                      <Paper elevation={8}>
-                                        <div className="responsive">
-                                          <div className="category-gallery">
-                                            <div className="image-container">
-                                              <img
-                                                src={item.itemImage}
-                                                alt="Category Image"
-                                                width="100px"
-                                                height="200px"
-                                                style={{
-                                                  maxWidth: "720px",
-                                                  maxHeight: "500px",
-                                                }}
-                                              />
-                                              <Tooltip title="Add To Cart">
-                                                <button
-                                                  className="add-cart-btn"
-                                                  onClick={() =>
-                                                    OnAddCart(item.id)
-                                                  }
-                                                >
-                                                  <AddShoppingCartIcon />
-                                                </button>
-                                              </Tooltip>
-                                            </div>
-                                            <div className="desc">
-                                              <Grid container spacing={2}>
-                                                <Grid item xs={12}>
-                                                  <b> {item.itemName}</b>
-                                                  <br />
-                                                  Brand: {item.brand}
-                                                  <br />
-                                                  Quantity: {item.quantity}
-                                                  <br />
-                                                  <h4 style={{ float: "left" }}>
-                                                    <b>Price: {item.price}</b>{" "}
-                                                  </h4>
-                                                </Grid>
-                                              </Grid>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </Paper>
-                                    </Col>
-                                  );
-                                })}
-                              </>
-                            )}
-                          </Row>
-                        </Card>
-                      </Grid>
-                    </Grid>
-                  {/* </Paper> */}
+            <Grid item xs={9}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Card>
+                    <Input
+                      className="input-search"
+                      placeholder="input search text"
+                      addonAfter={<b>Search</b>}
+                      onKeyUp={(event: any) => onSearch(event.target.value)}
+                    />
+                  </Card>
+                </Grid>
+                <Grid item xs={12}>
+                  <Card className="image-slid">
+                    <Row gutter={8}>
+                      {itemResponse != undefined && (
+                        <>
+                          {itemResponse.map((item: any) => {
+                            return (
+                              <Col span={8} style={{ marginTop: "20px" }}>
+                                <Paper elevation={8}>
+                                  <div className="responsive">
+                                    <div className="category-gallery">
+                                      <div className="image-container">
+                                        <img
+                                          src={item.itemImage}
+                                          alt="Category Image"
+                                          width="100px"
+                                          height="200px"
+                                          style={{
+                                            maxWidth: "720px",
+                                            maxHeight: "500px",
+                                          }}
+                                        />
+                                        <Tooltip title="Add To Cart">
+                                          <button
+                                            className="add-cart-btn"
+                                            onClick={() => OnAddCart(item.id)}
+                                          >
+                                            <AddShoppingCartIcon />
+                                          </button>
+                                        </Tooltip>
+                                      </div>
+                                      <div className="desc">
+                                        <Grid container spacing={2}>
+                                          <Grid item xs={12}>
+                                            <b> {item.itemName}</b>
+                                            <br />
+                                            Brand: {item.brand}
+                                            <br />
+                                            Quantity: {item.quantity}
+                                            <br />
+                                            <h4 style={{ float: "left" }}>
+                                              <b>Price: {item.price}</b>{" "}
+                                            </h4>
+                                          </Grid>
+                                        </Grid>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Paper>
+                              </Col>
+                            );
+                          })}
+                        </>
+                      )}
+                    </Row>
+                  </Card>
                 </Grid>
               </Grid>
-            {/* </Card> */}
-          {/* </Paper> */}
+            </Grid>
+          </Grid>
         </div>
       </Box>
       <Box>

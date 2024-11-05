@@ -103,7 +103,6 @@ const Checkout = ({ ...props }) => {
     }));
   };
 
-  console.log("userLocation...",userLocation);
   const formik = useFormik({
     initialValues: initialState,
     onSubmit: (values) => {
