@@ -152,22 +152,14 @@ const ViewCart = () => {
       render: (record: any) => {
         return (
           <>
-            <Avatar
-              src={appUrl + `items/uploads/${record.itemImage}`}
-              variant="rounded"
-            ></Avatar>
+            <Avatar src={record.itemImage} variant="rounded"></Avatar>
           </>
         );
       },
     },
     {
-      title: "Name",
+      title: "Product",
       dataIndex: "itemName",
-      sorter: true,
-    },
-    {
-      title: "Brand",
-      dataIndex: "brand",
       sorter: true,
     },
     {
@@ -176,12 +168,12 @@ const ViewCart = () => {
       sorter: false,
     },
     {
-      title: "Price",
+      title: "Price(ETB)",
       dataIndex: "price",
       sorter: false,
     },
     {
-      title: "Sub Total",
+      title: "Total(ETB)",
       dataIndex: "subTotal",
       sorter: false,
     },
@@ -230,107 +222,122 @@ const ViewCart = () => {
       },
     },
   ];
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-          {/* <Navmenu inputValue={(value: any) => setGetKey(value)} /> */}
+          <Navmenu inputValue={(value: any) => setGetKey(value)} />
         </AppBar>
       </Box>
       <Box sx={{ backgroundColor: "#efefef" }}>
-        <div className="cart-container">
-          {viewMode == "view" && (
-            <Paper elevation={2}>
-              <Card>
+        {dataSource.length != 0 && (
+          <div className="cart-container">
+            {viewMode == "view" && (
+              <>
+                {/* <Card> */}
                 <Grid container spacing={2}>
                   <Grid item xs={9}>
-                    <Card title={<b>Cart List</b>} className="cart-card">
-                      <Table
-                        className="table-list"
-                        size="small"
-                        columns={columns}
-                        rowKey={(record) => record.id}
-                        dataSource={dataSource.cartList}
-                        pagination={tableParams.pagination}
-                        loading={loading}
-                        onChange={handleTableChange}
-                      />
-                    </Card>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <div className="cart-title">
+                          <h3>Shopping Cart ({dataSource.cartList.length})</h3>
+                        </div>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Card className="cart-card">
+                          <Table
+                            className="table-list"
+                            size="small"
+                            columns={columns}
+                            rowKey={(record) => record.id}
+                            dataSource={dataSource.cartList}
+                            pagination={tableParams.pagination}
+                            loading={loading}
+                            onChange={handleTableChange}
+                          />
+                        </Card>
+                      </Grid>
+                    </Grid>
                   </Grid>
                   <Grid item xs={3}>
-                    <Card title={<b>Cart Totals</b>} className="cart-card">
-                      <Grid container spacing={1}>
-                        <Grid item xs={12}>
-                          <p>
-                            Total Item: <b>{dataSource.totalItem}</b>
-                          </p>
-                          <Divider
-                            orientation="horizontal"
-                            variant="middle"
-                            flexItem
-                            style={{ color: "#fff" }}
-                          />
-                          <p>
-                            Total Price: <b>{dataSource.totalPrice}</b>
-                          </p>
-                          <Divider
-                            orientation="horizontal"
-                            variant="middle"
-                            flexItem
-                            style={{ color: "#fff" }}
-                          />
-                          <p>
-                            Account Number: <b>100023350634</b>
-                          </p>
-                          <Divider
-                            orientation="horizontal"
-                            variant="middle"
-                            flexItem
-                            style={{ color: "#fff" }}
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <p>You want to pay?</p>
-                          <br />
-                          <Button
-                            variant="contained"
-                            fullWidth
-                            color="warning"
-                            onClick={() => setViewMode("checkout")}
-                          >
-                            Proceed to Checkout
-                          </Button>
-                        </Grid>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Card title={<b>Cart Totals</b>} className="cart-card">
+                          <Grid container spacing={0} className="cart-content">
+                            <Grid item xs={12}>
+                              <p>
+                                Items: <b>{dataSource.totalItem}</b>
+                              </p>
+                              <Divider
+                                orientation="horizontal"
+                                variant="middle"
+                                flexItem
+                                style={{ color: "#fff" }}
+                              />
+                              <p>
+                                Sub-Total: <b>{dataSource.totalPrice}</b>
+                              </p>
+                              <Divider
+                                orientation="horizontal"
+                                variant="middle"
+                                flexItem
+                                style={{ color: "#fff" }}
+                              />
+                              <p>
+                                Total: <b>{dataSource.totalPrice}</b>
+                              </p>
+                              <Divider
+                                orientation="horizontal"
+                                variant="middle"
+                                flexItem
+                                style={{ color: "#fff" }}
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Button
+                                variant="contained"
+                                fullWidth
+                                color="warning"
+                                onClick={() => setViewMode("checkout")}
+                              >
+                                Proceed to Checkout
+                              </Button>
+                            </Grid>
+                          </Grid>
+                        </Card>
                       </Grid>
-                    </Card>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Card>
-              <Dialogs
-                openDialog={openDialog}
-                setOpenDialog={openDialog}
-                height="55%"
-                maxHeight="435"
-                children={
-                  <EditCart
-                    //@ts-ignore
-                    selectedCart={selectedCart}
-                    closeedit={() => setOpenDialog(false)}
-                  />
-                }
-              />
-            </Paper>
-          )}
+                {/* </Card> */}
+                <Dialogs
+                  openDialog={openDialog}
+                  setOpenDialog={openDialog}
+                  height="55%"
+                  maxHeight="435"
+                  children={
+                    <EditCart
+                      //@ts-ignore
+                      selectedCart={selectedCart}
+                      closeedit={() => setOpenDialog(false)}
+                    />
+                  }
+                />
+              </>
+            )}
 
-          {viewMode == "checkout" && (
-            <Checkout
-              //@ts-ignore
-              viewMode={viewMode}
-              cartDatas={dataSource}
-              closeedit={() => setViewMode("view")}
-            />
-          )}
-        </div>
+            {viewMode == "checkout" && (
+              <Checkout
+                //@ts-ignore
+                viewMode={viewMode}
+                cartDatas={dataSource}
+                closeedit={() => setViewMode("view")}
+              />
+            )}
+          </div>
+        )}
+
         <Notification notify={notify} setNotify={setNotify} />
       </Box>
 

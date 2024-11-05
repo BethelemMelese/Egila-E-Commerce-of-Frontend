@@ -51,7 +51,6 @@ const MainPage = () => {
     }
   }, [getKey]);
 
-  console.log("getKey...",getKey);
 
   const OnAddCart = (item: any) => {
     const uuid = uuidv4();

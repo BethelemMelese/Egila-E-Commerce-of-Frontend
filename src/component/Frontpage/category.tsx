@@ -100,10 +100,10 @@ const Category = () => {
       <Box sx={{ backgroundColor: "#efefef" }}>
         <div className="category-container">
           {/* <Paper elevation={3}> */}
-            <Card>
+            {/* <Card> */}
               <Grid container spacing={2}>
                 <Grid item xs={3}>
-                  <Paper elevation={2}>
+                  {/* <Paper elevation={2}> */}
                     <Card
                       title="Category List"
                       extra={
@@ -129,11 +129,11 @@ const Category = () => {
                         );
                       })}
                     </Card>
-                  </Paper>
+                  {/* </Paper> */}
                 </Grid>
 
-                <Grid item xs={9}>
-                  <Paper elevation={2} className="category-displays">
+                <Grid item xs={9} className="category-displays">
+                  {/* <Paper elevation={2}> */}
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Card className="category-search">
@@ -207,10 +207,10 @@ const Category = () => {
                         </Card>
                       </Grid>
                     </Grid>
-                  </Paper>
+                  {/* </Paper> */}
                 </Grid>
               </Grid>
-            </Card>
+            {/* </Card> */}
           {/* </Paper> */}
         </div>
       </Box>

@@ -1,12 +1,9 @@
 import { Button, Grid, Paper, Tooltip } from "@mui/material";
 import { Card } from "antd";
-import Images from "../../Images/carlos-muza.jpg";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { appUrl } from "../../appurl";
-
-
 
 const ShoppingCart = () => {
   const navigate = useNavigate();
@@ -46,7 +43,7 @@ const ShoppingCart = () => {
                       <Grid item xs={4}>
                         <img
                           alt="Items Image"
-                          src={appUrl + `items/uploads/${item.itemImage}`}
+                          src={item.itemImage}
                           style={{
                             height: 100,
                             marginTop: 20,
@@ -56,7 +53,7 @@ const ShoppingCart = () => {
                       </Grid>
                       <Grid item xs={8}>
                         <h3>{item.itemName}</h3>
-                        <p style={{ marginTop: -10 }}>{item.itemDescription}</p>
+                        {/* <p style={{ marginTop: -10 }}>{item.itemDescription}</p> */}
                         <b>
                           <p style={{ marginTop: -10 }}>
                             Quantity: {item.quantity}
@@ -66,8 +63,14 @@ const ShoppingCart = () => {
                           <p style={{ float: "right", marginTop: -10 }}>
                             Price: {item.price}
                           </p>
-                          <br/>
-                          <p style={{ float: "right", marginTop: -10, marginLeft:"18%" }}>
+                          <br />
+                          <p
+                            style={{
+                              float: "right",
+                              marginTop: -10,
+                              marginLeft: "18%",
+                            }}
+                          >
                             Sub Total: {item.subTotal}
                           </p>
                         </b>
@@ -79,16 +82,18 @@ const ShoppingCart = () => {
             );
           })}
         </Grid>
-        <Grid item xs={12}>
-          <Button
-            className="send-btn"
-            variant="contained"
-            fullWidth
-            onClick={() => navigate("/viewCart")}
-          >
-            View Cart
-          </Button>
-        </Grid>
+        {response.length != 0 && (
+          <Grid item xs={12}>
+            <Button
+              className="send-btn"
+              variant="contained"
+              fullWidth
+              onClick={() => navigate("/viewCart")}
+            >
+              View Cart
+            </Button>
+          </Grid>
+        )}
       </Grid>
     </div>
   );

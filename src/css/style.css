@@ -258,14 +258,16 @@ nav {
 }
 
 .nav-item-menu .nav-item:hover {
-  color: #696969;
-  padding: auto;
   border-bottom: 1px solid #696969;
+  color: #000;
+  border-radius: 5px;
 }
 
 .nav-item-menu .active {
-  border-bottom: 1px solid #696969;
-  color: #696969;
+  background-image: linear-gradient(to right, #ff7f16de, #f00538d3);
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
 }
 
 /* for footer style */
@@ -542,6 +544,38 @@ nav {
   margin-right: 30px;
   margin-bottom: 10%;
 }
+
+.cart-title {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 8px;
+  padding-left: 20px;
+}
+
+.cart-content {
+  margin-top: -20px;
+}
+
+.pay-main a {
+  border: 0.5px solid #ff7f16;
+  padding: 10px 60px 10px 60px;
+  margin: 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  list-style: none;
+  color: #000;
+}
+
+.pay-main a:hover {
+  background-color: #ff7f16;
+  color: #fff;
+}
+
+.pay-main a.active {
+  background-color: #ff7f16;
+  color: #fff;
+}
+
 /* for the Nav bar */
 
 .css-hip9hq-MuiPaper-root-MuiAppBar-root {
@@ -853,7 +887,8 @@ span {
 }
 
 .text-danger {
-  color: red;
+  color: #d32f2f;
+  font-size: small;
 }
 
 .report-btn {
@@ -1059,7 +1094,6 @@ span {
   resize: vertical;
 }
 
-
 .contact-textarea:focus {
   outline: none;
   border-color: #4a90e2;
@@ -1081,12 +1115,12 @@ span {
   margin: 50px;
 } */
 
-.contact-location{
+.contact-location {
   padding-left: 100px;
   background-color: #ffff;
 }
 
-.location{
+.location {
   width: 40%;
   height: 40%;
   border-radius: 20px;
@@ -1094,23 +1128,23 @@ span {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.current-location{
+.current-location {
   margin: 100px;
   margin-left: -50%;
 }
 
-.current-location p{
+.current-location p {
   margin-top: -5px;
   font-size: 14px;
 }
 
-.feedback-content{
+.feedback-content {
   width: 100%;
   margin-top: -15%;
   margin-left: -50%;
 }
 
-.feedback-btn{
+.feedback-btn {
   width: 20%;
   font-size: 12px;
   margin: 20px;
