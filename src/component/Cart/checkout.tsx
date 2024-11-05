@@ -9,6 +9,7 @@ import axios from "axios";
 import Controls from "../../commonComponent/Controls";
 import Notification from "../../commonComponent/notification";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import LocationPicker from "./locationPicker";
 
 interface CheckOutState {
   firstName: string;
@@ -23,6 +24,7 @@ interface CheckOutState {
   cartIds: any;
   paymentMethod: string;
   uuId: any;
+  shoppingAddress:any;
 }
 
 const initialState: CheckOutState = {
@@ -38,22 +40,22 @@ const initialState: CheckOutState = {
   cartIds: "",
   paymentMethod: "",
   uuId: "",
+  shoppingAddress:""
 };
 
 const Checkout = ({ ...props }) => {
-  const [viewMode, setViewMode] = useState(props.viewMode);
   const [isSubmitting, setIsSubmitting] = useState(props.isSubmitting);
   const [cartDatas, setCartDatas] = useState(props.cartDatas);
   const [payMethod, setPayMethod] = useState<any>("");
   const [isPayMethod, setIsPayMethod] = useState(false);
+  const [userLocation, setUserLocation] = useState<any>();
+
   const uuId: any = localStorage.getItem("UUCartId");
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
     type: "",
   });
-
-  console.log("payMethod...", payMethod);
 
   const onCreateSuccess = () => {
     setNotify({
@@ -94,6 +96,14 @@ const Checkout = ({ ...props }) => {
     }
   };
 
+  const handleLocationSelect = (selectedLocation: any) => {
+    setUserLocation((prevInfo: any) => ({
+      ...prevInfo,
+      location: selectedLocation,
+    }));
+  };
+
+  console.log("userLocation...",userLocation);
   const formik = useFormik({
     initialValues: initialState,
     onSubmit: (values) => {
@@ -104,7 +114,7 @@ const Checkout = ({ ...props }) => {
         setIsSubmitting(true);
         values.uuId = uuId;
         values.paymentMethod = payMethod;
-
+        values.shoppingAddress=userLocation.location;
         axios
           .post(appUrl + "orders", values)
           .then(() => onCreateSuccess())
@@ -118,12 +128,12 @@ const Checkout = ({ ...props }) => {
     {
       id: 1,
       name: "Back Transfer",
-      value: "Back Transfer",
+      value: "Back_Transfer",
     },
     {
       id: 2,
       name: "Cash on Delivery",
-      value: "Cash on Delivery",
+      value: "Cash_on_Delivery",
     },
     {
       id: 3,
@@ -138,7 +148,7 @@ const Checkout = ({ ...props }) => {
   ];
 
   const handleClick = (newValue: any) => {
-    setPayMethod(newValue); // Set the value in the state
+    setPayMethod(newValue);
   };
 
   return (
@@ -258,6 +268,9 @@ const Checkout = ({ ...props }) => {
                     </Grid>
                   </Grid>
                 </Card>
+              </Grid>
+              <Grid item xs={12}>
+                <LocationPicker onLocationSelect={handleLocationSelect} />
               </Grid>
               <Grid item xs={12}>
                 <Card title="Payment Methods">

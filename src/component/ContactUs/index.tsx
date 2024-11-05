@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Navmenu from "../Frontpage/mainLayout";
 import axios from "axios";
 import { appUrl } from "../../appurl";
-import { Button, Grid, Paper, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import { Card } from "antd";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import location from "../../Images/Current Map.png";
+import location from "../../Images/MyCurrent_Map.png";
 import Footer from "../Frontpage/footerSide";
 import Notification from "../../commonComponent/notification";
 
@@ -39,21 +38,10 @@ const feedBackInitialState: FeedBackState = {
   email: "",
 };
 
-const mapContainerStyle = {
-  width: "60%",
-  height: "60%",
-};
-
-const center = {
-  lat: -8.9787366, // Default coordinates
-  lng: -38.6923761,
-};
-
 const ContactUs = () => {
   const [getKey, setGetKey] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSecondSubmitting, setIsSecondSubmitting] = useState(false);
-  const apiKey: any = process.env.REACT_APP_API_KEY;
 
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -140,7 +128,6 @@ const ContactUs = () => {
   const FeedBackformik = useFormik({
     initialValues: feedBackInitialState,
     onSubmit: (values) => {
-      console.log("values...",values);
       setIsSecondSubmitting(true);
       axios
         .create({
