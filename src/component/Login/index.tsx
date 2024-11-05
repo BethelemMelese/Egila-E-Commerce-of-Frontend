@@ -88,99 +88,92 @@ const Login = () => {
 
   return (
     <>
-      <div>
-        <Box
-          sx={{
-            margin: "0px auto",
-            marginTop: "10%",
-          }}
-        >
-          <Paper elevation={4} className="login_container">
-            <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
-              <Grid container spacing={2} className="login_Form">
-                <Grid item xs={12}>
-                  <img
-                    className="loginLogo"
-                    alt="Egila"
-                    src={Images}
-                    style={{ width: 240, height: 152, marginTop: -60 }}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Controls.Input
-                        className="inputField"
-                        required
-                        id="email"
-                        label="Username"
-                        {...formik.getFieldProps("username")}
-                        helperText="You can use Email or Phone Number to login !"
-                        error={
-                          formik.touched.username && formik.errors.username
-                            ? formik.errors.username
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
+      <div className="login_container">
+        <Paper elevation={4} className="loginPaper">
+          <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
+            <Grid container spacing={2} className="login_Form">
+              <Grid item xs={12}>
+                <img className="loginLogo" alt="Logo" src={Images} />
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Controls.Input
+                      className="inputField"
+                      required
+                      id="email"
+                      label="Username"
+                      {...formik.getFieldProps("username")}
+                      helperText="You can use Email or Phone Number to login !"
+                      error={
+                        formik.touched.username && formik.errors.username
+                          ? formik.errors.username
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
 
-                    <Grid item xs={12}>
-                      <Controls.Password
-                        className="inputField"
-                        required
-                        id="password"
-                        label="Password"
-                        {...formik.getFieldProps("password")}
-                        error={
-                          formik.touched.password && formik.errors.password
-                            ? formik.errors.password
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
+                  <Grid item xs={12}>
+                    <Controls.Password
+                      className="inputField"
+                      required
+                      id="password"
+                      label="Password"
+                      {...formik.getFieldProps("password")}
+                      error={
+                        formik.touched.password && formik.errors.password
+                          ? formik.errors.password
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
 
-                    <Grid item xs={12}>
-                      <Button variant="text" onClick={() => navigate("/")}>
-                        <u>Go to home</u>
-                      </Button>
-                    </Grid>
-                    <Grid item xs={12}>
-                      {isSubmitting ? (
-                        <Button variant="contained" disabled>
-                          Signing...
-                        </Button>
-                      ) : (
-                        <Button
-                          className="buttonField"
-                          variant="contained"
-                          type="submit"
-                          disabled={isSubmitting}
-                        >
-                          Sign In
-                        </Button>
-                      )}
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      className="registerLink"
-                      justifyContent="flex-end"
+                  <Grid item xs={12} className="registerLink">
+                    <Button
+                      size="small"
+                      style={{ marginLeft: "30%" }}
+                      onClick={() => navigate("/")}
                     >
-                      <Button
-                        variant="text"
-                        onClick={() => navigate("/register")}
-                      >
-                        <u> Don't have an account? Sign Up</u>
+                      <u>Go to home</u>
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}>
+                    {isSubmitting ? (
+                      <Button variant="contained" disabled>
+                        Signing...
                       </Button>
-                    </Grid>
+                    ) : (
+                      <Button
+                        className="buttonField"
+                        variant="contained"
+                        type="submit"
+                        disabled={isSubmitting}
+                      >
+                        Sign In
+                      </Button>
+                    )}
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    className="registerLink"
+                    justifyContent="flex-end"
+                  >
+                    <Button
+                      size="small"
+                      style={{ marginLeft: "10%" }}
+                      onClick={() => navigate("/register")}
+                    >
+                      <u> Don't have an account? Sign Up</u>
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
-            </Form>
-          </Paper>
-        </Box>
+            </Grid>
+          </Form>
+        </Paper>
         <Notification notify={notify} setNotify={setNotify} />
       </div>
     </>

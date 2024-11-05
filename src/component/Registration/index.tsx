@@ -124,231 +124,219 @@ const Register = () => {
 
   return (
     <>
-      <div className="registerPage">
-        <Box
-          sx={{
-            // mt: 10,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            margin: "0px auto",
-            marginTop: "5%",
-          }}
-        >
-          <Paper elevation={4} className="registerForm">
-            <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
-              <Grid container spacing={1}>
-                <Grid item xs={12}>
-                  <img
-                    className="registerLogo"
-                    alt="Egila"
-                    src={Images}
-                    style={{ width: 240, height: 152, marginTop: -60 }}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        className="inputField"
-                        required
-                        id="firstName"
-                        label="First Name"
-                        {...formik.getFieldProps("firstName")}
-                        error={
-                          formik.touched.firstName && formik.errors.firstName
-                            ? formik.errors.firstName
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        className="inputField"
-                        required
-                        id="middleName"
-                        label="Middle Name"
-                        {...formik.getFieldProps("middleName")}
-                        error={
-                          formik.touched.middleName && formik.errors.middleName
-                            ? formik.errors.middleName
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
+      <div className="register-container">
+        <Paper elevation={4}>
+          <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
+            <Grid container spacing={1} className="register_Form">
+              <Grid item xs={12}>
+                <img className="registerLogo" alt="Logo" src={Images} />
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container spacing={2}>
+                  <Grid item xs={4}>
+                    <Controls.Input
+                      className="inputField"
+                      required
+                      id="firstName"
+                      label="First Name"
+                      {...formik.getFieldProps("firstName")}
+                      error={
+                        formik.touched.firstName && formik.errors.firstName
+                          ? formik.errors.firstName
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Controls.Input
+                      className="inputField"
+                      required
+                      id="middleName"
+                      label="Middle Name"
+                      {...formik.getFieldProps("middleName")}
+                      error={
+                        formik.touched.middleName && formik.errors.middleName
+                          ? formik.errors.middleName
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
 
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        className="inputField"
-                        id="lastName"
-                        label="Last Name"
-                        {...formik.getFieldProps("lastName")}
-                        error={
-                          formik.touched.lastName && formik.errors.lastName
-                            ? formik.errors.lastName
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        className="inputField"
-                        id="email"
-                        label="Email"
-                        {...formik.getFieldProps("email")}
-                        error={
-                          formik.touched.email && formik.errors.email
-                            ? formik.errors.email
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        className="inputField"
-                        required
-                        id="phone"
-                        label="Phone"
-                        {...formik.getFieldProps("phone")}
-                        error={
-                          formik.touched.phone && formik.errors.phone
-                            ? formik.errors.phone
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        className="inputField"
-                        required
-                        id="username"
-                        label="Username"
-                        {...formik.getFieldProps("username")}
-                        error={
-                          formik.touched.username && formik.errors.username
-                            ? formik.errors.username
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
+                  <Grid item xs={4}>
+                    <Controls.Input
+                      className="inputField"
+                      id="lastName"
+                      label="Last Name"
+                      {...formik.getFieldProps("lastName")}
+                      error={
+                        formik.touched.lastName && formik.errors.lastName
+                          ? formik.errors.lastName
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Controls.Input
+                      className="inputField"
+                      id="email"
+                      label="Email"
+                      {...formik.getFieldProps("email")}
+                      error={
+                        formik.touched.email && formik.errors.email
+                          ? formik.errors.email
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Controls.Input
+                      className="inputField"
+                      required
+                      id="phone"
+                      label="Phone"
+                      {...formik.getFieldProps("phone")}
+                      error={
+                        formik.touched.phone && formik.errors.phone
+                          ? formik.errors.phone
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Controls.Input
+                      className="inputField"
+                      required
+                      id="username"
+                      label="Username"
+                      {...formik.getFieldProps("username")}
+                      error={
+                        formik.touched.username && formik.errors.username
+                          ? formik.errors.username
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
 
-                    <Grid item xs={4}>
-                      <Controls.Password
-                        className="inputField"
-                        required
-                        id="password"
-                        label="Password"
-                        {...formik.getFieldProps("password")}
-                        error={
-                          formik.touched.password && formik.errors.password
-                            ? formik.errors.password
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
+                  <Grid item xs={4}>
+                    <Controls.Password
+                      className="inputField"
+                      required
+                      id="password"
+                      label="Password"
+                      {...formik.getFieldProps("password")}
+                      error={
+                        formik.touched.password && formik.errors.password
+                          ? formik.errors.password
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
 
-                    <Grid item xs={4}>
-                      <Controls.Password
-                        className="inputField"
-                        required
-                        id="confirmPassword"
-                        label="Confirm Password"
-                        {...formik.getFieldProps("confirmPassword")}
-                        error={
-                          formik.touched.confirmPassword &&
-                          formik.errors.confirmPassword
-                            ? formik.errors.confirmPassword
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
+                  <Grid item xs={4}>
+                    <Controls.Password
+                      className="inputField"
+                      required
+                      id="confirmPassword"
+                      label="Confirm Password"
+                      {...formik.getFieldProps("confirmPassword")}
+                      error={
+                        formik.touched.confirmPassword &&
+                        formik.errors.confirmPassword
+                          ? formik.errors.confirmPassword
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
 
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        className="inputField"
-                        id="address"
-                        label="Address"
-                        required
-                        {...formik.getFieldProps("address")}
-                        error={
-                          formik.touched.address && formik.errors.address
-                            ? formik.errors.address
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
+                  <Grid item xs={4}>
+                    <Controls.Input
+                      className="inputField"
+                      id="address"
+                      label="Address"
+                      required
+                      {...formik.getFieldProps("address")}
+                      error={
+                        formik.touched.address && formik.errors.address
+                          ? formik.errors.address
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
 
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        className="inputField"
-                        required
-                        id="subCity"
-                        label="Sub City"
-                        {...formik.getFieldProps("subCity")}
-                        error={
-                          formik.touched.subCity && formik.errors.subCity
-                            ? formik.errors.subCity
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
+                  <Grid item xs={4}>
+                    <Controls.Input
+                      className="inputField"
+                      required
+                      id="subCity"
+                      label="Sub City"
+                      {...formik.getFieldProps("subCity")}
+                      error={
+                        formik.touched.subCity && formik.errors.subCity
+                          ? formik.errors.subCity
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
 
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        className="inputField"
-                        id="town"
-                        label="Town"
-                        {...formik.getFieldProps("town")}
-                        error={
-                          formik.touched.town && formik.errors.town
-                            ? formik.errors.town
-                            : ""
-                        }
-                        onKeyPress={(event: any) => handleKeyPress(event)}
-                      />
-                    </Grid>
+                  <Grid item xs={4}>
+                    <Controls.Input
+                      className="inputField"
+                      id="town"
+                      label="Town"
+                      {...formik.getFieldProps("town")}
+                      error={
+                        formik.touched.town && formik.errors.town
+                          ? formik.errors.town
+                          : ""
+                      }
+                      onKeyPress={(event: any) => handleKeyPress(event)}
+                    />
+                  </Grid>
 
-                    <Grid item xs={12}>
-                      {isSubmitting ? (
-                        <Button variant="contained" disabled>
-                          Signing...
-                        </Button>
-                      ) : (
-                        <Button
-                          className="buttonField"
-                          variant="contained"
-                          type="submit"
-                        >
-                          Sign Up
-                        </Button>
-                      )}
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      className="loginLink"
-                      justifyContent="flex-end"
-                    >
-                      <Button variant="text" onClick={() => navigate("/login")}>
-                        <u>Already have an account? Sign In</u>
+                  <Grid item xs={12}>
+                    {isSubmitting ? (
+                      <Button variant="contained" disabled>
+                        Signing...
                       </Button>
-                    </Grid>
+                    ) : (
+                      <Button
+                        className="buttonField"
+                        variant="contained"
+                        type="submit"
+                        style={{ marginLeft: "20%" }}
+                      >
+                        Sign Up
+                      </Button>
+                    )}
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    className="loginLink"
+                  >
+                    <Button
+                      size="small"
+                      style={{ marginLeft: "35%" }}
+                      onClick={() => navigate("/login")}
+                    >
+                      <u>Already have an account? Sign In</u>
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>
-            </Form>
-          </Paper>
-        </Box>
+            </Grid>
+          </Form>
+        </Paper>
         <Notification notify={notify} setNotify={setNotify} />
       </div>
     </>
