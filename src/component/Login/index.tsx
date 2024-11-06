@@ -52,7 +52,7 @@ const Login = () => {
       localStorage.setItem("role", response.role);
       localStorage.setItem("permission", response.userPermissions);
       localStorage.setItem("controller", response.controllers);
-      navigate("/egila/home");
+      response.role == "Customer"? navigate("/"):navigate("/egila/home");
       setIsSubmitting(false);
     }, 2000);
   };
@@ -141,7 +141,7 @@ const Login = () => {
                   </Grid>
                   <Grid item xs={12}>
                     {isSubmitting ? (
-                      <Button variant="contained" disabled>
+                      <Button variant="contained" disabled style={{ marginLeft: "20%" }}>
                         Signing...
                       </Button>
                     ) : (
@@ -150,6 +150,7 @@ const Login = () => {
                         variant="contained"
                         type="submit"
                         disabled={isSubmitting}
+                        style={{ marginLeft: "20%" }}
                       >
                         Sign In
                       </Button>

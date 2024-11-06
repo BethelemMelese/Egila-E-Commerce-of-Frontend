@@ -305,7 +305,11 @@ const Register = () => {
 
                   <Grid item xs={12}>
                     {isSubmitting ? (
-                      <Button variant="contained" disabled>
+                      <Button
+                        variant="contained"
+                        disabled
+                        style={{ marginLeft: "20%" }}
+                      >
                         Signing...
                       </Button>
                     ) : (
@@ -319,11 +323,7 @@ const Register = () => {
                       </Button>
                     )}
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    className="loginLink"
-                  >
+                  <Grid item xs={12} className="loginLink">
                     <Button
                       size="small"
                       style={{ marginLeft: "35%" }}

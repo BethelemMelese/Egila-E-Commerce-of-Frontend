@@ -37,13 +37,6 @@ const AppNavBar = () => {
     setAnchorEl(null);
   };
 
-  const handleClick2 = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorE2(event.currentTarget);
-  };
-  const handleClose2 = () => {
-    setAnchorE2(null);
-  };
-
   const onFetchSuccess = (response: any) => {
     setUserInfo(response);
   };

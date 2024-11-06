@@ -171,7 +171,7 @@ html {
   padding-left: 40px;
 }
 
-.registerLogo{
+.registerLogo {
   width: 240px;
   height: 152px;
   margin-top: -70px;
@@ -284,6 +284,10 @@ nav {
   font-size: 14px;
   color: #000;
   margin-right: 5px;
+}
+
+.pp-account {
+  margin-top: -3px;
 }
 
 .nav-item-menu .nav-item {

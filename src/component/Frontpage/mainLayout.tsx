@@ -7,9 +7,10 @@ import ShoppingCart from "./shoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import { Badge, Avatar } from "@mui/material";
+import { Badge, Avatar, IconButton, Tooltip } from "@mui/material";
 import { Drawer } from "antd";
 import { Link, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -52,6 +53,8 @@ const Navmenu = ({ ...props }) => {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [currentCustomer, setCurrentCustomer] = useState<any>("");
+  const navigate = useNavigate();
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -82,10 +85,21 @@ const Navmenu = ({ ...props }) => {
       .catch((error) => onFetchError(error.response.data.message));
   }, []);
 
+  useEffect(() => {
+    axios
+      .create({
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .get(appUrl + `users/UserInfo/${localStorage.getItem("token")}`)
+      .then((response: any) => setCurrentCustomer(response.data))
+      .catch((error: any) => onFetchError(error));
+  }, []);
+
   const toggleMenu = () => {
     setIsOpen((prevState) => !prevState);
   };
-
 
   return (
     <div className="navmenu-container">
@@ -126,6 +140,36 @@ const Navmenu = ({ ...props }) => {
               <ShoppingCart />
             </Drawer>
           </div>
+          {localStorage.getItem("role") == "Customer" && (
+            <div className="pp-account">
+              <Tooltip title="Account settings">
+                <IconButton onClick={() => navigate("/")} size="small">
+                  {currentCustomer != undefined && (
+                    <>
+                      <Badge
+                        badgeContent={currentCustomer.username}
+                        color="success"
+                        anchorOrigin={{
+                          vertical: "top",
+                          horizontal: "right",
+                        }}
+                      >
+                        {currentCustomer.profileImage != undefined && (
+                          <Avatar
+                            src={currentCustomer.profileImage}
+                            sx={{ width: 40, height: 40 }}
+                          ></Avatar>
+                        )}
+                        {currentCustomer.profileImage == undefined && (
+                          <Avatar sx={{ width: 40, height: 40 }}></Avatar>
+                        )}
+                      </Badge>
+                    </>
+                  )}
+                </IconButton>
+              </Tooltip>
+            </div>
+          )}
         </div>
       </div>
       <div className="nav-bar">
@@ -141,30 +185,45 @@ const Navmenu = ({ ...props }) => {
                 Category
               </NavLink>
             </li>
+            {localStorage.getItem("role") == "Customer" && (
+              <li>
+                <NavLink to="/order" className="nav-item" onClick={toggleMenu}>
+                  Order
+                </NavLink>
+              </li>
+            )}
+
             <li>
-              <NavLink to="/contactus" className="nav-item" onClick={toggleMenu}>
+              <NavLink
+                to="/contactus"
+                className="nav-item"
+                onClick={toggleMenu}
+              >
                 Contact Us
               </NavLink>
             </li>
-            <li className="account">
-              <Link
-                to="register"
-                className="nav-item account"
-                onClick={toggleMenu}
-                style={{ color: "#ff7f16" }}
-              >
-                Sign Up
-              </Link>
-              <p> | Already Have an Account? </p>
-              <Link
-                to="login"
-                className="nav-item account"
-                onClick={toggleMenu}
-                style={{ color: "#f00538" }}
-              >
-                Sign In
-              </Link>
-            </li>
+            {localStorage.getItem("role") != "Customer" && (
+                <li className="account">
+                  <Link
+                    to="register"
+                    className="nav-item account"
+                    onClick={toggleMenu}
+                    style={{ color: "#ff7f16" }}
+                  >
+                    Sign Up
+                  </Link>
+                  <p> | Already Have an Account? </p>
+                  <Link
+                    to="login"
+                    className="nav-item account"
+                    onClick={toggleMenu}
+                    style={{ color: "#f00538" }}
+                  >
+                    Sign In
+                  </Link>
+                </li>
+              )
+            }
           </ul>
         </nav>
       </div>
