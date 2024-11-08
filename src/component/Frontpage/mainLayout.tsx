@@ -7,10 +7,11 @@ import ShoppingCart from "./shoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import { Badge, Avatar, IconButton, Tooltip } from "@mui/material";
-import { Drawer } from "antd";
+import { Badge, Avatar, IconButton, Tooltip, Button } from "@mui/material";
+import { Drawer} from "antd";
 import { Link, NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import ProfileView from "../Profile";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,10 +52,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navmenu = ({ ...props }) => {
   const [open, setOpen] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [counter, setCounter] = useState(0);
   const [currentCustomer, setCurrentCustomer] = useState<any>("");
-  const navigate = useNavigate();
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -67,6 +68,15 @@ const Navmenu = ({ ...props }) => {
 
   const onClose = () => {
     setOpen(false);
+  };
+
+  // for Profile Drawer
+  const showDrawerForProfile = () => {
+    setOpenProfile(true);
+  };
+
+  const onCloseProfile = () => {
+    setOpenProfile(false);
   };
 
   const onFetchError = (response: any) => {
@@ -99,6 +109,14 @@ const Navmenu = ({ ...props }) => {
 
   const toggleMenu = () => {
     setIsOpen((prevState) => !prevState);
+  };
+
+  const onLogout = () => {
+    localStorage.removeItem("controller");
+    localStorage.removeItem("permission");
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
+    window.location.reload();
   };
 
   return (
@@ -143,7 +161,7 @@ const Navmenu = ({ ...props }) => {
           {localStorage.getItem("role") == "Customer" && (
             <div className="pp-account">
               <Tooltip title="Account settings">
-                <IconButton onClick={() => navigate("/")} size="small">
+                <IconButton onClick={() => showDrawerForProfile()} size="small">
                   {currentCustomer != undefined && (
                     <>
                       <Badge
@@ -168,6 +186,27 @@ const Navmenu = ({ ...props }) => {
                   )}
                 </IconButton>
               </Tooltip>
+              <Drawer
+                title="Profile"
+                placement="left"
+                width={500}
+                onClose={onCloseProfile}
+                open={openProfile}
+                extra={
+                  <Button
+                    variant="text"
+                    className="btn-setting"
+                    color="error"
+                    size="small"
+                    startIcon={<LogoutIcon />}
+                    onClick={onLogout}
+                  >
+                    Logout
+                  </Button>
+                }
+              >
+                <ProfileView currentCustomer={currentCustomer} />
+              </Drawer>
             </div>
           )}
         </div>
@@ -203,27 +242,26 @@ const Navmenu = ({ ...props }) => {
               </NavLink>
             </li>
             {localStorage.getItem("role") != "Customer" && (
-                <li className="account">
-                  <Link
-                    to="register"
-                    className="nav-item account"
-                    onClick={toggleMenu}
-                    style={{ color: "#ff7f16" }}
-                  >
-                    Sign Up
-                  </Link>
-                  <p> | Already Have an Account? </p>
-                  <Link
-                    to="login"
-                    className="nav-item account"
-                    onClick={toggleMenu}
-                    style={{ color: "#f00538" }}
-                  >
-                    Sign In
-                  </Link>
-                </li>
-              )
-            }
+              <li className="account">
+                <Link
+                  to="register"
+                  className="nav-item account"
+                  onClick={toggleMenu}
+                  style={{ color: "#ff7f16" }}
+                >
+                  Sign Up
+                </Link>
+                <p> | Already Have an Account? </p>
+                <Link
+                  to="login"
+                  className="nav-item account"
+                  onClick={toggleMenu}
+                  style={{ color: "#f00538" }}
+                >
+                  Sign In
+                </Link>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

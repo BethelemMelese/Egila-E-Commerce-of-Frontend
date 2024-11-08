@@ -27,6 +27,7 @@ import ViewFeadBack from "./component/FeadBack/View";
 import ContactUs from "./component/ContactUs";
 import Navmenu from "./component/Frontpage/mainLayout";
 import ViewContactUs from "./component/ContactUs/View";
+import ProfileSetting from "./component/Profile/setting";
 import "./css/style.css";
 import "./css/mediaQuery.css";
 import "./App.css";
@@ -44,7 +45,7 @@ const AppRoute = () => {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="viewCart" element={<ViewCart />} />
-        <Route path="sample" element={<SampleExample />} />
+        <Route path="profileSetting" element={<ProfileSetting />} />
         <Route
           path="Notification"
           element={

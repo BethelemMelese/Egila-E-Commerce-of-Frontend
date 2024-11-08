@@ -155,8 +155,8 @@ const ContactUs = () => {
               <div className="contact-title">
                 <h1>Contact Us</h1>
                 <p>
-                  Email, call, or complete the form to learn how Snappy can
-                  solve your messaging problem.
+                  Email, call, or complete the form to learn how Egila can
+                  solve your problem.
                 </p>
                 <p>egila@ecommecrece.et</p>
                 <p>+251941202673</p>
@@ -173,8 +173,8 @@ const ContactUs = () => {
                   <h4 className="info-title">Feedback and Suggestions</h4>
                   <p className="info-desc">
                     We value your feedback and are continuously working to
-                    improve Snappy. Your input is crucial in shaping the future
-                    of Snappy.
+                    improve Egila. Your input is crucial in shaping the future
+                    of Egila.
                   </p>
                 </div>
               </div>

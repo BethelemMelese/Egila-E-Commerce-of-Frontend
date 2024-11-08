@@ -663,8 +663,6 @@ nav {
 
 /* for footer side css is here */
 .copyrightholder {
-  /* background-image: linear-gradient(to right, hsl(0, 0%, 100%), #ff7f16, #f00538); */
-  /* background-image: linear-gradient(to right, #f6c59d, hsl(347, 86%, 83%)); */
   background-color: #fff;
   min-height: 50px;
   color: #000 !important;
@@ -1174,4 +1172,94 @@ span {
   width: 20%;
   font-size: 12px;
   margin: 20px;
+}
+
+.profile-container {
+  margin: 10px;
+}
+
+.profile-image {
+  margin-left: 10rem;
+}
+
+.profile-image h3 {
+  font-weight: lighter;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.profile-personal h3 {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-weight: lighter;
+}
+
+.info-date {
+  margin-left: 20px;
+}
+
+.info-date p {
+  color: #696969;
+}
+
+.profile-setting {
+  margin-top: 10px;
+}
+
+.btn-setting {
+  width: 100%;
+  border: none;
+}
+
+.setting-container {
+  margin: 50px;
+  margin-left: 10%;
+}
+
+.setting-title h2 {
+  margin-top: -20px;
+}
+
+.setting-title p {
+  margin-bottom: -15px;
+  color: #696969;
+}
+
+.setting-profile {
+  display: flex;
+  justify-content: space-between;
+  margin-left: -20%;
+  margin-top: -30px;
+  margin-bottom: -30px;
+}
+
+.photo-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-left: 20px;
+}
+
+.profile-menu{
+  margin-top: -20px;
+}
+
+.btn-menu{
+  width: 100%;
+  text-align: left;
+  border: none;
+  background-color: #fff;
+  font-size: 14px;
+  color: #696969;
+}
+
+.btn-menu:hover{
+  background-color: #e1e0e05c;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.btn-menu.active{
+  background-color: #e1e0e05c;
+  border-radius: 5px;
+  padding: 5px;
 }
