@@ -20,7 +20,7 @@ import CustomerChangePaw from "./changePassword";
 import DeleteAccount from "./deleteAccount";
 import { useNavigate } from "react-router-dom";
 
-const ProfileSetting = () => {
+const ProfileSetting = ({ ...props }) => {
   const [getKey, setGetKey] = useState(null);
   const [response, setResponse] = useState<any>();
   const [loading, setLoading] = useState(false);
@@ -37,6 +37,10 @@ const ProfileSetting = () => {
     type: "",
   });
 
+  useEffect(() => {
+    setResponse(props.response);
+  }, [props.response]);
+
   const onFetchSuccess = (response: any) => {
     setResponse(response);
   };
@@ -45,6 +49,25 @@ const ProfileSetting = () => {
     setNotify({
       isOpen: true,
       message: error,
+      type: "error",
+    });
+  };
+
+  const onDeleteSuccess = (response: any) => {
+    setNotify({
+      isOpen: true,
+      type: "success",
+      message: response.message,
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  };
+
+  const onDeleteError = (response: any) => {
+    setNotify({
+      isOpen: true,
+      message: response,
       type: "error",
     });
   };
@@ -64,6 +87,7 @@ const ProfileSetting = () => {
   };
 
   const beforeUpload = (file: any) => {
+    setFileRequired(false);
     if (
       file.type === "image/jpeg" ||
       file.type === "image/jpg" ||
@@ -150,6 +174,18 @@ const ProfileSetting = () => {
     navigate("/");
   };
 
+  const deleteProfilePhoto = () => {
+    axios
+      .create({
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .delete(appUrl + `users/deleteProfile/${response.id}`)
+      .then((response: any) => onDeleteSuccess(response.data))
+      .catch((error: any) => onDeleteError(error));
+  };
+
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -208,6 +244,7 @@ const ProfileSetting = () => {
                     <div className="setting-profile">
                       <div className="img-pp">
                         <Upload
+                          className="profile-upload"
                           listType="picture"
                           onChange={(response: any) =>
                             beforeUpload(response.file)
@@ -232,20 +269,19 @@ const ProfileSetting = () => {
                               ></Avatar>
                             </Tooltip>
                           )}
-
                           <br />
-                          {validFormat ? (
-                            <span className="text-danger">
-                              Invalid file format, Only jpg, jpeg and png files
-                              are allowed!
-                            </span>
-                          ) : null}
-                          {fileRequired ? (
-                            <span className="text-danger">
-                              Please upload new picture first !
-                            </span>
-                          ) : null}
                         </Upload>
+                        {validFormat ? (
+                          <p className="text-danger pp-upload">
+                            Invalid file format, Only jpg, jpeg and png files
+                            are allowed!
+                          </p>
+                        ) : null}
+                        {fileRequired ? (
+                          <p className="text-danger pp-upload">
+                            Please upload new picture first !
+                          </p>
+                        ) : null}
                       </div>
                       <div className="photo-content">
                         <div className="upload-photo">
@@ -259,7 +295,7 @@ const ProfileSetting = () => {
                           >
                             {isFileSubmitting
                               ? "Uploading..."
-                              : "Change Picture"}
+                              : "Upload Picture"}
                           </Button>
                         </div>
                         <div className="remove-photo">
@@ -268,7 +304,7 @@ const ProfileSetting = () => {
                             size="small"
                             color="error"
                             startIcon={<DeleteOutlineIcon />}
-                            onClick={() => window.location.reload()}
+                            onClick={deleteProfilePhoto}
                           >
                             Delete Picture
                           </Button>
@@ -295,7 +331,7 @@ const ProfileSetting = () => {
                   {viewMode == "deleteAccount" && (
                     <Card title="Delete Account">
                       <div>
-                        <DeleteAccount/>
+                        <DeleteAccount />
                       </div>
                     </Card>
                   )}

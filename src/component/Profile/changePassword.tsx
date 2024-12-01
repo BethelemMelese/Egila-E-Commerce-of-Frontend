@@ -44,7 +44,7 @@ const CustomerChangePaw = ({ ...props }) => {
     });
     setTimeout(() => {
       setIsSubmitting(false);
-      navigate("/egila/home");
+      navigate("/");
     }, 2000);
   };
 

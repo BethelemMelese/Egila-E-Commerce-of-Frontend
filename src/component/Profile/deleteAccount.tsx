@@ -70,7 +70,7 @@ const DeleteAccount = ({ ...props }) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-      .delete(appUrl + `users/${response.id}`)
+      .delete(appUrl + `users/deleteAccount/${response.id}`)
       .then((response) => {
         onDeleteSuccess(response.data);
       })

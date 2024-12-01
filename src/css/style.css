@@ -1239,11 +1239,11 @@ span {
   margin-left: 20px;
 }
 
-.profile-menu{
+.profile-menu {
   margin-top: -20px;
 }
 
-.btn-menu{
+.btn-menu {
   width: 100%;
   text-align: left;
   border: none;
@@ -1252,30 +1252,30 @@ span {
   color: #696969;
 }
 
-.btn-menu:hover{
+.btn-menu:hover {
   background-color: #e1e0e05c;
   border-radius: 5px;
   padding: 5px;
 }
 
-.btn-menu.active{
+.btn-menu.active {
   background-color: #e1e0e05c;
   border-radius: 5px;
   padding: 5px;
 }
 
-.change-pwd-field{
+.change-pwd-field {
   margin-left: 10%;
 }
 
-.btn-change-pwd{
+.btn-change-pwd {
   width: 60%;
   margin: 0px auto;
   margin-left: 20%;
   margin-top: 20px;
 }
 
-.deleteAcc-container{
+.deleteAcc-container {
   margin: 20px;
   margin-top: -20px;
 }
@@ -1284,6 +1284,17 @@ span {
   margin-left: 20px;
 } */
 
-.btn-delete-account{
+.btn-delete-account {
   float: right;
+}
+
+.profile-upload .ant-upload-list-item.ant-upload-list-item-undefined {
+  margin-left: 50%;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.pp-upload {
+  margin-left: 58%;
+  width: 100%;
 }
