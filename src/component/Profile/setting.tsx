@@ -12,13 +12,13 @@ import { useEffect, useState } from "react";
 import { Card, Upload, Button as ButtonAnt, List, Typography } from "antd";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { Buffer } from "buffer";
-import Notification from "../../commonComponent/notification";
-import { Form } from "../../commonComponent/Form";
-import Controls from "../../commonComponent/Controls";
 import { appUrl } from "../../appurl";
 import axios from "axios";
 import { userService } from "../../polices/userService";
+import PersonalProfile from "./personalProfile";
+import CustomerChangePaw from "./changePassword";
+import DeleteAccount from "./deleteAccount";
+import { useNavigate } from "react-router-dom";
 
 const ProfileSetting = () => {
   const [getKey, setGetKey] = useState(null);
@@ -27,8 +27,10 @@ const ProfileSetting = () => {
   const [imageUrl, setImageUrl] = useState<any>();
   const [validFormat, setValidFormat] = useState(false);
   const [fileRequired, setFileRequired] = useState(false);
+  const [isFileSubmitting, setIsFileSubmitting] = useState(false);
   const [imageSize, setImageSize] = useState(false);
   const [viewMode, setViewMode] = useState("personal");
+  const navigate = useNavigate();
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -48,10 +50,12 @@ const ProfileSetting = () => {
   };
 
   const onUploadSuccess = () => {
+    setIsFileSubmitting(false);
     window.location.reload();
   };
 
   const onUploadError = (error: any) => {
+    setIsFileSubmitting(false);
     setNotify({
       isOpen: true,
       message: error,
@@ -87,6 +91,7 @@ const ProfileSetting = () => {
       setFileRequired(true);
     } else {
       setFileRequired(false);
+      setIsFileSubmitting(true);
       const formDate = new FormData();
       formDate.append("file", imageUrl);
       axios
@@ -137,6 +142,14 @@ const ProfileSetting = () => {
     },
   ];
 
+  const onLogout = () => {
+    localStorage.removeItem("controller");
+    localStorage.removeItem("permission");
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -173,7 +186,11 @@ const ProfileSetting = () => {
                         <List.Item>
                           <button
                             className="btn-menu"
-                            onClick={() => setViewMode(item.value)}
+                            onClick={() => {
+                              item.value == "logout"
+                                ? onLogout()
+                                : setViewMode(item.value);
+                            }}
                           >
                             {item.title}
                           </button>
@@ -238,8 +255,11 @@ const ProfileSetting = () => {
                             color="warning"
                             startIcon={<FileUploadIcon />}
                             onClick={onUploadPhoto}
+                            disabled={isFileSubmitting}
                           >
-                            Change Picture
+                            {isFileSubmitting
+                              ? "Uploading..."
+                              : "Change Picture"}
                           </Button>
                         </div>
                         <div className="remove-photo">
@@ -258,11 +278,27 @@ const ProfileSetting = () => {
                   </Card>
                 </Grid>
                 <Grid item xs={12}>
-                  <Card>
-                    {viewMode == "personal" && (
-                        <div></div>
-                    )}
-                  </Card>
+                  {viewMode == "personal" && (
+                    <Card title="Personal Profile">
+                      <div>
+                        <PersonalProfile editProfile={response} />
+                      </div>
+                    </Card>
+                  )}
+                  {viewMode == "changePassword" && (
+                    <Card title="Change Password">
+                      <div>
+                        <CustomerChangePaw editProfile={response} />
+                      </div>
+                    </Card>
+                  )}
+                  {viewMode == "deleteAccount" && (
+                    <Card title="Delete Account">
+                      <div>
+                        <DeleteAccount/>
+                      </div>
+                    </Card>
+                  )}
                 </Grid>
               </Grid>
             </Grid>

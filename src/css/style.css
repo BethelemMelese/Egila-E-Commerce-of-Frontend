@@ -1263,3 +1263,27 @@ span {
   border-radius: 5px;
   padding: 5px;
 }
+
+.change-pwd-field{
+  margin-left: 10%;
+}
+
+.btn-change-pwd{
+  width: 60%;
+  margin: 0px auto;
+  margin-left: 20%;
+  margin-top: 20px;
+}
+
+.deleteAcc-container{
+  margin: 20px;
+  margin-top: -20px;
+}
+/* 
+.deleteAcc-container p{
+  margin-left: 20px;
+} */
+
+.btn-delete-account{
+  float: right;
+}

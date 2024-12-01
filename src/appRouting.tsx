@@ -19,7 +19,6 @@ import ViewAdmin from "./component/Admin/View";
 import Missing from "./component/MissingPage/MissingPage";
 import Setting from "./component/Setting";
 import Report from "./component/Report";
-import SampleExample from "./component/Sample";
 import ChangePassword from "./component/Setting/changePassword";
 import ViewCart from "./component/Cart";
 import ViewOrder from "./component/Order/View";
