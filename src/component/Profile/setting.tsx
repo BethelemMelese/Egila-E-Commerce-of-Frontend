@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import Navmenu from "../Frontpage/mainLayout";
 import { useEffect, useState } from "react";
-import { Card, Upload, Button as ButtonAnt, List, Typography } from "antd";
+import { Card, Upload, List } from "antd";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { appUrl } from "../../appurl";
@@ -19,6 +19,7 @@ import PersonalProfile from "./personalProfile";
 import CustomerChangePaw from "./changePassword";
 import DeleteAccount from "./deleteAccount";
 import { useNavigate } from "react-router-dom";
+import Notification from "../../commonComponent/notification";
 
 const ProfileSetting = ({ ...props }) => {
   const [getKey, setGetKey] = useState(null);
@@ -209,7 +210,7 @@ const ProfileSetting = ({ ...props }) => {
                       }}
                     ></Divider>
                     <p>
-                      use to this setting to update your personal info and other
+                    Update your personal information and other data by using this setting.
                     </p>
                   </Card>
                 </Grid>
@@ -346,6 +347,7 @@ const ProfileSetting = ({ ...props }) => {
           <p>&copy; 2024 Egila Gadgets. All rights reserved</p>
         </div>
       </Box>
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 };

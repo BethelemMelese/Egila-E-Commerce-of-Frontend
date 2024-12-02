@@ -1,5 +1,5 @@
 import { Card } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Divider, Grid } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -24,7 +24,7 @@ interface CheckOutState {
   cartIds: any;
   paymentMethod: string;
   uuId: any;
-  shoppingAddress:any;
+  shoppingAddress: any;
 }
 
 const initialState: CheckOutState = {
@@ -40,7 +40,7 @@ const initialState: CheckOutState = {
   cartIds: "",
   paymentMethod: "",
   uuId: "",
-  shoppingAddress:""
+  shoppingAddress: "",
 };
 
 const Checkout = ({ ...props }) => {
@@ -49,13 +49,25 @@ const Checkout = ({ ...props }) => {
   const [payMethod, setPayMethod] = useState<any>("");
   const [isPayMethod, setIsPayMethod] = useState(false);
   const [userLocation, setUserLocation] = useState<any>();
-
   const uuId: any = localStorage.getItem("UUCartId");
+  const [response, setResponse] = useState<any>();
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
     type: "",
   });
+
+  const onFetchSuccess = (response: any) => {
+    setResponse(response);
+  };
+
+  const onFetchError = (error: any) => {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  };
 
   const onCreateSuccess = () => {
     setNotify({
@@ -79,6 +91,18 @@ const Checkout = ({ ...props }) => {
       setIsSubmitting(false);
     }, 2000);
   };
+
+  useEffect(() => {
+    axios
+      .create({
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .get(appUrl + `users/userInfo/${localStorage.getItem("token")}`)
+      .then((response: any) => onFetchSuccess(response.data))
+      .catch((error: any) => onFetchError(error));
+  }, []);
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("First Name is required"),
@@ -113,7 +137,7 @@ const Checkout = ({ ...props }) => {
         setIsSubmitting(true);
         values.uuId = uuId;
         values.paymentMethod = payMethod;
-        values.shoppingAddress=userLocation.location;
+        values.shoppingAddress = userLocation.location;
         axios
           .post(appUrl + "orders", values)
           .then(() => onCreateSuccess())
@@ -122,6 +146,36 @@ const Checkout = ({ ...props }) => {
     },
     validationSchema: validationSchema,
   });
+
+  const onSubmitUsingRespone = () => {
+    if (payMethod == "") {
+      setIsPayMethod(true);
+    } else {
+      setIsPayMethod(false);
+      setIsSubmitting(true);
+      const values = {
+        firstName: response.firstName,
+        middleName: response.middleName,
+        lastName: response.lastName,
+        email: response.email,
+        phone: response.phone,
+        address: response.address,
+        subCity: response.subCity,
+        town: response.town,
+        totalAmount: response.totalAmount,
+        uuId: uuId,
+        paymentMethod: payMethod,
+        shoppingAddress: userLocation.location,
+      };
+
+      console.log("values...", values);
+
+      axios
+        .post(appUrl + "orders", values)
+        .then(() => onCreateSuccess())
+        .catch((error) => onCreateError(error.response.data.message));
+    }
+  };
 
   const paymentMethod = [
     {
@@ -163,109 +217,140 @@ const Checkout = ({ ...props }) => {
               </Grid>
               <Grid item xs={12}>
                 <Card title="Personal Info">
-                  <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        required
-                        id="firstName"
-                        label="First Name"
-                        {...formik.getFieldProps("firstName")}
-                        error={
-                          formik.touched.firstName && formik.errors.firstName
-                            ? formik.errors.firstName
-                            : ""
-                        }
-                      />
+                  {response == undefined && (
+                    <Grid container spacing={2}>
+                      <Grid item xs={4}>
+                        <Controls.Input
+                          required
+                          id="firstName"
+                          label="First Name"
+                          {...formik.getFieldProps("firstName")}
+                          error={
+                            formik.touched.firstName && formik.errors.firstName
+                              ? formik.errors.firstName
+                              : ""
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Controls.Input
+                          required
+                          id="middleName"
+                          label="Middle Name"
+                          {...formik.getFieldProps("middleName")}
+                          error={
+                            formik.touched.middleName &&
+                            formik.errors.middleName
+                              ? formik.errors.middleName
+                              : ""
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Controls.Input
+                          id="lastName"
+                          label="Last Name"
+                          {...formik.getFieldProps("lastName")}
+                          error={
+                            formik.touched.lastName && formik.errors.lastName
+                              ? formik.errors.lastName
+                              : ""
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Controls.Input
+                          id="email"
+                          label="Email Address"
+                          {...formik.getFieldProps("email")}
+                          error={
+                            formik.touched.email && formik.errors.email
+                              ? formik.errors.email
+                              : ""
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Controls.Input
+                          required
+                          id="phone"
+                          label="Phone"
+                          {...formik.getFieldProps("phone")}
+                          error={
+                            formik.touched.phone && formik.errors.phone
+                              ? formik.errors.phone
+                              : ""
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Controls.Input
+                          required
+                          id="address"
+                          label="Address"
+                          {...formik.getFieldProps("address")}
+                          error={
+                            formik.touched.address && formik.errors.address
+                              ? formik.errors.address
+                              : ""
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Controls.Input
+                          required
+                          id="subCity"
+                          label="Sub City"
+                          {...formik.getFieldProps("subCity")}
+                          error={
+                            formik.touched.subCity && formik.errors.subCity
+                              ? formik.errors.subCity
+                              : ""
+                          }
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Controls.Input
+                          id="town"
+                          label="Town"
+                          {...formik.getFieldProps("town")}
+                          error={
+                            formik.touched.town && formik.errors.town
+                              ? formik.errors.town
+                              : ""
+                          }
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        required
-                        id="middleName"
-                        label="Middle Name"
-                        {...formik.getFieldProps("middleName")}
-                        error={
-                          formik.touched.middleName && formik.errors.middleName
-                            ? formik.errors.middleName
-                            : ""
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        id="lastName"
-                        label="Last Name"
-                        {...formik.getFieldProps("lastName")}
-                        error={
-                          formik.touched.lastName && formik.errors.lastName
-                            ? formik.errors.lastName
-                            : ""
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        id="email"
-                        label="Email Address"
-                        {...formik.getFieldProps("email")}
-                        error={
-                          formik.touched.email && formik.errors.email
-                            ? formik.errors.email
-                            : ""
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        required
-                        id="phone"
-                        label="Phone"
-                        {...formik.getFieldProps("phone")}
-                        error={
-                          formik.touched.phone && formik.errors.phone
-                            ? formik.errors.phone
-                            : ""
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        required
-                        id="address"
-                        label="Address"
-                        {...formik.getFieldProps("address")}
-                        error={
-                          formik.touched.address && formik.errors.address
-                            ? formik.errors.address
-                            : ""
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        required
-                        id="subCity"
-                        label="Sub City"
-                        {...formik.getFieldProps("subCity")}
-                        error={
-                          formik.touched.subCity && formik.errors.subCity
-                            ? formik.errors.subCity
-                            : ""
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Controls.Input
-                        id="town"
-                        label="Town"
-                        {...formik.getFieldProps("town")}
-                        error={
-                          formik.touched.town && formik.errors.town
-                            ? formik.errors.town
-                            : ""
-                        }
-                      />
-                    </Grid>
-                  </Grid>
+                  )}
+                  {response != undefined && (
+                    <div className="checkout-info">
+                      <div className="profile-personal">
+                        <div className="info-date">
+                          <p>Name: {response.fullName}</p>
+                          <p>Email: {response.email}</p>
+                          <p>Phone: {response.phone}</p>
+                        </div>
+                      </div>
+                      <Divider
+                        style={{
+                          color: "#f00538",
+                          height: 10,
+                        }}
+                      ></Divider>
+                      <div className="profile-personal">
+                        <div className="info-date">
+                          <p>Address: {response.address}</p>
+                          <p>Sub-city: {response.subCity}</p>
+                          {response.town == "" ? (
+                            ""
+                          ) : (
+                            <p>Town: {response.town}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </Card>
               </Grid>
               <Grid item xs={12}>
@@ -296,26 +381,50 @@ const Checkout = ({ ...props }) => {
                       )}
                     </Grid>
                   </Grid>
-                  <div className="btn-form">
-                    {isSubmitting ? (
-                      <Button
-                        className="clicked-btn"
-                        variant="contained"
-                        disabled={isSubmitting}
-                      >
-                        Sending...
-                      </Button>
-                    ) : (
-                      <Button
-                        className="send-btn"
-                        variant="contained"
-                        type="submit"
-                        onClick={onValid}
-                      >
-                        Send
-                      </Button>
-                    )}
-                  </div>
+                  {response == undefined && (
+                    <div className="btn-form">
+                      {isSubmitting ? (
+                        <Button
+                          className="clicked-btn"
+                          variant="contained"
+                          disabled={isSubmitting}
+                        >
+                          Sending...
+                        </Button>
+                      ) : (
+                        <Button
+                          className="send-btn"
+                          variant="contained"
+                          type="submit"
+                          onClick={onValid}
+                        >
+                          Send
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                  {response != undefined && (
+                    <div className="btn-form">
+                      {isSubmitting ? (
+                        <Button
+                          className="clicked-btn"
+                          variant="contained"
+                          disabled={isSubmitting}
+                        >
+                          Sending...
+                        </Button>
+                      ) : (
+                        <Button
+                          className="send-btn"
+                          variant="contained"
+                          type="submit"
+                          onClick={onSubmitUsingRespone}
+                        >
+                          Send
+                        </Button>
+                      )}
+                    </div>
+                  )}
                 </Card>
               </Grid>
             </Grid>

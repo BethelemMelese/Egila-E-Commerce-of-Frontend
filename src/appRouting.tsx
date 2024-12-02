@@ -27,6 +27,7 @@ import ContactUs from "./component/ContactUs";
 import Navmenu from "./component/Frontpage/mainLayout";
 import ViewContactUs from "./component/ContactUs/View";
 import ProfileSetting from "./component/Profile/setting";
+import OrderTracking from "./component/Order/orderTracking";
 import "./css/style.css";
 import "./css/mediaQuery.css";
 import "./App.css";
@@ -45,6 +46,8 @@ const AppRoute = () => {
         <Route path="register" element={<Register />} />
         <Route path="viewCart" element={<ViewCart />} />
         <Route path="profileSetting" element={<ProfileSetting />} />
+        <Route path="orderTracking" element={<OrderTracking />} />
+
         <Route
           path="Notification"
           element={

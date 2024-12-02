@@ -226,7 +226,7 @@ const Navmenu = ({ ...props }) => {
             </li>
             {localStorage.getItem("role") == "Customer" && (
               <li>
-                <NavLink to="/order" className="nav-item" onClick={toggleMenu}>
+                <NavLink to="/orderTracking" className="nav-item" onClick={toggleMenu}>
                   Order
                 </NavLink>
               </li>

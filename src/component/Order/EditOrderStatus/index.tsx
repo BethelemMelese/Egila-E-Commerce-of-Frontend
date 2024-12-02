@@ -160,9 +160,9 @@ const EditOrderStatus = ({ ...props }) => {
                       flexItem
                       style={{ color: "#fff" }}
                     />
-                    <p>
+                    {/* <p>
                       Shopping Address: <b>{selectedOrder.shoppingAddress}</b>
-                    </p>
+                    </p> */}
                     <Divider
                       orientation="horizontal"
                       variant="middle"
@@ -190,54 +190,6 @@ const EditOrderStatus = ({ ...props }) => {
                   </Card>
                 </Paper>
               </Grid>
-              <Grid item xs={12}>
-                {paymentResponse != undefined && (
-                  <Paper>
-                    <Card title="Payment Information">
-                      <p>
-                        Payment Method: <b>{paymentResponse.paymentMethod}</b>
-                      </p>
-                      <Divider
-                        orientation="horizontal"
-                        variant="middle"
-                        flexItem
-                        style={{ color: "#fff" }}
-                      />
-                      <p>
-                        Payment Status: <b>{paymentResponse.paymentStatus}</b>
-                      </p>
-                      <Divider
-                        orientation="horizontal"
-                        variant="middle"
-                        flexItem
-                        style={{ color: "#fff" }}
-                      />
-                      <p>
-                        Payment Slip:{" "}
-                        <Tooltip title="Click here to see the payment slip">
-                          <u>
-                            <a
-                              target="_blank"
-                              href={
-                                appUrl +
-                                `payments/uploads/${paymentResponse.paymentSlip}`
-                              }
-                            >
-                              Click Here
-                            </a>
-                          </u>
-                        </Tooltip>
-                      </p>
-                      <Divider
-                        orientation="horizontal"
-                        variant="middle"
-                        flexItem
-                        style={{ color: "#fff" }}
-                      />
-                    </Card>
-                  </Paper>
-                )}
-              </Grid>
             </Grid>
           </Grid>
           <Grid item xs={8}>
@@ -255,7 +207,7 @@ const EditOrderStatus = ({ ...props }) => {
                             <Grid item xs={2}>
                               <img
                                 alt="Items Image"
-                                src={appUrl + `items/uploads/${item.itemImage}`}
+                                src={item.itemImage}
                                 style={{
                                   height: 100,
                                   marginTop: 20,

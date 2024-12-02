@@ -1289,7 +1289,8 @@ span {
 }
 
 .profile-upload .ant-upload-list-item.ant-upload-list-item-undefined {
-  margin-left: 50%;
+  position: fixed;
+  margin-left: 40%;
   width: 100%;
   margin-bottom: 20px;
 }
@@ -1297,4 +1298,29 @@ span {
 .pp-upload {
   margin-left: 58%;
   width: 100%;
+}
+
+.tracking-container {
+  margin: 40px;
+}
+
+.general-info {
+  margin-top: -20px;
+}
+
+.itemImage img {
+  border-radius: 10px;
+  margin: 20px;
+  margin-left: 20%;
+}
+
+.order-history {
+  margin: 10px;
+  margin-left: 20px;
+  margin-top: -20px;
+  width: 60%;
+}
+
+.checkout-info{
+  margin-top: -20px;
 }

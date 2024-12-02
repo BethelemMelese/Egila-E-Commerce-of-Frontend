@@ -83,8 +83,8 @@ const DeleteAccount = ({ ...props }) => {
         <Grid item xs={12}>
           <h3>Are you sure you want to delete this account?</h3>
           <p>
-            We are so sorry for losing you. Once you delete your account, you
-            can't able to access it again
+            We are deeply sorry for the loss of you. You won't be able to access
+            your account again after deleting it.
           </p>
         </Grid>
         <Grid item xs={12}>

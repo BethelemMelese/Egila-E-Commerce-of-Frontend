@@ -59,9 +59,9 @@ const DetailOrder = ({ ...props }) => {
         }
       >
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
+          <Grid item xs={4}>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
                 <Paper>
                   <Card title="Customer Information">
                     <p>
@@ -91,9 +91,9 @@ const DetailOrder = ({ ...props }) => {
                       flexItem
                       style={{ color: "#fff" }}
                     />
-                    <p>
+                    {/* <p>
                       Shopping Address: <b>{selectedOrder.shoppingAddress}</b>
-                    </p>
+                    </p> */}
                     <Divider
                       orientation="horizontal"
                       variant="middle"
@@ -121,58 +121,8 @@ const DetailOrder = ({ ...props }) => {
                   </Card>
                 </Paper>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    {paymentResponse != undefined && (
-                      <Paper>
-                        <Card title="Payment Information">
-                          <p>
-                            Payment Method:{" "}
-                            <b>{paymentResponse.paymentMethod}</b>
-                          </p>
-                          <Divider
-                            orientation="horizontal"
-                            variant="middle"
-                            flexItem
-                            style={{ color: "#fff" }}
-                          />
-                          <p>
-                            Payment Status:{" "}
-                            <b>{paymentResponse.paymentStatus}</b>
-                          </p>
-                          <Divider
-                            orientation="horizontal"
-                            variant="middle"
-                            flexItem
-                            style={{ color: "#fff" }}
-                          />
-                          <p>
-                            Payment Slip:{" "}
-                            <Tooltip title="Click here to see the payment slip">
-                              <u>
-                                <a
-                                  target="_blank"
-                                  href={
-                                    appUrl +
-                                    `payments/uploads/${paymentResponse.paymentSlip}`
-                                  }
-                                >
-                                  Click Here
-                                </a>
-                              </u>
-                            </Tooltip>
-                          </p>
-                          <Divider
-                            orientation="horizontal"
-                            variant="middle"
-                            flexItem
-                            style={{ color: "#fff" }}
-                          />
-                        </Card>
-                      </Paper>
-                    )}
-                  </Grid>
                   {deliveryNameResponse != undefined && (
                     <Grid item xs={12}>
                       <Paper>
@@ -204,7 +154,7 @@ const DetailOrder = ({ ...props }) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={8}>
             <Paper>
               <Card
                 title="List of Item"
@@ -219,7 +169,7 @@ const DetailOrder = ({ ...props }) => {
                             <Grid item xs={2}>
                               <img
                                 alt="Items Image"
-                                src={appUrl + `items/uploads/${item.itemImage}`}
+                                src={item.itemImage}
                                 style={{
                                   height: 100,
                                   marginTop: 20,
