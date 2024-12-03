@@ -14,31 +14,75 @@ import itemImage2 from "../../Images/pcs.jpg";
 const recentOrderList = [
   {
     id: 1,
-    itemName: "First Item",
-    quantity: 3,
-    price: "1500 ETB",
-    status: "Pending",
+    orderDate: "2020-11-10",
+    orderStatus: "Ongoing",
+    totalAmount: "6500",
+    cartDetails: [
+      {
+        id: 1,
+        itemName: "First Item",
+        quantity: 3,
+        price: "1500 ETB",
+        status: "Pending",
+      },
+      {
+        id: 1,
+        itemName: "First Item",
+        quantity: 3,
+        price: "1500 ETB",
+        status: "Pending",
+      },
+      {
+        id: 1,
+        itemName: "First Item",
+        quantity: 3,
+        price: "1500 ETB",
+        status: "Pending",
+      },
+      {
+        id: 1,
+        itemName: "First Item",
+        quantity: 3,
+        price: "1500 ETB",
+        status: "Pending",
+      },
+    ],
   },
   {
-    id: 1,
-    itemName: "First Item",
-    quantity: 3,
-    price: "1500 ETB",
-    status: "Pending",
-  },
-  {
-    id: 1,
-    itemName: "First Item",
-    quantity: 3,
-    price: "1500 ETB",
-    status: "Pending",
-  },
-  {
-    id: 1,
-    itemName: "First Item",
-    quantity: 3,
-    price: "1500 ETB",
-    status: "Pending",
+    id: 2,
+    orderDate: "2020-11-10",
+    orderStatus: "Pending",
+    totalAmount: "6500",
+    cartDetails: [
+      {
+        id: 1,
+        itemName: "Noise Canceling Headphones",
+        quantity: 3,
+        price: "1500 ETB",
+        status: "Pending",
+      },
+      {
+        id: 1,
+        itemName: "Noise Canceling Headphones",
+        quantity: 3,
+        price: "1500 ETB",
+        status: "Pending",
+      },
+      {
+        id: 1,
+        itemName: "Noise Canceling Headphones",
+        quantity: 3,
+        price: "1500 ETB",
+        status: "Pending",
+      },
+      {
+        id: 1,
+        itemName: "Noise Canceling Headphones",
+        quantity: 3,
+        price: "1500 ETB",
+        status: "Pending",
+      },
+    ],
   },
 ];
 
@@ -56,10 +100,6 @@ const OrderTracking = () => {
     type: "",
   });
 
-  console.log("oldOrderResponse...", oldOrderResponse);
-  console.log("totalOrderResponse...", totalOrderResponse);
-  console.log("newOrderResponse.;..", newOrderResponse);
-  
   const onFetchSuccess = (response: any) => {
     setResponse(response);
   };
@@ -142,36 +182,70 @@ const OrderTracking = () => {
                     {newOrderResponse != undefined &&
                       newOrderResponse.map((item: any) => {
                         return (
-                          <>
-                            <Grid container spacing={0}>
-                              <Grid item xs={4}>
-                                <div className="itemImage">
-                                  <img
-                                    src={item.itemImage}
-                                    width={200}
-                                    height={150}
-                                  />
+                          <div className="orders-list">
+                            <Grid container spacing={2}>
+                              <Grid item xs={12}>
+                                <div className="order-data">
+                                  <div className="data-item">
+                                    <p>Date: {item.orderDate}</p>
+                                  </div>
+                                  <div className="data-item">
+                                    <p>Status: {item.orderStatus}</p>
+                                  </div>
+                                  <div className="data-item">
+                                    <p><b>Total Amount: {item.totalAmount}</b></p>
+                                  </div>
                                 </div>
+                                <Divider
+                                  style={{
+                                    color: "#f00538",
+                                    height: 10,
+                                    borderRadius: 5,
+                                  }}
+                                ></Divider>
                               </Grid>
-                              <Grid item xs={8}>
-                                <div className="itemDetail">
-                                  <h3>{item.itemName}</h3>
-                                  <p>{item.itemDescription}</p>
-                                  <p>Quantity: {item.quantity}</p>
-                                  <p>Price: {item.price}</p>
-                                  <p>
-                                    Order Status: <b>{item.status}</b>
-                                  </p>
+                              <Grid item xs={12}>
+                                <div className="item-list">
+                                  {item.cartDetails.map((value: any) => {
+                                    return (
+                                      <div className="order-items">
+                                        <div className="item-img">
+                                          <Avatar
+                                            src={value.itemImage}
+                                            sx={{ width: 56, height: 56 }}
+                                          />
+                                          <div>
+                                            <p>{value.itemName}</p>
+                                          </div>
+                                        </div>
+
+                                        <div className="item-data">
+                                          <div>
+                                            <p>Quantity: {value.quantity}</p>
+                                          </div>
+                                          <div>
+                                            <p>Price: {value.price}</p>
+                                          </div>
+                                          <div>
+                                            <p>
+                                              Status: <b>{value.status}</b>
+                                            </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
                                 </div>
+                                <Divider
+                                  style={{
+                                    color: "#f00538",
+                                    height: 10,
+                                    borderRadius: 5,
+                                  }}
+                                ></Divider>
                               </Grid>
                             </Grid>
-                            <Divider
-                              style={{
-                                color: "#f00538",
-                                height: 10,
-                              }}
-                            ></Divider>
-                          </>
+                          </div>
                         );
                       })}
                   </Card>
@@ -180,37 +254,77 @@ const OrderTracking = () => {
                   <Grid item xs={12}>
                     <Card title="Order History">
                       <div className="order-history">
-                        <List
-                          itemLayout="horizontal"
-                          dataSource={recentOrderList}
-                          renderItem={(item, index) => (
-                            <List.Item>
-                              <List.Item.Meta
-                                avatar={
-                                  <Avatar
-                                    sx={{ width: 56, height: 56 }}
-                                    variant="rounded"
-                                    src={itemImage2}
-                                  />
-                                }
-                                title={item.itemName}
-                                description={
-                                  <Grid container spacing={1}>
-                                    <Grid item xs={12}>
-                                      Quantity: {item.quantity}
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                      Price: {item.price}
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                      Order Status: {item.status}
-                                    </Grid>
+                        {oldOrderResponse != undefined &&
+                          oldOrderResponse.map((item: any) => {
+                            return (
+                              <div className="orders-list">
+                                <Grid container spacing={2}>
+                                  <Grid item xs={12}>
+                                    <div className="order-data">
+                                      <div className="data-item">
+                                        <p>Date: {item.orderDate}</p>
+                                      </div>
+                                      <div className="data-item">
+                                        <p>Status: {item.orderStatus}</p>
+                                      </div>
+                                      <div className="data-item">
+                                        <p><b>Total Amount: {item.totalAmount}</b></p>
+                                      </div>
+                                    </div>
+                                    <Divider
+                                      style={{
+                                        color: "#f00538",
+                                        height: 10,
+                                        borderRadius: 5,
+                                      }}
+                                    ></Divider>
                                   </Grid>
-                                }
-                              />
-                            </List.Item>
-                          )}
-                        />
+                                  <Grid item xs={12}>
+                                    <div className="item-list">
+                                      {item.cartDetails.map((value: any) => {
+                                        return (
+                                          <div className="order-items">
+                                            <div className="item-img">
+                                              <Avatar
+                                                src={value.itemImage}
+                                                sx={{ width: 56, height: 56 }}
+                                              />
+                                              <div>
+                                                <p>{value.itemName}</p>
+                                              </div>
+                                            </div>
+
+                                            <div className="item-data">
+                                              <div>
+                                                <p>
+                                                  Quantity: {value.quantity}
+                                                </p>
+                                              </div>
+                                              <div>
+                                                <p>Price: {value.price}</p>
+                                              </div>
+                                              <div>
+                                                <p>
+                                                  Status: <b>{value.status}</b>
+                                                </p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                    <Divider
+                                      style={{
+                                        color: "#f00538",
+                                        height: 10,
+                                        borderRadius: 5,
+                                      }}
+                                    ></Divider>
+                                  </Grid>
+                                </Grid>
+                              </div>
+                            );
+                          })}
                       </div>
                     </Card>
                   </Grid>

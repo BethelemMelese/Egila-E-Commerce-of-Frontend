@@ -10,8 +10,6 @@ const DetailOrder = ({ ...props }) => {
   const [cartResponse, setCartResponse] = useState<any>();
   const [paymentResponse, setPaymentResponse] = useState<any>();
   const [deliveryNameResponse, setDeliveryNameResponse] = useState<any>();
-
-  console.log("deliveryNameResponse....", deliveryNameResponse);
   useEffect(() => {
     axios
       .create({

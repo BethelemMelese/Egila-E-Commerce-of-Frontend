@@ -1,14 +1,7 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Navmenu from "../Frontpage/mainLayout";
-import {
-  Paper,
-  Grid,
-  IconButton,
-  Avatar,
-  Button,
-  Divider,
-} from "@mui/material";
+import { Grid, IconButton, Avatar, Button, Divider } from "@mui/material";
 import { Card, GetProp, Space, Table, TableProps, Tooltip, Modal } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -51,6 +44,7 @@ const ViewCart = () => {
   const [viewMode, setViewMode] = useState("view");
   const [editMode, setEditMode] = useState("view");
   const [getKey, setGetKey] = useState(null);
+  const [getPending, setGetPending] = useState<any>();
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
@@ -128,6 +122,18 @@ const ViewCart = () => {
       onCancel() {},
     });
   };
+
+  useEffect(() => {
+    axios
+      .create({
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .get(appUrl + `carts/getPendingCart/${localStorage.getItem("UUCartId")}`)
+      .then((response: any) => setGetPending(response.data))
+      .catch((error: any) => onFetchError(error));
+  }, []);
 
   const handleTableChange: TableProps["onChange"] = (
     pagination,
@@ -294,16 +300,19 @@ const ViewCart = () => {
                                 style={{ color: "#fff" }}
                               />
                             </Grid>
-                            <Grid item xs={12}>
-                              <Button
-                                variant="contained"
-                                fullWidth
-                                color="warning"
-                                onClick={() => setViewMode("checkout")}
-                              >
-                                Proceed to Checkout
-                              </Button>
-                            </Grid>
+                            {getPending != undefined &&
+                              getPending.result == "true" && (
+                                <Grid item xs={12}>
+                                  <Button
+                                    variant="contained"
+                                    fullWidth
+                                    color="warning"
+                                    onClick={() => setViewMode("checkout")}
+                                  >
+                                    Proceed to Checkout
+                                  </Button>
+                                </Grid>
+                              )}
                           </Grid>
                         </Card>
                       </Grid>

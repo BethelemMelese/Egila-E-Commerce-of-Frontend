@@ -167,9 +167,6 @@ const Checkout = ({ ...props }) => {
         paymentMethod: payMethod,
         shoppingAddress: userLocation.location,
       };
-
-      console.log("values...", values);
-
       axios
         .post(appUrl + "orders", values)
         .then(() => onCreateSuccess())
