@@ -1,29 +1,25 @@
-import { Layout } from "antd";
 import Sidebar from "../SideBar/index";
 import AppNavBar from "./header";
 import { Outlet } from "react-router-dom";
-const { Header, Content } = Layout;
-
+import { useState } from "react";
 const Topbar = ({ ...props }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <Layout>
-      <Sidebar />
-      <Layout>
-        <Header
-          style={{
-            backgroundImage:
-              "linear-gradient(to right,#f00538, #ff7f16,hsl(0, 0%, 100%))",
-            height: 70,
-          }}
-        >
-          <AppNavBar />
-        </Header>
-        <Content>
+    <div>
+      <AppNavBar toggleSidebar={toggleSidebar} />
+      <div style={{ display: "flex" }}>
+        {isSidebarOpen && <Sidebar />}
+        <main className="main-part">
           <Outlet />
           {props.children}
-        </Content>
-      </Layout>
-    </Layout>
+        </main>
+      </div>
+    </div>
   );
 };
 

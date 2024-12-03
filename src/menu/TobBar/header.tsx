@@ -1,5 +1,3 @@
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import {
@@ -14,22 +12,24 @@ import {
 import { userService } from "../../polices/userService";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { appUrl, token } from "../../appurl";
+import { appUrl } from "../../appurl";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import SyncLockIcon from "@mui/icons-material/SyncLock";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import logo from "../../Images/Logo 5.png";
 
-const AppNavBar = () => {
-  const token = userService.token;
+interface TopbarProps {
+  toggleSidebar: () => void;
+}
+
+const AppNavBar: React.FC<TopbarProps> = ({ toggleSidebar }) => {
   const [userInfo, setUserInfo] = useState<any>();
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [anchorE2, setAnchorE2] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const open2 = Boolean(anchorE2);
-  const id = open ? "simple-popover" : undefined;
-  const navigate = useNavigate();
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -63,15 +63,18 @@ const AppNavBar = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Toolbar>
-        <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: { xs: "none", md: "flex" }, color: "#000" }}>
-          <div className="current_role">
-            <Typography sx={{ p: 1, fontFamily: "Gill Sans" }}>
-              Your Role: {userService.currentRole}
-            </Typography>
-          </div>
+    <header className="topbar">
+      <div className="logo">
+        <img src={logo} width={300} height={80} />
+      </div>
+
+      <div className="pp-setting">
+        <div className="current_role">
+          <Typography sx={{ p: 1, fontFamily: "Gill Sans" }}>
+            As a: {userService.currentRole}
+          </Typography>
+        </div>
+        <div>
           <Tooltip title="Account settings">
             <IconButton
               onClick={handleClick}
@@ -134,9 +137,9 @@ const AppNavBar = () => {
               <ListItemText>Logout</ListItemText>
             </MenuItem>
           </Menu>
-        </Box>
-      </Toolbar>
-    </Box>
+        </div>
+      </div>
+    </header>
   );
 };
 

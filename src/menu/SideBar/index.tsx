@@ -10,146 +10,122 @@ import ControlCameraIcon from "@mui/icons-material/ControlCamera";
 import ExtensionIcon from "@mui/icons-material/Extension";
 import AppShortcutIcon from "@mui/icons-material/AppShortcut";
 import GridViewIcon from "@mui/icons-material/GridView";
-import Images from "../../Images/Logo 4.png";
-import { Link, NavLink } from "react-router-dom";
-import { Divider, Paper } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { userService } from "../../polices/userService";
 
+type SidebarItem = {
+  id: number;
+  label: string;
+  icon: React.ReactNode;
+  route: string;
+};
+
 const Sidebar: React.FC = () => {
-  const items: any = [
+  const [activeItem, setActiveItem] = useState<string>("/egila/home");
+  const navigate = useNavigate();
+
+  const items: SidebarItem[] = [
     {
-      key: "1",
+      id: 1,
       icon: <GridViewIcon />,
       label: "Dashboard",
-      path: "/egila/home",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/home",
     },
     {
-      key: "2",
+      id: 2,
       icon: <ControlCameraIcon />,
       label: "Role",
-      path: "/egila/ViewRole",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/ViewRole",
     },
     {
-      key: "3",
+      id: 3,
       icon: <PeopleIcon />,
       label: "Customer",
-      path: "/egila/ViewCustomer",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/ViewCustomer",
     },
     {
-      key: "4",
+      id: 4,
       icon: <LocalPoliceIcon />,
       label: "Admin",
-      path: "/egila/ViewAdmin",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/ViewAdmin",
     },
     {
-      key: "5",
+      id: 5,
       icon: <ReceiptIcon />,
       label: "Sales Person",
-      path: "/egila/viewSalesPerson",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/viewSalesPerson",
     },
     {
-      key: "6",
+      id: 6,
       icon: <DeliveryDiningIcon />,
       label: "Delivery Person",
-      path: "/egila/viewDeliveryPerson",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/viewDeliveryPerson",
     },
     {
-      key: "7",
+      id: 7,
       icon: <ExtensionIcon />,
       label: "Item",
-      path: "/egila/viewItem",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/viewItem",
     },
     {
-      key: "8",
+      id: 8,
       icon: <CategoryIcon />,
       label: "Category",
-      path: "/egila/viewCategory",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/viewCategory",
     },
     {
-      key: "9",
+      id: 9,
       icon: <AppShortcutIcon />,
       label: "Order",
-      path: "/egila/viewOrder",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/viewOrder",
     },
     {
-      key: "10",
+      id: 10,
       icon: <ReportIcon />,
       label: "Report",
-      path: "/egila/Report",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/Report",
     },
     {
-      key: "11",
+      id: 11,
       icon: <CommentIcon />,
       label: "Comment",
-      path: "/egila/viewComment",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/viewComment",
     },
     {
-      key: "12",
+      id: 12,
       icon: <CommentIcon />,
       label: "Contacts",
-      path: "/egila/viewContact",
-      cName: "nav-text",
-      nActive: "active",
+      route: "/egila/viewContact",
     },
   ];
+
+  const handleItemClick = (route: string) => {
+    setActiveItem(route);
+    navigate(route);
+  };
+
   return (
-    <div
-      style={{
-        backgroundColor: "#fff",
-        position: "fixed",
-        width: 220,
-      }}
-    >
-      <Paper elevation={2}>
-        <img alt="Egila" src={Images} className="profile" />
-        <Divider
-          style={{
-            color: "#f00538",
-            height: 10,
-          }}
-        ></Divider>
-        <nav className="nav-menu">
-          <ul className="nav-menu-items">
-            {items.map((item: any, index: any) => {
-              return (
-                userService.userController.match(item.label) && (
-                  <>
-                    <li key={index} className={item.cName}>
-                      <NavLink to={item.path}>
-                        {item.icon}
-                        <span>{item.label}</span>
-                      </NavLink>
-                    </li>
-                  </>
-                )
-              );
-            })}
-          </ul>
-        </nav>
-      </Paper>
-    </div>
+    <nav className="sidebar">
+      <ul className="sidebar-list">
+        {items.map(
+          (item) =>
+            userService.userController.match(item.label) && (
+              <>
+                <li
+                  key={item.id}
+                  className={`sidebar-item ${
+                    activeItem === item.route ? "active" : ""
+                  }`}
+                  onClick={() => handleItemClick(item.route)}
+                >
+                  <div className="icon">{item.icon}</div>
+                  <span className="label">{item.label}</span>
+                </li>
+              </>
+            )
+        )}
+      </ul>
+    </nav>
   );
 };
 
