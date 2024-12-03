@@ -30,7 +30,7 @@ const ProfileSetting = ({ ...props }) => {
   const [fileRequired, setFileRequired] = useState(false);
   const [isFileSubmitting, setIsFileSubmitting] = useState(false);
   const [imageSize, setImageSize] = useState(false);
-  const [viewMode, setViewMode] = useState("personal");
+  const [viewMode, setViewMode] = useState("");
   const navigate = useNavigate();
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -147,7 +147,7 @@ const ProfileSetting = ({ ...props }) => {
   const settingMenu = [
     {
       id: 1,
-      title: "Personal",
+      title: "Edit Profile",
       value: "personal",
     },
     {

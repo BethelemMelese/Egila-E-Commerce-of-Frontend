@@ -8,24 +8,18 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import { Card, List } from "antd";
-import { Avatar, Divider } from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import SyncLockIcon from "@mui/icons-material/SyncLock";
-import LogoutIcon from "@mui/icons-material/Logout";
-import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import { Card } from "antd";
+import { Avatar } from "@mui/material";
 import { userService } from "../../polices/userService";
 import axios from "axios";
 import { appUrl, token } from "../../appurl";
 import Notification from "../../commonComponent/notification";
-import { useNavigate } from "react-router-dom";
 import EditProfile from "./editProfile";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import { SamllDialogs } from "../../commonComponent/dialog";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload } from "antd";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
-import type { GetProp, UploadProps } from "antd";
 
 const Setting = () => {
   const [viewMode, setViewMode] = useState("info");
@@ -40,7 +34,7 @@ const Setting = () => {
     message: "",
     type: "",
   });
-  
+
   const onFetchSuccess = (response: any) => {
     setResponse(response);
   };
