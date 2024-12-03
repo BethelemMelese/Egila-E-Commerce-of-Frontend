@@ -108,36 +108,26 @@ const MainDashboard = () => {
           <Grid item xs={3}>
             <Card className="card-item">
               <Grid container spacing={2}>
-                <Grid item xs={2}>
-                  <div className="card-icon">
-                    <PersonIcon fontSize="medium" />
-                  </div>
-                </Grid>
-                <Grid item xs={10}>
-                  <div className="card-title">
-                    <Typography variant="h6" gutterBottom color="black">
-                      <b>{countCustomer == null ? 0 : countCustomer}</b>
-                    </Typography>
-                  </div>
-                  <div className="card-subTitle">
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      color="textSecondary"
-                    >
-                      Customers
-                    </Typography>
+                <Grid item xs={12}>
+                  <div className="card-uniq">
+                    <div className="card-count">
+                      <div className="card-icon">
+                        <PersonIcon fontSize="medium" />
+                      </div>
+                      <div className="card-title">
+                        <Typography variant="h6" gutterBottom color="black">
+                          <b>{countCustomer == null ? 0 : countCustomer}</b>
+                        </Typography>
+                      </div>
+                    </div>
+                    <div className="card-subTitle">
+                      <h3>Customers</h3>
+                    </div>
                   </div>
                 </Grid>
                 <Grid item xs={12}>
                   <div className="card-des">
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      color="textSecondary"
-                    >
-                      Number of Customers that registered here.
-                    </Typography>
+                    <p>Number of Customers that registered here.</p>
                   </div>
                 </Grid>
               </Grid>
@@ -146,36 +136,26 @@ const MainDashboard = () => {
           <Grid item xs={3}>
             <Card className="card-item">
               <Grid container spacing={2}>
-                <Grid item xs={2}>
-                  <div className="card-icon">
-                    <AppShortcutIcon fontSize="medium" />
-                  </div>
-                </Grid>
-                <Grid item xs={10}>
-                  <div className="card-title">
-                    <Typography variant="h6" gutterBottom color="black">
-                      <b>{countOrder == null ? 0 : countOrder}</b>
-                    </Typography>
-                  </div>
-                  <div className="card-subTitle">
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      color="textSecondary"
-                    >
-                      Orders
-                    </Typography>
+                <Grid item xs={12}>
+                  <div className="card-uniq">
+                    <div className="card-count">
+                      <div className="card-icon">
+                        <AppShortcutIcon fontSize="medium" />
+                      </div>
+                      <div className="card-title">
+                        <Typography variant="h6" gutterBottom color="black">
+                          <b>{countOrder == null ? 0 : countOrder}</b>
+                        </Typography>
+                      </div>
+                    </div>
+                    <div className="card-subTitle">
+                      <h3>Orders</h3>
+                    </div>
                   </div>
                 </Grid>
                 <Grid item xs={12}>
                   <div className="card-des">
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      color="textSecondary"
-                    >
-                      Number of orders that make by customers.
-                    </Typography>
+                    <p>Number of orders that make by customers.</p>
                   </div>
                 </Grid>
               </Grid>
@@ -184,36 +164,26 @@ const MainDashboard = () => {
           <Grid item xs={3}>
             <Card className="card-item">
               <Grid container spacing={2}>
-                <Grid item xs={2}>
-                  <div className="card-icon">
-                    <ReceiptIcon fontSize="medium" />
-                  </div>
-                </Grid>
-                <Grid item xs={10}>
-                  <div className="card-title">
-                    <Typography variant="h6" gutterBottom color="black">
-                      <b>{countSales == null ? 0 : countSales}</b>
-                    </Typography>
-                  </div>
-                  <div className="card-subTitle">
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      color="textSecondary"
-                    >
-                      Sales
-                    </Typography>
+                <Grid item xs={12}>
+                  <div className="card-uniq">
+                    <div className="card-count">
+                      <div className="card-icon">
+                        <ReceiptIcon fontSize="medium" />
+                      </div>
+                      <div className="card-title">
+                        <Typography variant="h6" gutterBottom color="black">
+                          <b>{countSales == null ? 0 : countSales}</b>
+                        </Typography>
+                      </div>
+                    </div>
+                    <div className="card-subTitle">
+                      <h3>Sales</h3>
+                    </div>
                   </div>
                 </Grid>
                 <Grid item xs={12}>
                   <div className="card-des">
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      color="textSecondary"
-                    >
-                      Number of sales person that registered here.
-                    </Typography>
+                    <p>Number of sales person that registered here.</p>
                   </div>
                 </Grid>
               </Grid>
@@ -222,36 +192,26 @@ const MainDashboard = () => {
           <Grid item xs={3}>
             <Card className="card-item">
               <Grid container spacing={2}>
-                <Grid item xs={2}>
-                  <div className="card-icon">
-                    <DeliveryDiningIcon fontSize="medium" />
-                  </div>
-                </Grid>
-                <Grid item xs={10}>
-                  <div className="card-title">
-                    <Typography variant="h6" gutterBottom color="black">
-                      <b>{countDeliveries == null ? 0 : countDeliveries}</b>
-                    </Typography>
-                  </div>
-                  <div className="card-subTitle">
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      color="textSecondary"
-                    >
-                      Delivery's
-                    </Typography>
+                <Grid item xs={12}>
+                  <div className="card-uniq">
+                    <div className="card-count">
+                      <div className="card-icon">
+                        <DeliveryDiningIcon fontSize="medium" />
+                      </div>
+                      <div className="card-title">
+                        <Typography variant="h6" gutterBottom color="black">
+                          <b>{countDeliveries == null ? 0 : countDeliveries}</b>
+                        </Typography>
+                      </div>
+                    </div>
+                    <div className="card-subTitle">
+                      <h3>Delivery's</h3>
+                    </div>
                   </div>
                 </Grid>
                 <Grid item xs={12}>
                   <div className="card-des">
-                    <Typography
-                      variant="body2"
-                      component="p"
-                      color="textSecondary"
-                    >
-                      Number of Delivery Person that registered here.
-                    </Typography>
+                    <p>Number of Delivery's that registered here.</p>
                   </div>
                 </Grid>
               </Grid>

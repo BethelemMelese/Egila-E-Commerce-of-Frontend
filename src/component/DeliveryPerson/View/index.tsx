@@ -275,20 +275,19 @@ const ViewDeliveryPerson = () => {
       <Grid container spacing={0}>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Paper elevation={3} className="main-content">
               {detailMode == "view" && (
                 <Card
                   className="main-content-card"
                   title={
-                    <h2
+                    <h3
                       style={{
                         marginRight: "90%",
                         marginTop: "2%",
                         marginBottom: "1%",
                       }}
                     >
-                      <b>Delivery Person</b>
-                    </h2>
+                      Delivery Person
+                    </h3>
                   }
                   extra={
                     userService.userPermission.match("create_deliveries") && (
@@ -363,7 +362,6 @@ const ViewDeliveryPerson = () => {
                   closeedit={() => setDetailMode("view")}
                 />
               )}
-            </Paper>
           </Grid>
         </Grid>
       </Grid>

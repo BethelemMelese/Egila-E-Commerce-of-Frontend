@@ -248,103 +248,101 @@ const ViewOrder = () => {
       <Grid container spacing={0}>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Paper elevation={3} className="main-content">
-              {viewMode == "view" && (
-                <Card
-                  className="main-content-card"
-                  title={
-                    <h2
-                      style={{
-                        marginRight: "90%",
-                        marginTop: "2%",
-                        marginBottom: "1%",
-                      }}
-                    >
-                      <b>Order</b>
-                    </h2>
-                  }
-                >
-                  <Card>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Input
-                          className="input-search"
-                          placeholder="input search text"
-                          addonAfter={<b>Search</b>}
-                          onKeyUp={(event: any) => onSearch(event.target.value)}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Table
-                          className="table-list"
-                          size="small"
-                          columns={columns}
-                          rowKey={(record) => record.id}
-                          dataSource={dataSource}
-                          pagination={tableParams.pagination}
-                          loading={loading}
-                          onChange={handleTableChange}
-                        />
-                      </Grid>
+            {viewMode == "view" && (
+              <Card
+                className="main-content-card"
+                title={
+                  <h3
+                    style={{
+                      marginRight: "90%",
+                      marginTop: "2%",
+                      marginBottom: "1%",
+                    }}
+                  >
+                    Order
+                  </h3>
+                }
+              >
+                <Card>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Input
+                        className="input-search"
+                        placeholder="input search text"
+                        addonAfter={<b>Search</b>}
+                        onKeyUp={(event: any) => onSearch(event.target.value)}
+                      />
                     </Grid>
-                  </Card>
-
-                  {/* to open the dialog for create and update form */}
-                  <Dialogs
-                    openDialog={readOpenDialog}
-                    setOpenDialog={readOpenDialog}
-                    height="50%"
-                    maxHeight="200"
-                    children={
-                      <CreateIssueReport
-                        //@ts-ignore
-                        selectedOrder={selectedOrder}
-                        viewMode={viewMode}
-                        closeedit={() => setReadOpenDialog(false)}
+                    <Grid item xs={12}>
+                      <Table
+                        className="table-list"
+                        size="small"
+                        columns={columns}
+                        rowKey={(record) => record.id}
+                        dataSource={dataSource}
+                        pagination={tableParams.pagination}
+                        loading={loading}
+                        onChange={handleTableChange}
                       />
-                    }
-                  />
-                  <Dialogs
-                    openDialog={viewOpenDialog}
-                    setOpenDialog={viewOpenDialog}
-                    height="40%"
-                    maxHeight="200"
-                    children={
-                      <ViewIssueReport
-                        //@ts-ignore
-                        selectedOrder={selectedOrder}
-                        viewMode={viewMode}
-                        closeedit={() => setViewOpenDialog(false)}
-                      />
-                    }
-                  />
+                    </Grid>
+                  </Grid>
                 </Card>
-              )}
-              {viewMode == "assign" && (
-                <AssignDeliveries
-                  //@ts-ignore
-                  selectedOrder={selectedOrder}
-                  viewMode={viewMode}
-                  closeedit={() => setViewMode("view")}
+
+                {/* to open the dialog for create and update form */}
+                <Dialogs
+                  openDialog={readOpenDialog}
+                  setOpenDialog={readOpenDialog}
+                  height="50%"
+                  maxHeight="200"
+                  children={
+                    <CreateIssueReport
+                      //@ts-ignore
+                      selectedOrder={selectedOrder}
+                      viewMode={viewMode}
+                      closeedit={() => setReadOpenDialog(false)}
+                    />
+                  }
                 />
-              )}
-              {viewMode == "edit" && (
-                <EditOrderStatus
-                  //@ts-ignore
-                  selectedOrder={selectedOrder}
-                  viewMode={viewMode}
-                  closeedit={() => setViewMode("view")}
+                <Dialogs
+                  openDialog={viewOpenDialog}
+                  setOpenDialog={viewOpenDialog}
+                  height="40%"
+                  maxHeight="200"
+                  children={
+                    <ViewIssueReport
+                      //@ts-ignore
+                      selectedOrder={selectedOrder}
+                      viewMode={viewMode}
+                      closeedit={() => setViewOpenDialog(false)}
+                    />
+                  }
                 />
-              )}
-              {viewMode == "detail" && (
-                <DetailOrder
-                  //@ts-ignore
-                  selectedOrder={selectedOrder}
-                  viewMode={viewMode}
-                  closeedit={() => setViewMode("view")}
-                />
-              )}
-            </Paper>
+              </Card>
+            )}
+            {viewMode == "assign" && (
+              <AssignDeliveries
+                //@ts-ignore
+                selectedOrder={selectedOrder}
+                viewMode={viewMode}
+                closeedit={() => setViewMode("view")}
+              />
+            )}
+            {viewMode == "edit" && (
+              <EditOrderStatus
+                //@ts-ignore
+                selectedOrder={selectedOrder}
+                viewMode={viewMode}
+                closeedit={() => setViewMode("view")}
+              />
+            )}
+            {viewMode == "detail" && (
+              <DetailOrder
+                //@ts-ignore
+                selectedOrder={selectedOrder}
+                viewMode={viewMode}
+                closeedit={() => setViewMode("view")}
+              />
+            )}
           </Grid>
         </Grid>
       </Grid>

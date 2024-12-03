@@ -219,19 +219,18 @@ const ViewContactUs = () => {
       <Grid container spacing={0}>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Paper elevation={3} className="main-content">
               <Card
                 className="main-content-card"
                 title={
-                  <h2
+                  <h3
                     style={{
                       marginRight: "90%",
                       marginTop: "2%",
                       marginBottom: "1%",
                     }}
                   >
-                    <b>Contacts</b>
-                  </h2>
+                    Contacts
+                  </h3>
                 }
               >
                 <Card>
@@ -259,7 +258,6 @@ const ViewContactUs = () => {
                   </Grid>
                 </Card>
               </Card>
-            </Paper>
           </Grid>
         </Grid>
       </Grid>

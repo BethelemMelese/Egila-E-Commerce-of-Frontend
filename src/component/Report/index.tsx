@@ -115,72 +115,80 @@ const Report = ({ ...props }) => {
       <div>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Paper elevation={2}>
-              <Card title="Report">
-                <Form
-                  autoComplete="off"
-                  noValidate
-                  onSubmit={formik.handleSubmit}
+            <Card
+              title={
+                <h3
+                  style={{
+                    marginRight: "90%",
+                    marginTop: "2%",
+                    marginBottom: "1%",
+                  }}
                 >
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <FormControl variant="outlined" className="selectbox">
-                        <Controls.Input
-                          select
-                          id="orderStatus"
-                          required
-                          label="Order Status"
-                          {...formik.getFieldProps("orderStatus")}
-                          error={
-                            formik.touched.orderStatus &&
-                            formik.errors.orderStatus
-                              ? formik.errors.orderStatus
-                              : ""
-                          }
-                        >
-                          <MenuItem value="Accepted">Accepted</MenuItem>
-                          <MenuItem value="Denied">Denied</MenuItem>
-                          <MenuItem value="Has Issue">Has Issue</MenuItem>
-                        </Controls.Input>
-                      </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                      {isSubmitting ? (
-                        <Button variant="contained" size="small" disabled>
-                          generating...
-                        </Button>
-                      ) : (
-                        <Button
-                          className="report-btn"
-                          variant="contained"
-                          type="submit"
-                          size="small"
-                        >
-                          Generate
-                        </Button>
-                      )}
-                    </Grid>
+                  Report
+                </h3>
+              }
+            >
+              <Form
+                autoComplete="off"
+                noValidate
+                onSubmit={formik.handleSubmit}
+              >
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <FormControl variant="outlined" className="selectbox">
+                      <Controls.Input
+                        select
+                        id="orderStatus"
+                        required
+                        label="Order Status"
+                        {...formik.getFieldProps("orderStatus")}
+                        error={
+                          formik.touched.orderStatus &&
+                          formik.errors.orderStatus
+                            ? formik.errors.orderStatus
+                            : ""
+                        }
+                      >
+                        <MenuItem value="Accepted">Accepted</MenuItem>
+                        <MenuItem value="Denied">Denied</MenuItem>
+                        <MenuItem value="Has Issue">Has Issue</MenuItem>
+                      </Controls.Input>
+                    </FormControl>
                   </Grid>
-                </Form>
-              </Card>
-            </Paper>
+                  <Grid item xs={12}>
+                    {isSubmitting ? (
+                      <Button variant="contained" size="small" disabled>
+                        generating...
+                      </Button>
+                    ) : (
+                      <Button
+                        className="report-btn"
+                        variant="contained"
+                        type="submit"
+                        size="small"
+                      >
+                        Generate
+                      </Button>
+                    )}
+                  </Grid>
+                </Grid>
+              </Form>
+            </Card>
           </Grid>
 
           <Grid item xs={12}>
-            <Paper elevation={1}>
-              <Card>
-                <Table
-                  className="table-list"
-                  size="small"
-                  columns={columns}
-                  rowKey={(record) => record.id}
-                  dataSource={dataSource}
-                  pagination={tableParams.pagination}
-                  loading={loading}
-                  onChange={handleTableChange}
-                />
-              </Card>
-            </Paper>
+            <Card>
+              <Table
+                className="table-list"
+                size="small"
+                columns={columns}
+                rowKey={(record) => record.id}
+                dataSource={dataSource}
+                pagination={tableParams.pagination}
+                loading={loading}
+                onChange={handleTableChange}
+              />
+            </Card>
           </Grid>
         </Grid>
       </div>

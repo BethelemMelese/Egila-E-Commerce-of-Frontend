@@ -183,10 +183,7 @@ const ViewItem = () => {
         return (
           <>
             {record.itemImage != undefined ? (
-              <Avatar
-                src={record.itemImage}
-                variant="rounded"
-              ></Avatar>
+              <Avatar src={record.itemImage} variant="rounded"></Avatar>
             ) : (
               <Avatar />
             )}
@@ -280,95 +277,99 @@ const ViewItem = () => {
       <Grid container spacing={0}>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Paper elevation={3} className="main-content">
-              {detailMode == "view" && (
-                <Card
-                  className="main-content-card"
-                  title={
-                    <h2>
-                      <b>Item</b>
-                    </h2>
-                  }
-                  extra={
-                    userService.userPermission.match("create_item") && (
-                      <Button
-                        variant="contained"
-                        color="success"
-                        size="small"
-                        onClick={() => {
-                          setOpenDialog(true);
-                          setViewMode("new");
-                        }}
-                      >
-                        New Item
-                      </Button>
-                    )
-                  }
-                >
-                  <Card>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Input
-                          className="input-search"
-                          placeholder="input search text"
-                          addonAfter={<b>Search</b>}
-                          onKeyUp={(event: any) => onSearch(event.target.value)}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Table
-                          className="table-list"
-                          size="small"
-                          columns={columns}
-                          rowKey={(record) => record.id}
-                          dataSource={dataSource}
-                          pagination={tableParams.pagination}
-                          loading={loading}
-                          onChange={handleTableChange}
-                        />
-                      </Grid>
+            {detailMode == "view" && (
+              <Card
+                className="main-content-card"
+                title={
+                  <h3
+                    style={{
+                      marginRight: "90%",
+                      marginTop: "2%",
+                      marginBottom: "1%",
+                    }}
+                  >
+                    Item
+                  </h3>
+                }
+                extra={
+                  userService.userPermission.match("create_item") && (
+                    <Button
+                      variant="contained"
+                      color="success"
+                      size="small"
+                      onClick={() => {
+                        setOpenDialog(true);
+                        setViewMode("new");
+                      }}
+                    >
+                      New Item
+                    </Button>
+                  )
+                }
+              >
+                <Card>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Input
+                        className="input-search"
+                        placeholder="input search text"
+                        addonAfter={<b>Search</b>}
+                        onKeyUp={(event: any) => onSearch(event.target.value)}
+                      />
                     </Grid>
-                  </Card>
-
-                  {/* to open the dialog for create and update form */}
-                  <Dialogs
-                    openDialog={openDialog}
-                    setOpenDialog={openDialog}
-                    height="60%"
-                    maxHeight="435"
-                    children={
-                      <>
-                        {viewMode == "new" && (
-                          <CreateItem
-                            //@ts-ignore
-                            selectedItem={initialState}
-                            viewMode={viewMode}
-                            closeedit={() => setOpenDialog(false)}
-                          />
-                        )}
-                        {viewMode == "edit" && (
-                          <CreateItem
-                            //@ts-ignore
-                            selectedItem={selectedItem}
-                            viewMode={viewMode}
-                            closeedit={() => setOpenDialog(false)}
-                          />
-                        )}
-                      </>
-                    }
-                  />
+                    <Grid item xs={12}>
+                      <Table
+                        className="table-list"
+                        size="small"
+                        columns={columns}
+                        rowKey={(record) => record.id}
+                        dataSource={dataSource}
+                        pagination={tableParams.pagination}
+                        loading={loading}
+                        onChange={handleTableChange}
+                      />
+                    </Grid>
+                  </Grid>
                 </Card>
-              )}
 
-              {detailMode == "detail" && (
-                <DetailItem
-                  //@ts-ignore
-                  selectedItem={selectedItem}
-                  viewMode={viewMode}
-                  closeedit={() => setDetailMode("view")}
+                {/* to open the dialog for create and update form */}
+                <Dialogs
+                  openDialog={openDialog}
+                  setOpenDialog={openDialog}
+                  height="60%"
+                  maxHeight="435"
+                  children={
+                    <>
+                      {viewMode == "new" && (
+                        <CreateItem
+                          //@ts-ignore
+                          selectedItem={initialState}
+                          viewMode={viewMode}
+                          closeedit={() => setOpenDialog(false)}
+                        />
+                      )}
+                      {viewMode == "edit" && (
+                        <CreateItem
+                          //@ts-ignore
+                          selectedItem={selectedItem}
+                          viewMode={viewMode}
+                          closeedit={() => setOpenDialog(false)}
+                        />
+                      )}
+                    </>
+                  }
                 />
-              )}
-            </Paper>
+              </Card>
+            )}
+
+            {detailMode == "detail" && (
+              <DetailItem
+                //@ts-ignore
+                selectedItem={selectedItem}
+                viewMode={viewMode}
+                closeedit={() => setDetailMode("view")}
+              />
+            )}
           </Grid>
         </Grid>
       </Grid>

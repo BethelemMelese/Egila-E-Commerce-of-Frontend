@@ -220,87 +220,85 @@ const ViewFeadBack = () => {
       <Grid container spacing={0}>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Paper elevation={3} className="main-content">
-              <Card
-                className="main-content-card"
-                title={
-                  <h2
-                    style={{
-                      marginRight: "90%",
-                      marginTop: "2%",
-                      marginBottom: "1%",
+            <Card
+              className="main-content-card"
+              title={
+                <h3
+                  style={{
+                    marginRight: "90%",
+                    marginTop: "2%",
+                    marginBottom: "1%",
+                  }}
+                >
+                  Comment
+                </h3>
+              }
+              extra={
+                userService.userPermission.match("create_comment") && (
+                  <Button
+                    variant="contained"
+                    color="success"
+                    size="small"
+                    onClick={() => {
+                      setOpenDialog(true);
+                      setViewMode("new");
                     }}
                   >
-                    <b>Comment</b>
-                  </h2>
-                }
-                extra={
-                  userService.userPermission.match("create_comment") && (
-                    <Button
-                      variant="contained"
-                      color="success"
+                    New Comment
+                  </Button>
+                )
+              }
+            >
+              <Card>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Input
+                      className="input-search"
+                      placeholder="input search text"
+                      addonAfter={<b>Search</b>}
+                      onKeyUp={(event: any) => onSearch(event.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Table
+                      className="table-list"
                       size="small"
-                      onClick={() => {
-                        setOpenDialog(true);
-                        setViewMode("new");
-                      }}
-                    >
-                      New Comment
-                    </Button>
+                      columns={columns}
+                      rowKey={(record) => record.id}
+                      dataSource={dataSource}
+                      pagination={tableParams.pagination}
+                      loading={loading}
+                      onChange={handleTableChange}
+                    />
+                  </Grid>
+                </Grid>
+              </Card>
+
+              {/* to open the dialog for create and update form */}
+              <Dialogs
+                openDialog={openDialog}
+                setOpenDialog={openDialog}
+                height="55%"
+                maxHeight="435"
+                children={
+                  viewMode == "new" ? (
+                    <CreateFeedBack
+                      //@ts-ignore
+                      selectedFeedBack={initialState}
+                      viewMode={viewMode}
+                      closeedit={() => setOpenDialog(false)}
+                    />
+                  ) : (
+                    <CreateFeedBack
+                      //@ts-ignore
+                      selectedFeedBack={selectedFeedBack}
+                      viewMode={viewMode}
+                      closeedit={() => setOpenDialog(false)}
+                    />
                   )
                 }
-              >
-                <Card>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Input
-                        className="input-search"
-                        placeholder="input search text"
-                        addonAfter={<b>Search</b>}
-                        onKeyUp={(event: any) => onSearch(event.target.value)}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Table
-                        className="table-list"
-                        size="small"
-                        columns={columns}
-                        rowKey={(record) => record.id}
-                        dataSource={dataSource}
-                        pagination={tableParams.pagination}
-                        loading={loading}
-                        onChange={handleTableChange}
-                      />
-                    </Grid>
-                  </Grid>
-                </Card>
-
-                {/* to open the dialog for create and update form */}
-                <Dialogs
-                  openDialog={openDialog}
-                  setOpenDialog={openDialog}
-                  height="55%"
-                  maxHeight="435"
-                  children={
-                    viewMode == "new" ? (
-                      <CreateFeedBack
-                        //@ts-ignore
-                        selectedFeedBack={initialState}
-                        viewMode={viewMode}
-                        closeedit={() => setOpenDialog(false)}
-                      />
-                    ) : (
-                      <CreateFeedBack
-                        //@ts-ignore
-                        selectedFeedBack={selectedFeedBack}
-                        viewMode={viewMode}
-                        closeedit={() => setOpenDialog(false)}
-                      />
-                    )
-                  }
-                />
-              </Card>
-            </Paper>
+              />
+            </Card>
           </Grid>
         </Grid>
       </Grid>

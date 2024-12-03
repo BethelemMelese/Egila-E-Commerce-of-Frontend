@@ -6,7 +6,7 @@ import { EditOutlined } from "@mui/icons-material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import UpdateCustomer from "../Update";
 import DetailCustomer from "../Detail";
-import { appUrl, token } from "../../../appurl";
+import { appUrl } from "../../../appurl";
 import axios from "axios";
 import Notification from "../../../commonComponent/notification";
 import { ExclamationCircleFilled } from "@ant-design/icons";
@@ -277,20 +277,19 @@ const ViewCustomer = () => {
       <Grid container spacing={0}>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Paper elevation={3} className="main-content">
               {detailMode == "view" && (
                 <Card
                   className="main-content-card"
                   title={
-                    <h2
+                    <h3
                       style={{
                         marginRight: "90%",
                         marginTop: "2%",
                         marginBottom: "1%",
                       }}
                     >
-                      <b>Customer</b>
-                    </h2>
+                      Customer
+                    </h3>
                   }
                 >
                   <Card>
@@ -353,7 +352,6 @@ const ViewCustomer = () => {
                   closeedit={() => setDetailMode("view")}
                 />
               )}
-            </Paper>
           </Grid>
         </Grid>
       </Grid>

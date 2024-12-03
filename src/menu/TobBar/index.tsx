@@ -14,7 +14,7 @@ const Topbar = ({ ...props }) => {
       <AppNavBar toggleSidebar={toggleSidebar} />
       <div style={{ display: "flex" }}>
         {isSidebarOpen && <Sidebar />}
-        <main className="main-part">
+        <main className="container">
           <Outlet />
           {props.children}
         </main>

@@ -275,98 +275,96 @@ const ViewAdmin = () => {
       <Grid container spacing={0}>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Paper elevation={3} className="main-content">
-              {detailMode == "view" && (
-                <Card
-                  className="main-content-card"
-                  title={
-                    <h2
-                      style={{
-                        marginRight: "90%",
-                        marginTop: "2%",
-                        marginBottom: "1%",
+            {detailMode == "view" && (
+              <Card
+                className="main-content-card"
+                title={
+                  <h3
+                    style={{
+                      marginRight: "90%",
+                      marginTop: "2%",
+                      marginBottom: "1%",
+                    }}
+                  >
+                    Admin
+                  </h3>
+                }
+                extra={
+                  userService.userPermission.match("delete_admin") && (
+                    <Button
+                      variant="contained"
+                      color="success"
+                      size="small"
+                      onClick={() => {
+                        setOpenDialog(true);
+                        setViewMode("new");
                       }}
                     >
-                      <b>Admin</b>
-                    </h2>
-                  }
-                  extra={
-                    userService.userPermission.match("delete_admin") && (
-                      <Button
-                        variant="contained"
-                        color="success"
+                      New Admin
+                    </Button>
+                  )
+                }
+              >
+                <Card>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Input
+                        className="input-search"
+                        placeholder="input search text"
+                        addonAfter={<b>Search</b>}
+                        onKeyUp={(event: any) => onSearch(event.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Table
+                        className="table-list"
                         size="small"
-                        onClick={() => {
-                          setOpenDialog(true);
-                          setViewMode("new");
-                        }}
-                      >
-                        New Admin
-                      </Button>
+                        columns={columns}
+                        rowKey={(record) => record.id}
+                        dataSource={dataSource}
+                        pagination={tableParams.pagination}
+                        loading={loading}
+                        onChange={handleTableChange}
+                      />
+                    </Grid>
+                  </Grid>
+                </Card>
+                {/* {to open the dialog for create and update form} */}
+
+                <Dialogs
+                  openDialog={openDialog}
+                  setOpenDialog={openDialog}
+                  height="60"
+                  maxHeight="300"
+                  children={
+                    viewMode == "new" ? (
+                      <CreateAdmin
+                        //@ts-ignore
+                        selectedAdmin={initialState}
+                        viewMode={viewMode}
+                        closeedit={() => setOpenDialog(false)}
+                      />
+                    ) : (
+                      <EditAdmin
+                        //@ts-ignore
+                        selectedAdmin={selectedAdmin}
+                        viewMode={viewMode}
+                        closeedit={() => setOpenDialog(false)}
+                      />
                     )
                   }
-                >
-                  <Card>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                        <Input
-                          className="input-search"
-                          placeholder="input search text"
-                          addonAfter={<b>Search</b>}
-                          onKeyUp={(event: any) => onSearch(event.target.value)}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Table
-                          className="table-list"
-                          size="small"
-                          columns={columns}
-                          rowKey={(record) => record.id}
-                          dataSource={dataSource}
-                          pagination={tableParams.pagination}
-                          loading={loading}
-                          onChange={handleTableChange}
-                        />
-                      </Grid>
-                    </Grid>
-                  </Card>
-                  {/* {to open the dialog for create and update form} */}
-
-                  <Dialogs
-                    openDialog={openDialog}
-                    setOpenDialog={openDialog}
-                    height="60"
-                    maxHeight="300"
-                    children={
-                      viewMode == "new" ? (
-                        <CreateAdmin
-                          //@ts-ignore
-                          selectedAdmin={initialState}
-                          viewMode={viewMode}
-                          closeedit={() => setOpenDialog(false)}
-                        />
-                      ) : (
-                        <EditAdmin
-                          //@ts-ignore
-                          selectedAdmin={selectedAdmin}
-                          viewMode={viewMode}
-                          closeedit={() => setOpenDialog(false)}
-                        />
-                      )
-                    }
-                  />
-                </Card>
-              )}
-
-              {detailMode == "detail" && (
-                <DetailAdmin
-                  //@ts-ignore
-                  selectedAdmin={selectedAdmin}
-                  detailMode={detailMode}
-                  closeedit={() => setDetailMode("view")}
                 />
-              )}
-            </Paper>
+              </Card>
+            )}
+
+            {detailMode == "detail" && (
+              <DetailAdmin
+                //@ts-ignore
+                selectedAdmin={selectedAdmin}
+                detailMode={detailMode}
+                closeedit={() => setDetailMode("view")}
+              />
+            )}
           </Grid>
         </Grid>
       </Grid>
