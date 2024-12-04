@@ -686,26 +686,28 @@ nav {
   font-size: 13px;
 }
 
-/* for check top bar */
+/* for top bar */
 
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-image: linear-gradient(to right, #ffff, #ffff, #ff7f16, #f00538);
+  background-image: linear-gradient(to left, #ffff, #ffff, #ff7f16, #f00538);
   color: white;
   padding: 10px 20px;
-  height: 60px;
+  height: 70px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
+  box-shadow: 0 1px 1px 0 rgba(243, 243, 243, 0.804);
 }
 
 .logo {
   font-size: 24px;
   font-weight: bold;
   margin-left: -20%;
+  margin-top: 10px;
 }
 
 .pp-setting {
@@ -735,12 +737,23 @@ nav {
 }
 
 /* Sidebar list item */
+.sidebar {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
 .sidebar-item {
   display: flex;
   align-items: center;
-  padding: 10px 20px;
+  padding: 5px 40px;
+  margin: 5px 0px;
   cursor: pointer;
   transition: background-color 0.3s;
+  border-bottom: #c7c1c1;
+  box-shadow: 0 1px 1px 0 rgba(243, 243, 243, 0.804);
+}
+
+.sidebar-item .label {
+  width: 100%;
 }
 
 .sidebar-item:hover {
@@ -756,13 +769,13 @@ nav {
 }
 
 .sidebar-item .icon {
-  font-size: 20px;
+  font-size: 14px;
   margin-right: 15px;
 }
 
 .sidebar-item .label {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 /* For the dashboard */

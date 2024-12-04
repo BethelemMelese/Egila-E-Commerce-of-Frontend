@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReportIcon from "@mui/icons-material/Report";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import ReceiptIcon from "@mui/icons-material/Receipt";
@@ -21,8 +21,12 @@ type SidebarItem = {
 };
 
 const Sidebar: React.FC = () => {
-  const [activeItem, setActiveItem] = useState<string>("/egila/home");
+  const [activeItem, setActiveItem] = useState<string>("");
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    setActiveItem(activeItem)
+  },[activeItem])
 
   const items: SidebarItem[] = [
     {

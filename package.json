@@ -29,7 +29,7 @@
     "react-icons": "^5.2.1",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
-    "recharts": "^2.12.7",
+    "recharts": "^2.14.1",
     "sass": "^1.75.0",
     "styled-components": "^6.1.8",
     "tss-react": "^4.9.6",

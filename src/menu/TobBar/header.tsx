@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import SyncLockIcon from "@mui/icons-material/SyncLock";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import logo from "../../Images/Logo 5.png";
+import logo from "../../Images/Logo 7.png";
 
 interface TopbarProps {
   toggleSidebar: () => void;
@@ -65,7 +65,7 @@ const AppNavBar: React.FC<TopbarProps> = ({ toggleSidebar }) => {
   return (
     <header className="topbar">
       <div className="logo">
-        <img src={logo} width={300} height={80} />
+        <img src={logo} width={300} height={100} />
       </div>
 
       <div className="pp-setting">
