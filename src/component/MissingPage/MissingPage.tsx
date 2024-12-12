@@ -34,21 +34,18 @@ const Missing = ({ ...props }) => {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6">
-            The page you are looking for might have been removed
-          </Typography>
-          <Typography variant="h6">
-            had its name changed or is unavailable.
+            The page you are looking for might have been removed had its name
+            changed or is unavailable.
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Button color="error" onClick={goBack} variant="contained">
-            Go To Login
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button onClick={goBackHome} color="error" variant="outlined">
-            Go To Home
-          </Button>
+          <Grid container spacing={0}>
+            <Grid item xs={4}>
+              <Button color="error" onClick={goBack} variant="contained">
+                Go To Login
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </div>

@@ -893,18 +893,19 @@ nav {
 
 /* for No Permission page */
 .error-message {
+  margin-left: 30%;
   margin-top: 8%;
-  background-color: #fff;
   padding-bottom: 5%;
   padding-top: 1%;
 }
 
 .missing-of-btn {
-  margin-left: 20%;
+  margin-right: 20%;
 }
+
 .miss-btn1,
 .miss-btn2 {
-  display: block;
+  /* display: block; */
   margin-right: 20%;
 }
 

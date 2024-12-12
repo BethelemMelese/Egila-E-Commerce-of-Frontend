@@ -243,23 +243,23 @@ const Navmenu = ({ ...props }) => {
             </li>
             {localStorage.getItem("role") != "Customer" && (
               <li className="account">
-                <Link
-                  to="register"
+                <NavLink
+                  to="/register"
                   className="nav-item account"
                   onClick={toggleMenu}
                   style={{ color: "#ff7f16" }}
                 >
                   Sign Up
-                </Link>
+                </NavLink>
                 <p> | Already Have an Account? </p>
-                <Link
-                  to="login"
+                <NavLink
+                  to="/login"
                   className="nav-item account"
                   onClick={toggleMenu}
                   style={{ color: "#f00538" }}
                 >
                   Sign In
-                </Link>
+                </NavLink>
               </li>
             )}
           </ul>
