@@ -263,9 +263,6 @@ const MainPage = () => {
                 }
               />
             </Card>
-            {/* <Card className="top-post">
-              <h3>Top Salad Product</h3>
-            </Card> */}
           </Card>
         </Box>
       )}
