@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { appUrl } from "../../appurl";
-import Images from "../../Images/Logo 5.png";
+import Images from "../../Images/photo_2025-05-22_13-22-36.jpg";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ShoppingCart from "./shoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
@@ -123,7 +123,8 @@ const Navmenu = ({ ...props }) => {
     <div className="navmenu-container">
       <div className="top-bar">
         <div className="top-bar-logo">
-          <img alt="Egila Logo" src={Images} />
+          <h1>48 <span className="logo-style-st">hours</span> <span className="logo-style-sd">Ethiopia</span></h1>
+          {/* <img alt="Egila Logo" src={Images} /> */}
         </div>
 
         <div className="search-cart">

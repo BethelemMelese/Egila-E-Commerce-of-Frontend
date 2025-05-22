@@ -11,13 +11,10 @@ export const CommonOps = (
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-    // const fieldValue = { [name]: value };
     setValues({
       ...values,
       [name]: value,
-      // ...fieldValue,
     });
-    // if (validateOnChange) validate(fieldValue);
     if (validateOnChange) validate({ [name]: value });
   };
 
@@ -36,7 +33,7 @@ export const CommonOps = (
   };
 };
 
-const useStyles = makeStyles<any>()((theme:any) => ({
+const useStyles = makeStyles<any>()((theme: any) => ({
   root: {
     "& .MuiFormControl-root": {
       width: "80%",

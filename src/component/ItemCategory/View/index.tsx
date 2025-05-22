@@ -54,7 +54,6 @@ const ViewItemCategory = () => {
   const [detailMode, setDetailMode] = useState("view");
   const [query, setQuery] = useState(""); // for search purpose to get the key
   const [openDialog, setOpenDialog] = useState(false);
-  const [fileUrl, setFileUrl] = useState<any>(null);
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,

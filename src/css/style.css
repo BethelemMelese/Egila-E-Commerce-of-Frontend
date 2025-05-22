@@ -233,12 +233,24 @@ html {
 }
 
 .top-bar-logo {
-  margin-left: 50px;
+  margin-left: 100px;
+}
+
+.top-bar-logo h1{
+  color: #000;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.logo-style-st{
+  color: #ff7f16;
+}
+
+.logo-style-sd{
+  color: #f00538;
 }
 
 .top-bar-logo img {
-  width: 50%;
-  height: 100%;
+  width: 30%;
 }
 
 .search-cart {
@@ -952,7 +964,6 @@ nav {
 /* for Contact Us Page Style */
 
 .contactus-container {
-  /* margin-top: 10%; */
   width: 100%;
 }
 
