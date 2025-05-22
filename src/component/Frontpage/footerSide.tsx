@@ -20,9 +20,9 @@ const Footer = () => {
 
         <div className="footer-contact">
           <h4>Contact Us</h4>
-          <p>Tel: +251941202673</p>
-          <p>Email: egila@ecommecrece.et</p>
-          <p>Address: Addis Ababa, Ethiopia</p>
+          <p>Tel: +971 56 119 9791</p>
+          <p>Email: info@24hoursethiopia</p>
+          <p>Address: United Arab Emirates, Ethiopia</p>
         </div>
 
         <div className="footer-sm">
