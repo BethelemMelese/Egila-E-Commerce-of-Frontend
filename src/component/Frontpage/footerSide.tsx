@@ -22,7 +22,7 @@ const Footer = () => {
           <h4>Contact Us</h4>
           <p>Tel: +971 56 119 9791</p>
           <p>Email: info@24hoursethiopia</p>
-          <p>Address: United Arab Emirates, Ethiopia</p>
+          <p>Address: United Arab Emirates</p>
         </div>
 
         <div className="footer-sm">
